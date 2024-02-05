@@ -2,24 +2,32 @@
 
 namespace Acheron;
 
+use Acheron\DB as DB;
+
 class Signal
 {
     public $id;
+    public $interceptTime = null;
     public $lat;
     public $lng;
     public $timestamp;
     public $type;
     public $velocity;
 
-    public function __construct(array $signaldata)
+    /**
+     * Signals cannot be instantiated outside of this class!
+     * ie no new Signal(), the objects can only be created via the static getters
+     */
+    private function __construct(?array $signaldata)
     {
-        $this->id = $signaldata["id"];
-        $this->lat = $signaldata["latitude"];
-        $this->lng = $signaldata["longitude"];
-        $this->timestamp = $signaldata["timestamp"];
-        $this->type = $signaldata["type"];
-        $this->velocity = $signaldata["velocity"];
-        return $this;
+        if (!empty($signaldata)) {
+            $this->id = $signaldata["id"];
+            $this->lat = $signaldata["latitude"];
+            $this->lng = $signaldata["longitude"];
+            $this->timestamp = $signaldata["timestamp"];
+            $this->type = $signaldata["type"];
+            $this->velocity = $signaldata["velocity"];
+        }
     }
 
     public static function getAll()
