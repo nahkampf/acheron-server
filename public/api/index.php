@@ -5,12 +5,26 @@ require "../../vendor/autoload.php";
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . "/../../");
 $dotenv->load();
 
-/* Set up routing */
+use Monolog\Level;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 
+$logger = new Logger('acheron_server');
+// if we're in dev mode, log everything
+if ($_ENV["MODE"] == "dev") {
+    $logger->pushHandler(new StreamHandler(__DIR__ . '/../../logs/server.log', Level::Debug));
+} else {
+    // but if we're live, then only log warnings and over
+    $logger->pushHandler(new StreamHandler(__DIR__ . '/../logs/../server.log', Level::Warning));
+}
+
+/* Set up routing */
 $router = new \Bramus\Router\Router();
-$router->mount('/signal', function () use ($router) {
+$router->mount('/signals/', function () use ($router) {
+    // Get all signals
     $router->get('/', function () {
-        echo 'todo: get all signals';
+        $signals = Acheron\Signal::getAll();
+        Acheron\Output::json($signals);
     });
 
     $router->get('/(\d+)', function ($id) {
