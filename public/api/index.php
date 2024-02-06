@@ -1,13 +1,21 @@
 <?php
 
-require "../../vendor/autoload.php";
+/**
+ * LOAD CODE AND ENV
+ */
 
+require "../../vendor/autoload.php";
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . "/../../");
 $dotenv->load();
 
+
+/**
+ * SET UP LOGGING
+ */
 use Monolog\Level;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
+use Monolog\ErrorHandler;
 
 $logger = new Logger('acheron_backend');
 // if we're in dev mode, log everything
@@ -17,8 +25,11 @@ if ($_ENV["MODE"] == "dev") {
     // but if we're live, then only log warnings and over
     $logger->pushHandler(new StreamHandler(__DIR__ . '/../../logs/server.log', Level::Warning));
 }
+ErrorHandler::register($logger); // log all errors and exceptions to the logfile
 
-/* Set up routing */
+/**
+ * SET UP ROUTING
+ */
 $router = new \Bramus\Router\Router();
 $router->mount('/signals/', function () use ($router) {
     // Get all signals
