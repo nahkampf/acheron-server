@@ -3,7 +3,7 @@
 # Signal data
 ## List all signals
 <details>
- <summary><code>GET</code> <code><b>/signal</b></code> <code>(list all active signals)</code></summary>
+ <summary><code>GET</code> <code><b>/signals</b></code> <code>(list all active signals)</code></summary>
 
 ### Parameters
 
@@ -77,7 +77,7 @@
 ### Example cURL
 
 > ```javascript
->  curl -X GET -H "Content-Type: application/json" --data @post.json http://localhost:80/api/signal
+>  curl -X GET -H "Content-Type: application/json" --data @post.json http://localhost:80/api/signals
 > ```
 
 </details>
@@ -86,7 +86,7 @@
 
 ## Get a signal by ID
 <details>
- <summary><code>GET</code> <code><b>/signal/{id}</b></code> <code>(Get a signal by its ID)</code></summary>
+ <summary><code>GET</code> <code><b>/signals/{id}</b></code> <code>(Get a signal by its ID)</code></summary>
 
 ### Parameters
 
@@ -156,7 +156,7 @@
 ### Example cURL
 
 > ```javascript
->  curl -X GET -H "Content-Type: application/json" --data @post.json http://localhost:80/api/signals
+>  curl -X GET -H "Content-Type: application/json" --data @post.json http://localhost:80/api/signals/1
 > ```
 
 </details>

@@ -9,13 +9,13 @@ use Monolog\Level;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
-$logger = new Logger('acheron_server');
+$logger = new Logger('acheron_backend');
 // if we're in dev mode, log everything
 if ($_ENV["MODE"] == "dev") {
     $logger->pushHandler(new StreamHandler(__DIR__ . '/../../logs/server.log', Level::Debug));
 } else {
     // but if we're live, then only log warnings and over
-    $logger->pushHandler(new StreamHandler(__DIR__ . '/../logs/../server.log', Level::Warning));
+    $logger->pushHandler(new StreamHandler(__DIR__ . '/../../logs/server.log', Level::Warning));
 }
 
 /* Set up routing */
