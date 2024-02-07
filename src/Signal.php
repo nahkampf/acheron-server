@@ -46,4 +46,9 @@ class Signal
         $signal = $db->get("SELECT * FROM map WHERE id = " . (int)$id);
         return new Signal($signal);
     }
+
+    public function setReceived()
+    {
+        $this->interceptTime = date("Y-m-d H:i:s");
+    }
 }
