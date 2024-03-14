@@ -14,7 +14,7 @@ class DB
 
     public function query($sql)
     {
-        return $this->db->query($this->e($sql));
+        return $this->db->query($sql);
     }
 
     // escape
