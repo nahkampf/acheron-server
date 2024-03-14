@@ -13,6 +13,8 @@ class Signal
     public $timestamp;
     public $type;
     public $velocity;
+    public $primary_sensor;
+    public $secondary_sensor;
 
     /**
      * Signals cannot be instantiated outside of this class!
@@ -27,6 +29,7 @@ class Signal
             $this->timestamp = $signaldata["timestamp"];
             $this->type = $signaldata["type"];
             $this->velocity = $signaldata["velocity"];
+            $this->determineNearestSensors();
         }
     }
 
@@ -44,11 +47,48 @@ class Signal
     {
         $db = new DB();
         $signal = $db->get("SELECT * FROM map WHERE id = " . (int)$id);
-        return new Signal($signal);
+        return new Signal($signal[0]);
     }
 
     public function setReceived()
     {
         $this->interceptTime = date("Y-m-d H:i:s");
+    }
+
+    /**
+     * Determines the two nearest (online) sensors to the signal being emitted.
+     * This is to set "primary" and "secondary" sensors for a signal, which in turn
+     * is used to calculate bearings etc.
+     *
+     * @return array An array containing the primary and the secondary sensor nearest the signal
+     */
+    public function determineNearestSensors() {
+        $db = new DB();
+        $sensors = $db->get("SELECT * FROM sensors WHERE status=\"online\"");
+        foreach ($sensors as $idx => $sensor) {
+            // calculate a distance between this sensor and the signal coordinates
+            $distance = Geo::getDistance($sensor["lat"], $sensor["lng"], $this->lat, $this->lng);
+            $sensors[$idx]["distance"] = $distance;
+        }
+        // ugly hack to only get the two closest sensors
+        foreach ($sensors as $idx => $sensor) {
+            $sorted[(int)$sensor["distance"]] = $sensor;
+        }
+        ksort($sorted);
+        $x = 0;
+        foreach ($sorted as $sensor) {
+            switch ($x) {
+                case 0:
+                    $this->primary_sensor = $sensor;
+                    break;
+                case 1:
+                    $this->secondary_sensor = $sensor;
+                    break;
+                default:
+                    break(2); // break out of the foreach
+            }
+            $x++;
+        }
+        return $sensors;
     }
 }
