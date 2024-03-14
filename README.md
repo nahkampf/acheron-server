@@ -1,5 +1,30 @@
 # Lotka-Volterra API
 
+# Utility stuff
+## Register client
+<details>
+ <summary><code>POST</code> <code><b>/report</b></code> <code>Registers a client on the network</code></summary>
+
+### Parameters
+
+> | name      |  type     | data type               | description                                                           |
+> |-----------|-----------|-------------------------|-----------------------------------------------------------------------|
+> | id        |  required | string                 | The "name" of the client |
+> | ip        |  required | string                 | The internal IP of the client |
+
+### Example return data
+```json
+[
+]
+```
+### Example cURL
+
+> ```javascript
+>  curl -X GET -H "Content-Type: application/json" --data @post.json http://localhost:80/api/signals
+> ```
+
+</details>
+
 # Signal data
 ## List all signals
 <details>
