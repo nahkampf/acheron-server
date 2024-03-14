@@ -1,5 +1,8 @@
 <?php
-
+header("Access-Control-Allow-Origin: http://acheron-systems.test");
+header("Access-Control-Expose-Headers: Content-Length, X-JSON");
+header("Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS");
+header("Access-Control-Allow-Headers: *");
 /**
  * LOAD CODE AND ENV
  */
@@ -31,6 +34,21 @@ ErrorHandler::register($logger); // log all errors and exceptions to the logfile
  * SET UP ROUTING
  */
 $router = new \Bramus\Router\Router();
+$router->post('/register/', function () {
+    try {
+        // default to setting the IP to the callers IP, but if it is explicitly supplied use that instead
+        if (!isset($_POST["ip"])) {
+            $_POST["ip"] = $_SERVER['REMOTE_ADDR'];
+        }
+        $client = new Acheron\Client(@$_POST["id"], @$_POST["ip"]);
+        Acheron\Output::json((array)$client);
+    } catch (Exception $e) {
+        global $logger;
+        Acheron\Output::error($e, 500);
+        $logger->warning($e->getMessage(), ["REMOTE_ADDR", $_SERVER['REMOTE_ADDR']]);
+    }
+});
+
 $router->mount('/signals/', function () use ($router) {
     // Get all signals
     $router->get('/', function () {
