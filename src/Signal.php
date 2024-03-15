@@ -3,6 +3,7 @@
 namespace Acheron;
 
 use Acheron\DB as DB;
+use Acheron\Geo as Geo;
 
 class Signal
 {
@@ -30,6 +31,9 @@ class Signal
             $this->type = $signaldata["type"];
             $this->velocity = $signaldata["velocity"];
             $this->determineNearestSensors();
+            // set bearings
+            $this->primary_sensor["bearings"] = Geo::getBearing($this->primary_sensor["lat"], $this->primary_sensor["lng"], $this->lat, $this->lng);
+            $this->secondary_sensor["bearings"] = Geo::getBearing($this->secondary_sensor["lat"], $this->secondary_sensor["lng"], $this->lat, $this->lng);
         }
     }
 
