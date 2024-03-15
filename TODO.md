@@ -1,11 +1,24 @@
 # Server/API
-- [ ] Calc distance (phpGEO) between all online sensors and a specific signal, in order to find the primary and secondary sensor.
+- [x] Calc distance (phpGEO) between all online sensors and a specific signal, in order to find the primary and secondary sensor.
+- [x] Automatically assign primary and secondary sensor to signal
+- [x] Assign bearings from sensors to signal (and reverse)
 
 # Client
 - [ ] Backend proxy (`backend.php`) locally on clients that does guzzle/curl to the server (so we don't have to bother with CORS in the frontend)
+- [ ] Code Blue/Code Red overrides (full screen modals triggered by `backend.php` (also reset to normal)
 
 ## SENSOR
 - [ ]
+
+## SIGINT
+
+## GEO
+
+## SCIENCE
+
+## ARCHIVE
+
+## COMMAND
 
 # Admin
 - [ ] Create new signal emitters (instances of `emitter_types`, ie machines placeable on map.
