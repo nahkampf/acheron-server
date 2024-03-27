@@ -39,6 +39,7 @@ DROP TABLE IF EXISTS `emitters`;
 CREATE TABLE IF NOT EXISTS `emitters` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `type` int unsigned NOT NULL,
+  `created` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `FK_emitters_emitter_types` (`type`),
   CONSTRAINT `FK_emitters_emitter_types` FOREIGN KEY (`type`) REFERENCES `emitter_types` (`id`)
@@ -62,18 +63,20 @@ CREATE TABLE IF NOT EXISTS `emitter_types` (
   `datacluster_middle` enum('Y','N') NOT NULL,
   `datacluster_end` enum('Y','N') NOT NULL,
   `spectrogram_sample` tinytext COMMENT 'The file name of the spectrogram sample for this emitter type',
-  `waveform_file` enum('Y','N') NOT NULL,
+  `waveform_file` tinytext NOT NULL,
   `fingerprint_description` text,
+  `known_max_velocity` tinytext,
+  `type` enum('aerial','ground','static','unknown','orbital') NOT NULL DEFAULT 'ground',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Contains all the types of emitters (e.g alien machine types)';
 
 -- Dumping data for table acheron.emitter_types: ~3 rows (approximately)
 DELETE FROM `emitter_types`;
 /*!40000 ALTER TABLE `emitter_types` DISABLE KEYS */;
-INSERT INTO `emitter_types` (`id`, `name`, `visible_to_players`, `carrierwave1_frequency`, `carrierwave2_frequency`, `carrierwave3_frequency`, `datacluster_start`, `datacluster_middle`, `datacluster_end`, `spectrogram_sample`, `waveform_file`, `fingerprint_description`) VALUES
-	(1, 'XM13/PUPPET MASTER', 'Y', 1240, NULL, NULL, 'Y', 'Y', 'N', 'xm13.jpg', 'Y', 'One single static carrier wave at around 1240 Hz, with a one second data cluster at the start ranging from 400 to 700 Hz.'),
-	(2, 'XM18/CARGO HAULER', 'Y', NULL, NULL, NULL, 'Y', 'Y', 'Y', NULL, 'Y', NULL),
-	(3, 'XM12/RHINO', 'Y', NULL, NULL, NULL, 'Y', 'Y', 'Y', NULL, 'Y', NULL);
+INSERT INTO `emitter_types` (`id`, `name`, `visible_to_players`, `carrierwave1_frequency`, `carrierwave2_frequency`, `carrierwave3_frequency`, `datacluster_start`, `datacluster_middle`, `datacluster_end`, `spectrogram_sample`, `waveform_file`, `fingerprint_description`, `known_max_velocity`, `type`) VALUES
+	(1, 'XM13/PUPPET MASTER', 'Y', 1240, NULL, NULL, 'Y', 'Y', 'N', 'xm13.jpg', 'Y', 'One single static carrier wave at around 1240 Hz, with a one second data cluster at the start ranging from 400 to 700 Hz.', NULL, 'ground'),
+	(2, 'XM18/CARGO HAULER', 'Y', NULL, NULL, NULL, 'Y', 'Y', 'Y', NULL, 'Y', NULL, NULL, 'ground'),
+	(3, 'XM12/RHINO', 'Y', NULL, NULL, NULL, 'Y', 'Y', 'Y', NULL, 'Y', NULL, NULL, 'ground');
 /*!40000 ALTER TABLE `emitter_types` ENABLE KEYS */;
 
 -- Dumping structure for table acheron.map
