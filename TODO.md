@@ -4,7 +4,7 @@
 - [x] Assign bearings from sensors to signal (and reverse)
 
 # Client
-- [ ] Backend proxy (`backend.php`) locally on clients that does guzzle/curl to the server (so we don't have to bother with CORS in the frontend)
+- [X] Backend proxy (`backend.php`) locally on clients that does guzzle/curl to the server (so we don't have to bother with CORS in the frontend)
 - [ ] Code Blue/Code Red overrides (full screen modals triggered by `backend.php` (also reset to normal)
 
 ## SENSOR
@@ -21,7 +21,7 @@
 ## COMMAND
 
 # Admin
-- [ ] Create new signal emitters (instances of `emitter_types`, ie machines placeable on map.
+- [X] Create new signal emitters (instances of `emitter_types`, ie machines placeable on map.
 - [ ] Interface to create new signal
   - [ ] Position (from google maps, WGS84)
   - [ ] Primary Sensor & Secondary sensor (calced)
