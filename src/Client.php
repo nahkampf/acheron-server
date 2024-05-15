@@ -2,7 +2,7 @@
 
 namespace Acheron;
 
-use Acheron\Exceptions\InvalidClientException;
+use Acheron\Exceptions\InvalidClientException as InvalidClientException;
 use Acheron\DB;
 
 class Client
@@ -23,7 +23,15 @@ class Client
     public function register($id, $ip)
     {
         $db = new DB();
-        $sql = "INSERT INTO clients SET id=\"" . $db->e($id) . "\", ip=\"" . $db->e($ip) . "\" ON DUPLICATE KEY UPDATE id=\"" . $db->e($id) . "\", ip=\"" . $db->e($ip) . "\", last_report = NOW()";
+        $sql = "INSERT INTO clients SET id=\"" .
+            $db->e($id) .
+            "\", ip=\"" .
+            $db->e($ip) .
+            "\" ON DUPLICATE KEY UPDATE id=\"" .
+            $db->e($id) .
+            "\", ip=\"" .
+            $db->e($ip) .
+            "\", last_report = NOW()";
         if ($db->query($sql)) {
             $this->id = $id;
             $this->ip = $ip;
