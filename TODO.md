@@ -8,13 +8,20 @@
 - [ ] Code Blue/Code Red overrides (full screen modals triggered by `backend.php` (also reset to normal)
 
 ## SENSOR
-- [ ]
+- [ ] /signals to expose all (current) signals as JSON (for client calls)
+- [ ] Some endpoint to update signal data (sensor work complete, sigint complete, decrypt complete etc)
+- [ ] 
 
 ## SIGINT
+- [X] Phrases and message editor 
+- [ ] Create a "payload" consisting of random chars and the "encrypted" message
 
 ## GEO
 
 ## SCIENCE
+- [ ] Decryption & dictionary interface
+- [ ] "Archive" of XM types etc
+- [ ] 
 
 ## ARCHIVE
 
@@ -33,3 +40,7 @@
   - [ ] Define corpus of terms/words
 
 # Misc
+- [ ] Team monitor (display name, portrait, biomonitor status) + audible alerts
+- [ ] 
+- [ ] 
+
