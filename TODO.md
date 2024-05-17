@@ -15,6 +15,7 @@
 ## SIGINT
 - [X] Phrases and message editor 
 - [ ] Create a "payload" consisting of random chars and the "encrypted" message
+- [ ] Drill-down "recognition manual" interface to identify signals (number of carrier waves, frequencies, positions of data blocks etc)
 
 ## GEO
 
