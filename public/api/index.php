@@ -19,15 +19,23 @@ use Monolog\Level;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Monolog\ErrorHandler;
+use Monolog\Formatter\LineFormatter;
+use Bramus\Monolog\Formatter\ColoredLineFormatter;
 
 $logger = new Logger('acheron_backend');
 // if we're in dev mode, log everything
 if ($_ENV["MODE"] == "dev") {
-    $logger->pushHandler(new StreamHandler(__DIR__ . '/../../logs/server.log', Level::Debug));
+    $handler = new StreamHandler(__DIR__ . '/../../logs/server.log', Level::Debug);
 } else {
     // but if we're live, then only log warnings and over
-    $logger->pushHandler(new StreamHandler(__DIR__ . '/../../logs/server.log', Level::Warning));
+    $handler = new StreamHandler(__DIR__ . '/../../logs/server.log', Level::Warning);
 }
+$dateFormat = "Y-m-d H:i:s";
+$output = "[%datetime%] %channel%.%level_name%: %message% %context% %extra%\n";
+$handler->setFormatter(new ColoredLineFormatter(null, $output, $dateFormat));
+$logger->pushHandler($handler);
+$logger->warning("Game started!");
+
 ErrorHandler::register($logger); // log all errors and exceptions to the logfile
 
 /**

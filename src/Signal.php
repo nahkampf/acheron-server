@@ -39,8 +39,18 @@ class Signal
             $this->designated_type = $signaldata["designated_type"];
             $this->determineNearestSensors();
             // set bearings
-            $this->primary_sensor["bearings"] = Geo::getBearing($this->primary_sensor["lat"], $this->primary_sensor["lng"], $this->lat, $this->lng);
-            $this->secondary_sensor["bearings"] = Geo::getBearing($this->secondary_sensor["lat"], $this->secondary_sensor["lng"], $this->lat, $this->lng);
+            $this->primary_sensor["bearings"] = Geo::getBearing(
+                $this->primary_sensor["lat"],
+                $this->primary_sensor["lng"],
+                $this->lat,
+                $this->lng
+            );
+            $this->secondary_sensor["bearings"] = Geo::getBearing(
+                $this->secondary_sensor["lat"],
+                $this->secondary_sensor["lng"],
+                $this->lat,
+                $this->lng
+            );
         }
     }
 
@@ -73,7 +83,8 @@ class Signal
      *
      * @return array An array containing the primary and the secondary sensor nearest the signal
      */
-    public function determineNearestSensors() {
+    public function determineNearestSensors()
+    {
         $db = new DB();
         $sensors = $db->get("SELECT * FROM sensors WHERE status=\"online\"");
         foreach ($sensors as $idx => $sensor) {
