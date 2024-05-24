@@ -1,5 +1,5 @@
 -- --------------------------------------------------------
--- Host:                         localhost
+-- Host:                         127.0.0.1
 -- Server version:               8.0.30 - MySQL Community Server - GPL
 -- Server OS:                    Win64
 -- HeidiSQL Version:             9.5.0.5332
@@ -54,7 +54,9 @@ DELETE FROM `emitters`;
 DROP TABLE IF EXISTS `emitter_types`;
 CREATE TABLE IF NOT EXISTS `emitter_types` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `number` varchar(255) NOT NULL DEFAULT 'ground',
   `name` varchar(255) NOT NULL,
+  `type` enum('aerial','ground','static','unknown','orbital') NOT NULL DEFAULT 'ground',
   `visible_to_players` enum('Y','N') NOT NULL DEFAULT 'Y',
   `carrierwave1_frequency` int DEFAULT NULL COMMENT 'The approximate frequency of the carrier wave (only applicable to static)',
   `carrierwave2_frequency` int DEFAULT NULL COMMENT 'The approximate frequency of the carrier wave (only applicable to static)',
@@ -63,20 +65,21 @@ CREATE TABLE IF NOT EXISTS `emitter_types` (
   `datacluster_middle` enum('Y','N') NOT NULL,
   `datacluster_end` enum('Y','N') NOT NULL,
   `spectrogram_sample` tinytext COMMENT 'The file name of the spectrogram sample for this emitter type',
-  `waveform_file` tinytext NOT NULL,
-  `fingerprint_description` text,
+  `waveform_file` tinytext,
   `known_max_velocity` tinytext,
-  `type` enum('aerial','ground','static','unknown','orbital') NOT NULL DEFAULT 'ground',
+  `fingerprint_description` text,
+  `orgnotes` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Contains all the types of emitters (e.g alien machine types)';
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Contains all the types of emitters (e.g alien machine types)';
 
 -- Dumping data for table acheron.emitter_types: ~3 rows (approximately)
 DELETE FROM `emitter_types`;
 /*!40000 ALTER TABLE `emitter_types` DISABLE KEYS */;
-INSERT INTO `emitter_types` (`id`, `name`, `visible_to_players`, `carrierwave1_frequency`, `carrierwave2_frequency`, `carrierwave3_frequency`, `datacluster_start`, `datacluster_middle`, `datacluster_end`, `spectrogram_sample`, `waveform_file`, `fingerprint_description`, `known_max_velocity`, `type`) VALUES
-	(1, 'XM13/PUPPET MASTER', 'Y', 1240, NULL, NULL, 'Y', 'Y', 'N', 'xm13.jpg', 'Y', 'One single static carrier wave at around 1240 Hz, with a one second data cluster at the start ranging from 400 to 700 Hz.', NULL, 'ground'),
-	(2, 'XM18/CARGO HAULER', 'Y', NULL, NULL, NULL, 'Y', 'Y', 'Y', NULL, 'Y', NULL, NULL, 'ground'),
-	(3, 'XM12/RHINO', 'Y', NULL, NULL, NULL, 'Y', 'Y', 'Y', NULL, 'Y', NULL, NULL, 'ground');
+INSERT INTO `emitter_types` (`id`, `number`, `name`, `type`, `visible_to_players`, `carrierwave1_frequency`, `carrierwave2_frequency`, `carrierwave3_frequency`, `datacluster_start`, `datacluster_middle`, `datacluster_end`, `spectrogram_sample`, `waveform_file`, `known_max_velocity`, `fingerprint_description`, `orgnotes`) VALUES
+	(5, 'XM01', 'PLACEHOLDER', 'aerial', 'Y', 420, 2445, NULL, 'Y', 'Y', 'N', 'cw1_420hz_cw2_2445_start+mid.wav.png', 'cw1_420hz_cw2_2445_start+mid.wav', NULL, '', ''),
+	(6, 'XM02', 'PLACEHOLDER', 'aerial', 'Y', 420, 2445, NULL, 'Y', 'Y', 'Y', 'cw1_420hz_cw2_2445_start+mid+end.wav.png', 'cw1_420hz_cw2_2445_start+mid+end.wav', NULL, '                ', '                '),
+	(7, 'XM03', 'PLACEHOLDER', 'aerial', 'Y', 1043, NULL, NULL, 'Y', 'N', 'Y', 'cw1_1043hz_start+end.wav.png', 'cw1_1043hz_start+end.wav', NULL, '                ', '                '),
+	(8, 'XM04', 'PLACEHOLDER', 'aerial', 'Y', 1043, NULL, NULL, 'Y', 'Y', 'Y', 'cw1_1043hz_start+mid+end.wav.png', 'cw1_1043hz_start+mid+end.wav', NULL, '                ', '                ');
 /*!40000 ALTER TABLE `emitter_types` ENABLE KEYS */;
 
 -- Dumping structure for table acheron.map
@@ -161,6 +164,65 @@ INSERT INTO `master_map` (`id`, `timestamp`, `type`, `latitude`, `longitude`, `t
 	(19, 700, 'surfops', '52.85465865148753', '13.798136067162273', NULL, 1, NULL);
 /*!40000 ALTER TABLE `master_map` ENABLE KEYS */;
 
+-- Dumping structure for table acheron.messages
+DROP TABLE IF EXISTS `messages`;
+CREATE TABLE IF NOT EXISTS `messages` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `cleartext_message` text NOT NULL,
+  `encrypted_message` text NOT NULL,
+  `decrypted_message` text NOT NULL,
+  `decrypted_timestamp` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table acheron.messages: ~0 rows (approximately)
+DELETE FROM `messages`;
+/*!40000 ALTER TABLE `messages` DISABLE KEYS */;
+/*!40000 ALTER TABLE `messages` ENABLE KEYS */;
+
+-- Dumping structure for table acheron.message_corpus
+DROP TABLE IF EXISTS `message_corpus`;
+CREATE TABLE IF NOT EXISTS `message_corpus` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `phrase` varchar(255) NOT NULL,
+  `sequence` varchar(255) NOT NULL,
+  `known_to_players` tinyint NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Contains all the machine "phrases" and ther respective code sequence';
+
+-- Dumping data for table acheron.message_corpus: ~26 rows (approximately)
+DELETE FROM `message_corpus`;
+/*!40000 ALTER TABLE `message_corpus` DISABLE KEYS */;
+INSERT INTO `message_corpus` (`id`, `phrase`, `sequence`, `known_to_players`) VALUES
+	(1, 'NOTHING TO REPORT', '%ZQØ', 1),
+	(2, 'NOTHING TO REPORT', '±|D', 1),
+	(3, 'NOTHING TO REPORT', 'N9#§X', 1),
+	(4, 'POSITION', '▼∑7Z', 1),
+	(5, 'ALL SYSTEMS NOMINAL', 'P▓«¥9', 1),
+	(6, 'SYSTEMS DEGRADED', '╚Æ}F&s', 1),
+	(7, 'ANOMALY DETECTED', '*5V]Ñ√%', 1),
+	(8, 'FUEL LOW', '+)K«', 1),
+	(9, 'THREAT DETECTED', 'É_▓Φ', 1),
+	(10, 'COLLECTING SAMPLES', '╤₧ëx3', 1),
+	(11, 'EXTRACTING RESOURCES', 'ú┤ ▄±', 1),
+	(12, 'RETURNING TO ORIGIN', '╚ß■Ü', 1),
+	(13, 'RESUMING ACTIVITY', 'ÑP3>', 1),
+	(14, 'HOLDING POSITION', '^£┬', 1),
+	(15, 'REBOOTING', '█▐█▐▌°', 1),
+	(16, 'SHUTTING DOWN', 'π║j3_^', 1),
+	(17, 'ENGAGING THREAT', 'Æ^%»', 1),
+	(18, 'EVASIVE MANEUVRES', '¼┼ ▄', 1),
+	(19, 'IGNORING', '╙▓╗_Ω', 1),
+	(20, 'INVESTIGATING', '3_i^>L', 1),
+	(21, 'CONTINUING', '$)>-^', 1),
+	(22, 'REQUEST ADDITIONAL UNITS', '¿½ÿ┴', 1),
+	(23, 'REQUEST SUPPORT', '┤Yv=', 1),
+	(24, 'REQUEST TRANSPORT', '┌█Φ╪_3', 1),
+	(25, 'REQUEST REPAIR', '╒Ç{d', 1),
+	(26, 'REQUEST RE-ARMING', '-/:§^', 1),
+	(27, 'REQUEST REFUELLING', '4h)9_¨', 1);
+/*!40000 ALTER TABLE `message_corpus` ENABLE KEYS */;
+
 -- Dumping structure for table acheron.sensors
 DROP TABLE IF EXISTS `sensors`;
 CREATE TABLE IF NOT EXISTS `sensors` (
@@ -189,7 +251,8 @@ INSERT INTO `sensors` (`id`, `name`, `lat`, `lng`, `battery_level`, `status`) VA
 -- Dumping structure for table acheron.signals
 DROP TABLE IF EXISTS `signals`;
 CREATE TABLE IF NOT EXISTS `signals` (
-  `id` int unsigned NOT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `timestamp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `emitter` int unsigned NOT NULL,
   `lat` double NOT NULL DEFAULT '0',
   `lng` double NOT NULL DEFAULT '0',
@@ -197,15 +260,19 @@ CREATE TABLE IF NOT EXISTS `signals` (
   `heading` smallint DEFAULT NULL COMMENT 'The heading (360 degree) of the emitter when transmitting the signal (must be null if velocity = 0)',
   `message` text,
   `encrypted_message` text,
+  `designation` varchar(255) DEFAULT NULL,
   `designated_type` int DEFAULT NULL,
   `intercepted` datetime DEFAULT NULL,
-  `designation` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Contains a list of signals';
+  PRIMARY KEY (`id`),
+  KEY `FK_signals_emitter_types` (`emitter`),
+  CONSTRAINT `FK_signals_emitter_types` FOREIGN KEY (`emitter`) REFERENCES `emitter_types` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Contains a list of signals';
 
--- Dumping data for table acheron.signals: ~0 rows (approximately)
+-- Dumping data for table acheron.signals: ~1 rows (approximately)
 DELETE FROM `signals`;
 /*!40000 ALTER TABLE `signals` DISABLE KEYS */;
+INSERT INTO `signals` (`id`, `timestamp`, `emitter`, `lat`, `lng`, `velocity`, `heading`, `message`, `encrypted_message`, `designation`, `designated_type`, `intercepted`) VALUES
+	(1, '2024-03-31 22:57:16', 6, 52.5728056, 13.6718191, 4, 221, 'MESSEGE HERE LATER', '1234 asd aS 234 FSED FSD ', 'C-212', 2, '2024-03-31 17:08:26');
 /*!40000 ALTER TABLE `signals` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
