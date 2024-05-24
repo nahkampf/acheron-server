@@ -22,27 +22,31 @@ use Monolog\ErrorHandler;
 use Monolog\Formatter\LineFormatter;
 use Bramus\Monolog\Formatter\ColoredLineFormatter;
 
-$logger = new Logger('acheron_backend');
-// if we're in dev mode, log everything
-if ($_ENV["MODE"] == "dev") {
-    $handler = new StreamHandler(__DIR__ . '/../../logs/server.log', Level::Debug);
-} else {
-    // but if we're live, then only log warnings and over
-    $handler = new StreamHandler(__DIR__ . '/../../logs/server.log', Level::Warning);
-}
+/* we have two logs, the "full" log, and the "narrative" log (which is more
+meant to give a sort of narrative view of what happened system-wise during
+the game)
+*/
 $dateFormat = "Y-m-d H:i:s";
 $output = "[%datetime%] %channel%.%level_name%: %message% %context% %extra%\n";
+
+$logger = new Logger('acheron_API_full');
+$handler = new StreamHandler(__DIR__ . '/../../logs/server.log', Level::Debug);
 $handler->setFormatter(new ColoredLineFormatter(null, $output, $dateFormat));
 $logger->pushHandler($handler);
-$logger->warning("Game started!");
-
 ErrorHandler::register($logger); // log all errors and exceptions to the logfile
+
+$narrativeLog = new Logger('acheron_narrative');
+$handlerNarrative = new StreamHandler(__DIR__ . '/../../logs/narrative.log', Level::Debug);
+$handlerNarrative->setFormatter(new ColoredLineFormatter(null, $output, $dateFormat));
+$narrativeLog->pushHandler($handlerNarrative);
 
 /**
  * SET UP ROUTING
  */
 $router = new \Bramus\Router\Router();
 $router->post('/register/', function () {
+    global $logger;
+    $logger->debug("Register client", ["REMOTE_ADDR", $_SERVER['REMOTE_ADDR'], "ID", $_POST["id"]]);
     try {
         // default to setting the IP to the callers IP, but if it is explicitly supplied use that instead
         if (!isset($_POST["ip"])) {
@@ -51,7 +55,6 @@ $router->post('/register/', function () {
         $client = new Acheron\Client(@$_POST["id"], @$_POST["ip"]);
         Acheron\Output::json((array)$client);
     } catch (Exception $e) {
-        global $logger;
         Acheron\Output::error($e, 500);
         $logger->warning($e->getMessage(), ["REMOTE_ADDR", $_SERVER['REMOTE_ADDR']]);
     }
