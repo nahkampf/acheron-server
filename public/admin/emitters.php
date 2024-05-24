@@ -1,4 +1,7 @@
 <?php
+
+use Acheron\EmitterType;
+
 if ($_POST) {
     // handle uploads
     echo "<pre>";
@@ -21,7 +24,7 @@ if ($_POST) {
     $cw1freq = ((int)$_POST["cw1freq"] == 0) ? "NULL" : $_POST["cw1freq"];
     $cw2freq = ((int)$_POST["cw2freq"] == 0) ? "NULL" : $_POST["cw2freq"];
     $cw3freq = ((int)$_POST["cw3freq"] == 0) ? "NULL" : $_POST["cw3freq"];
-    $dc_start = $dc_midlle = $dc_end = "N";
+    $dc_start = $dc_middle = $dc_end = "N";
     foreach ($_POST["datacluster"] as $key => $val) {
         if ($key == "start") $dc_start = "Y";
         if ($key == "middle") $dc_middle = "Y";
@@ -85,7 +88,7 @@ if (@$_GET["action"] == "new") {
             <label for="number">XM number</label>
             </td>
             <td>
-            <input name="number" type="text" placeholder="XM01"> (Next available: XM28)
+            <input name="number" type="text" value="XM<?=EmitterType::getNextAvailableNumber()?>" placeholder="XM<?=EmitterType::getNextAvailableNumber()?>"> (Next available: XM<?=EmitterType::getNextAvailableNumber()?>)
             </td>
         </tr>
         <tr>
@@ -117,10 +120,10 @@ if (@$_GET["action"] == "new") {
         </tr>
         <tr>
             <td>
-            <label for="spectrogram">Spectrogram image (1024x768)</label>
+            <label for="spectrogram">Spectrogram image</label>
             </td>
             <td>
-                <input type="file" name="spectrogram">
+                <input type="file" name="spectrogram" accept="image/png, image/jpeg">
             </td>
         </tr>
         <tr>
@@ -128,7 +131,7 @@ if (@$_GET["action"] == "new") {
             <label for="waveform">Sound file (.wav)</label>
             </td>
             <td>
-                <input type="file" name="waveform">
+                <input type="file" name="waveform" accept="audio/wav">
             </td>
         </tr>
         <tr>
@@ -185,7 +188,11 @@ if (@$_GET["action"] == "new") {
                 <label for="description">Description</label>
             </td>
             <td>
-                <textarea style="width:100%;" name="description" placeholder="Write (in character) what is known about this machine type in the science archives"></textarea>
+                <textarea
+                    style="width:100%;"
+                    name="description"
+                    placeholder="Write (in character) what is known about this machine type in the science archives">
+                </textarea>
             </td>
         </tr>
         <tr>
@@ -201,7 +208,11 @@ if (@$_GET["action"] == "new") {
                 <label for="orgnotes">Organizer notes (not visible to players)</label>
             </td>
             <td>
-                <textarea style="width:100%;" name="orgnotes" placeholder="Stuff GMs or orgs might need to know"></textarea>
+                <textarea
+                    style="width:100%;"
+                    name="orgnotes"
+                    placeholder="Stuff GMs or orgs might need to know">
+                </textarea>
             </td>
         </tr>
         <tr>
@@ -226,82 +237,42 @@ die();
                         <th>XM number</th>
                         <th>Name</th>
                         <th>Type</th>
+                        <th>Visible</th>
+                        <th>CW1</th>
+                        <th>CW2</th>
+                        <th>CW3</th>
+                        <th>Data</th>
+                        <th>Spectrogram</th>
+                        <th>Sound</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                <tr>
-                        <td>XM1</td>
-                        <td>Hvy Orbital Weapons Platform</td>
-                        <td>Aerial</td>
-                        <td>
-                            <button class="pure-button pure-button-primary">EDIT</button>
-                            <button class="pure-button button-warning">DELETE</button>
-                        </td>
-                    </tr>
+<?php
+$emitters = Acheron\EmitterType::getAll();
+foreach ($emitters as $key => $emitter) {
+?>
                     <tr>
-                        <td>XM2</td>
-                        <td>Light Orbital Weapons Platform</td>
-                        <td>Aerial</td>
+                        <td><?=$emitter["number"]?></td>
+                        <td><?=$emitter["name"]?></td>
+                        <td><?=$emitter["type"]?></td>
+                        <td><?=$emitter["visible_to_players"]?></td>
+                        <td><?=$emitter["carrierwave1_frequency"]?></td>
+                        <td><?=$emitter["carrierwave2_frequency"]?></td>
+                        <td><?=$emitter["carrierwave3_frequency"]?></td>
+                        <td>
+                            <?=($emitter["datacluster_start"] == "Y") ? "S" : "";?><?=($emitter["datacluster_middle"] == "Y") ? "M" : "";?><?=($emitter["datacluster_end"] == "Y") ? "E" : "";?>
+                        </td>
+                        <td><a target="_blank" href="../assets/spectrograms/<?=$emitter["spectrogram_sample"]?>"><img src="../assets/spectrograms/<?=$emitter["spectrogram_sample"]?>" height="32"></a></td>
+                        <td><a href="../assets/waveforms/<?=$emitter["waveform_file"]?>">PLAY</a></td>
                         <td>
                             <button class="pure-button pure-button-primary">EDIT</button>
                             <button class="pure-button button-warning">DELETE</button>
                         </td>
                     </tr>
-                    <tr>
-                        <td>XM3</td>
-                        <td>Hvy Orbital Tug</td>
-                        <td>Aerial</td>
-                        <td>
-                            <button class="pure-button pure-button-primary">EDIT</button>
-                            <button class="pure-button button-warning">DELETE</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>XM4</td>
-                        <td>Light Orbital Tug</td>
-                        <td>Aerial</td>
-                        <td>
-                            <button class="pure-button pure-button-primary">EDIT</button>
-                            <button class="pure-button button-warning">DELETE</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>XM5</td>
-                        <td>Hvy Orbital Dropship</td>
-                        <td>Aerial</td>
-                        <td>
-                            <button class="pure-button pure-button-primary">EDIT</button>
-                            <button class="pure-button button-warning">DELETE</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>XM6</td>
-                        <td>Light Orbital Dropship</td>
-                        <td>Aerial</td>
-                        <td>
-                            <button class="pure-button pure-button-primary">EDIT</button>
-                            <button class="pure-button button-warning">DELETE</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>XM7</td>
-                        <td>High Altitude Comm Relay</td>
-                        <td>Aerial</td>
-                        <td>
-                            <button class="pure-button pure-button-primary">EDIT</button>
-                            <button class="pure-button button-warning">DELETE</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>XM8</td>
-                        <td>Low Altitude Comm Relay</td>
-                        <td>Aerial</td>
-                        <td>
-                            <button class="pure-button pure-button-primary">EDIT</button>
-                            <button class="pure-button button-warning">DELETE</button>
-                        </td>
-                    </tr>
+<?php
+}
+?>
                 </tbody>
             </table>
         </div>

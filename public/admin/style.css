@@ -282,3 +282,10 @@ Hides the menu at `48em`, but modify this based on your app's needs.
     }
 }
 
+.green {
+    color: rgb(0, 221, 0);
+}
+
+.red {
+    color: rgb(236, 8, 8);
+}

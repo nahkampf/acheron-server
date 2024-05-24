@@ -11,11 +11,17 @@ require "_menu.php";
     <?php
     // handle pages
     switch (@$_GET["page"]) {
+        case "signals":
+            require "signals.php";
+            break;
         case "emitters":
             require "emitters.php";
             break;
         case "clients":
             require "clients.php";
+            break;
+        case "messages":
+            require "messages.php";
             break;
         default:
             require "dashboard.php";

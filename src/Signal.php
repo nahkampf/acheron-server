@@ -12,10 +12,13 @@ class Signal
     public $lat;
     public $lng;
     public $timestamp;
-    public $type;
+    public $emitter;
     public $velocity;
+    public $heading;
     public $primary_sensor;
     public $secondary_sensor;
+    public $designation;
+    public $designated_type;
 
     /**
      * Signals cannot be instantiated outside of this class!
@@ -25,11 +28,15 @@ class Signal
     {
         if (!empty($signaldata)) {
             $this->id = $signaldata["id"];
-            $this->lat = $signaldata["latitude"];
-            $this->lng = $signaldata["longitude"];
+            $this->lat = $signaldata["lat"];
+            $this->lng = $signaldata["lng"];
             $this->timestamp = $signaldata["timestamp"];
-            $this->type = $signaldata["type"];
+            $this->emitter = $signaldata["emitter"];
             $this->velocity = $signaldata["velocity"];
+            $this->heading = $signaldata["heading"];
+            $this->interceptTime = $signaldata["intercepted"];
+            $this->designation = $signaldata["designation"];
+            $this->designated_type = $signaldata["designated_type"];
             $this->determineNearestSensors();
             // set bearings
             $this->primary_sensor["bearings"] = Geo::getBearing($this->primary_sensor["lat"], $this->primary_sensor["lng"], $this->lat, $this->lng);
@@ -40,7 +47,7 @@ class Signal
     public static function getAll()
     {
         $db = new DB();
-        $sigs = $db->get("SELECT * FROM map ORDER BY timestamp DESC");
+        $sigs = $db->get("SELECT * FROM signals ORDER BY timestamp DESC");
         foreach ($sigs as $key => $signal) {
             $signals[$signal["id"]] = new Signal($signal);
         }
@@ -50,7 +57,7 @@ class Signal
     public static function getById($id)
     {
         $db = new DB();
-        $signal = $db->get("SELECT * FROM map WHERE id = " . (int)$id);
+        $signal = $db->get("SELECT * FROM signals WHERE id = " . (int)$id);
         return new Signal($signal[0]);
     }
 

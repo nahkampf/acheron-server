@@ -7,6 +7,7 @@
     <meta name="description"
         content="A layout example with a side menu that hides on mobile, just like the Pure website.">
     <title>Acheron ADMIN</title>
+    <link rel="stylesheet" href="font-awesome.css">
     <link rel="stylesheet" href="pure.min.css">
     <link rel="stylesheet" href="style.css">
     <script src="moment.js"></script>
