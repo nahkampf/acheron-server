@@ -6,6 +6,7 @@
 # Client
 - [X] Backend proxy (`backend.php`) locally on clients that does guzzle/curl to the server (so we don't have to bother with CORS in the frontend)
 - [ ] Code Blue/Code Red overrides (full screen modals triggered by `backend.php` (also reset to normal)
+- [ ] Implement <dialog> for code red/blue/prox alert screens https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog
 
 ## SENSOR
 - [ ] /signals to expose all (current) signals as JSON (for client calls)
