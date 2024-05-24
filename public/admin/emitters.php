@@ -26,9 +26,15 @@ if ($_POST) {
     $cw3freq = ((int)$_POST["cw3freq"] == 0) ? "NULL" : $_POST["cw3freq"];
     $dc_start = $dc_middle = $dc_end = "N";
     foreach ($_POST["datacluster"] as $key => $val) {
-        if ($key == "start") $dc_start = "Y";
-        if ($key == "middle") $dc_middle = "Y";
-        if ($key == "end") $dc_end = "Y";
+        if ($key == "start") {
+            $dc_start = "Y";
+        }
+        if ($key == "middle") {
+            $dc_middle = "Y";
+        }
+        if ($key == "end") {
+            $dc_end = "Y";
+        }
     }
     $sql = sprintf(
         "INSERT INTO emitter_types SET 
@@ -64,6 +70,7 @@ if ($_POST) {
         $db->e($maxvel),
         $db->e($_POST["orgnotes"])
     );
+    $logger->debug("EmitterType added", ["sql" => $sql]);
     $db->query($sql);
     header("Location: ?page=emitters");
     die();
