@@ -11,11 +11,8 @@
 			<li class="pure-menu-item"><a href="?page=sensors" class="pure-menu-link">Sensors</a></li>
 			<li class="pure-menu-item"><a href="?page=archive" class="pure-menu-link">Archive/DB</a></li>
 			<li class="pure-menu-item"><a href="?page=messages" class="pure-menu-link">Messages</a></li>
-			<li class="pure-menu-item"><a href="?page=video" class="pure-menu-link">Video comms</a></li>
 			<li class="pure-menu-item"><a href="?page=players" class="pure-menu-link">Players</a></li>
 			<li class="pure-menu-item"><a href="?page=tools" class="pure-menu-link">Admin tools</a></li>
-
-			<li class="pure-menu-item"><a href="#contact" class="pure-menu-link">Contact</a></li>
 		</ul>
 		<br>
 		<hr>
