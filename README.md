@@ -9,7 +9,7 @@
 
 > | name      |  type     | data type               | description                                                           |
 > |-----------|-----------|-------------------------|-----------------------------------------------------------------------|
-> | id        |  required | string                 | The "name" of the client |
+> | id        |  required | string                 | The "name" of the client, e.g "SURCOM" or "SENSOR" |
 > | ip        |  required | string                 | The internal IP of the client |
 
 ### Example return data
