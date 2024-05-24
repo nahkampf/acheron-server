@@ -1,4 +1,5 @@
 <?php
+
 header("Access-Control-Allow-Origin: http://acheron-systems.test");
 header("Access-Control-Expose-Headers: Content-Length, X-JSON");
 header("Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS");
@@ -60,16 +61,15 @@ $router->post('/register/', function () {
     }
 });
 
-$router->mount('/signals/', function () use ($router) {
-    // Get all signals
-    $router->get('/', function () {
-        $signals = Acheron\Signal::getAll();
-        Acheron\Output::json($signals);
-    });
+// Get all signals
+$router->get('/signals/', function () {
+    $signals = Acheron\Signal::getAll();
+    Acheron\Output::json($signals);
+});
 
-    $router->get('/(\d+)', function ($id) {
-        echo 'get a specific signal by id ' . htmlentities($id);
-    });
+$router->get('/signals/(\d+)', function ($id) {
+    $signal = Acheron\Signal::getById($id);
+    Acheron\Output::json($signal);
 });
 
 $router->run();
