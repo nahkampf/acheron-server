@@ -67,8 +67,9 @@ class Signal
     public static function getById($id)
     {
         $db = new DB();
-        $signal = $db->get("SELECT * FROM signals WHERE id = " . (int)$id);
-        return new Signal($signal[0]);
+        $sql = "SELECT * FROM signals WHERE id = " . (int)$id;
+        $signal = $db->get($sql);
+        return (array)new Signal($signal[0]);
     }
 
     public function setReceived()
