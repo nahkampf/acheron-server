@@ -32,6 +32,9 @@ require "_menu.php";
     <?php
     // handle pages
     switch (@$_GET["page"]) {
+        case "surfops":
+            require "surfops.php";
+            break;
         case "alerts":
             require "alerts.php";
             break;
