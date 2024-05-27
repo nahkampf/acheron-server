@@ -12,6 +12,7 @@
 			<li class="pure-menu-item"><a href="?page=archive" class="pure-menu-link">Archive/DB</a></li>
 			<li class="pure-menu-item"><a href="?page=messages" class="pure-menu-link">Messages</a></li>
 			<li class="pure-menu-item"><a href="?page=players" class="pure-menu-link">Players</a></li>
+			<li class="pure-menu-item"><a href="?page=alerts" class="pure-menu-link">Alerts</a></li>
 			<li class="pure-menu-item"><a href="?page=tools" class="pure-menu-link">Admin tools</a></li>
 		</ul>
 		<br>

@@ -20,6 +20,19 @@ DROP DATABASE IF EXISTS `acheron`;
 CREATE DATABASE IF NOT EXISTS `acheron` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `acheron`;
 
+-- Dumping structure for table acheron.alert_state
+DROP TABLE IF EXISTS `alert_state`;
+CREATE TABLE IF NOT EXISTS `alert_state` (
+  `current_state` enum('green','blue','red') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT 'green',
+  `time_set` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`current_state`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table acheron.alert_state: ~1 rows (approximately)
+DELETE FROM `alert_state`;
+INSERT INTO `alert_state` (`current_state`, `time_set`) VALUES
+	('green', '2024-05-27 14:11:42');
+
 -- Dumping structure for table acheron.clients
 DROP TABLE IF EXISTS `clients`;
 CREATE TABLE IF NOT EXISTS `clients` (
@@ -69,16 +82,18 @@ CREATE TABLE IF NOT EXISTS `emitter_types` (
   `fingerprint_description` text,
   `orgnotes` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Contains all the types of emitters (e.g alien machine types)';
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Contains all the types of emitters (e.g alien machine types)';
 
--- Dumping data for table acheron.emitter_types: ~5 rows (approximately)
+-- Dumping data for table acheron.emitter_types: ~7 rows (approximately)
 DELETE FROM `emitter_types`;
 INSERT INTO `emitter_types` (`id`, `number`, `name`, `type`, `visible_to_players`, `carrierwave1_frequency`, `carrierwave2_frequency`, `carrierwave3_frequency`, `datacluster_start`, `datacluster_middle`, `datacluster_end`, `spectrogram_sample`, `waveform_file`, `known_max_velocity`, `fingerprint_description`, `orgnotes`) VALUES
 	(5, 'XM01', 'PLACEHOLDER', 'aerial', 'Y', 420, 2445, NULL, 'Y', 'Y', 'N', 'cw1_420hz_cw2_2445_start+mid.wav.png', 'cw1_420hz_cw2_2445_start+mid.wav', NULL, '', ''),
 	(6, 'XM02', 'PLACEHOLDER', 'aerial', 'Y', 420, 2445, NULL, 'Y', 'Y', 'Y', 'cw1_420hz_cw2_2445_start+mid+end.wav.png', 'cw1_420hz_cw2_2445_start+mid+end.wav', NULL, '                ', '                '),
 	(7, 'XM03', 'PLACEHOLDER', 'aerial', 'Y', 1043, NULL, NULL, 'Y', 'N', 'Y', 'cw1_1043hz_start+end.wav.png', 'cw1_1043hz_start+end.wav', NULL, '                ', '                '),
 	(8, 'XM04', 'PLACEHOLDER', 'aerial', 'Y', 1043, NULL, NULL, 'Y', 'Y', 'Y', 'cw1_1043hz_start+mid+end.wav.png', 'cw1_1043hz_start+mid+end.wav', NULL, '                ', '                '),
-	(9, 'XM203', 'SIREN', 'static', 'N', 450, 4120, NULL, 'Y', 'N', 'Y', NULL, NULL, '0', NULL, 'This is SIREN, the target of OPERATION KEYHOLE, not disclosed at the start of the game');
+	(9, 'XM203', 'SIREN', 'static', 'N', 450, 4120, NULL, 'Y', 'N', 'Y', NULL, NULL, '0', NULL, 'This is SIREN, the target of OPERATION KEYHOLE, not disclosed at the start of the game'),
+	(10, 'XM204', 'test', 'unknown', 'Y', 123, NULL, NULL, 'N', 'Y', 'N', '', '', '3', '        asdfasdfasdf        ', '                '),
+	(11, 'XM205', 'rwar1', 'aerial', 'Y', 1, NULL, NULL, 'N', 'N', 'N', '', '', NULL, '                ', '                ');
 
 -- Dumping structure for table acheron.map
 DROP TABLE IF EXISTS `map`;
@@ -94,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `map` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table acheron.map: ~1 rows (approximately)
+-- Dumping data for table acheron.map: ~0 rows (approximately)
 DELETE FROM `map`;
 INSERT INTO `map` (`id`, `timestamp`, `type`, `longitude`, `latitude`, `title`, `visible_to_players`, `velocity`) VALUES
 	(15, '2024-02-06 14:49:41', 'POI', '13.744135878074324', '52.59905927193015', 'ACHERON', 1, NULL);
@@ -118,7 +133,7 @@ CREATE TABLE IF NOT EXISTS `map_settings` (
   UNIQUE KEY `center_lat` (`center_lat`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='The setup for the map';
 
--- Dumping data for table acheron.map_settings: ~1 rows (approximately)
+-- Dumping data for table acheron.map_settings: ~0 rows (approximately)
 DELETE FROM `map_settings`;
 INSERT INTO `map_settings` (`boundary_north`, `boundary_south`, `boundary_west`, `boundary_east`, `center_lat`, `center_lng`, `default_zoom`) VALUES
 	(2.6512847442851353, 52.536569560706845, 13.589778740039401, 13.905509501535349, 52.59905927193015, 13.744135878074324, 10);
@@ -180,7 +195,7 @@ CREATE TABLE IF NOT EXISTS `message_corpus` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Contains all the machine "phrases" and ther respective code sequence';
 
--- Dumping data for table acheron.message_corpus: ~28 rows (approximately)
+-- Dumping data for table acheron.message_corpus: ~27 rows (approximately)
 DELETE FROM `message_corpus`;
 INSERT INTO `message_corpus` (`id`, `phrase`, `sequence`, `known_to_players`) VALUES
 	(1, 'NOTHING TO REPORT', '%ZQØ', 1),
@@ -253,12 +268,13 @@ CREATE TABLE IF NOT EXISTS `signals` (
   PRIMARY KEY (`id`),
   KEY `FK_signals_emitter_types` (`emitter`),
   CONSTRAINT `FK_signals_emitter_types` FOREIGN KEY (`emitter`) REFERENCES `emitter_types` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Contains a list of signals';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Contains a list of signals';
 
--- Dumping data for table acheron.signals: ~1 rows (approximately)
+-- Dumping data for table acheron.signals: ~0 rows (approximately)
 DELETE FROM `signals`;
 INSERT INTO `signals` (`id`, `timestamp`, `emitter`, `lat`, `lng`, `velocity`, `heading`, `message`, `encrypted_message`, `designation`, `designated_type`, `intercepted`) VALUES
-	(1, '2024-03-31 22:57:16', 6, 52.5728056, 13.6718191, 4, 221, 'MESSEGE HERE LATER', '1234 asd aS 234 FSED FSD ', 'C-212', 2, '2024-03-31 17:08:26');
+	(1, '2024-03-31 22:57:16', 6, 52.5728056, 13.6718191, 4, 221, 'MESSEGE HERE LATER', '1234 asd aS 234 FSED FSD ', 'C-212', 2, '2024-03-31 17:08:26'),
+	(2, '2024-05-24 15:44:17', 5, 52.5128051, 13.7718202, 2, 123, 'test', 'test', 'A3', 2, '2024-05-24 15:44:56');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
