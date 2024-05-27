@@ -61,7 +61,7 @@ $router->post('/register/', function () {
     }
 });
 
-// Get all signals
+// SIGNALS
 $router->get('/signals/', function () {
     $signals = Acheron\Signal::getAll();
     Acheron\Output::json($signals);
@@ -70,6 +70,20 @@ $router->get('/signals/', function () {
 $router->get('/signals/(\d+)', function ($id) {
     $signal = Acheron\Signal::getById($id);
     Acheron\Output::json($signal);
+});
+
+// SENSORS
+$router->get('/sensors/', function () {
+    Acheron\Output::json(Acheron\Sensor::getAll());
+});
+
+$router->get('/sensors/(\d+)', function ($id) {
+    Acheron\Output::json((array)Acheron\Sensor::getById($id));
+});
+
+// DEBUGGING/TESTING
+$router->get('/test', function () {
+    print_r(Acheron\Sensor::getById(2));
 });
 
 $router->run();
