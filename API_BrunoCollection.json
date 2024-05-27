@@ -4,10 +4,10 @@
   "items": [
     {
       "type": "http",
-      "name": "Get signal update",
-      "seq": 2,
+      "name": "Raw test node",
+      "seq": 1,
       "request": {
-        "url": "{{base_url}}/signals",
+        "url": "{{base_url}}/test",
         "method": "GET",
         "headers": [],
         "body": {
@@ -26,16 +26,157 @@
           }
         },
         "script": {},
-        "vars": {
-          "req": []
-        },
+        "vars": {},
         "assertions": [],
         "tests": "",
         "query": []
       }
+    },
+    {
+      "type": "folder",
+      "name": "Biomonitor"
+    },
+    {
+      "type": "folder",
+      "name": "Alerts"
+    },
+    {
+      "type": "folder",
+      "name": "Clients"
+    },
+    {
+      "type": "folder",
+      "name": "Sensors",
+      "items": [
+        {
+          "type": "http",
+          "name": "Get all sensors",
+          "seq": 1,
+          "request": {
+            "url": "{{base_url}}/sensors",
+            "method": "GET",
+            "headers": [],
+            "body": {
+              "mode": "none",
+              "formUrlEncoded": [],
+              "multipartForm": []
+            },
+            "auth": {
+              "mode": "none",
+              "basic": {
+                "username": "",
+                "password": ""
+              },
+              "bearer": {
+                "token": ""
+              }
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "query": []
+          }
+        },
+        {
+          "type": "http",
+          "name": "Get sensor by id",
+          "seq": 2,
+          "request": {
+            "url": "{{base_url}}/sensors/1",
+            "method": "GET",
+            "headers": [],
+            "body": {
+              "mode": "none",
+              "formUrlEncoded": [],
+              "multipartForm": []
+            },
+            "auth": {
+              "mode": "none",
+              "basic": {
+                "username": "",
+                "password": ""
+              },
+              "bearer": {
+                "token": ""
+              }
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "query": []
+          }
+        }
+      ]
+    },
+    {
+      "type": "folder",
+      "name": "Signals",
+      "items": [
+        {
+          "type": "http",
+          "name": "Get all signals",
+          "seq": 1,
+          "request": {
+            "url": "{{base_url}}/signals",
+            "method": "GET",
+            "headers": [],
+            "body": {
+              "mode": "none",
+              "formUrlEncoded": [],
+              "multipartForm": []
+            },
+            "auth": {
+              "mode": "none",
+              "basic": {
+                "username": "",
+                "password": ""
+              },
+              "bearer": {
+                "token": ""
+              }
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "query": []
+          }
+        },
+        {
+          "type": "http",
+          "name": "Get signal by id",
+          "seq": 2,
+          "request": {
+            "url": "{{base_url}}/signals",
+            "method": "GET",
+            "headers": [],
+            "body": {
+              "mode": "none",
+              "formUrlEncoded": [],
+              "multipartForm": []
+            },
+            "auth": {
+              "mode": "none",
+              "basic": {
+                "username": "",
+                "password": ""
+              },
+              "bearer": {
+                "token": ""
+              }
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "query": []
+          }
+        }
+      ]
     }
   ],
-  "activeEnvironmentUid": "P8u4HozThKBEmx6VsN3f6",
   "environments": [
     {
       "variables": [
