@@ -3,6 +3,8 @@ if ($_POST) {
     foreach ($_POST["surfers"] as $surfer) {
         Acheron\Biostate::setStatus($surfer, $_POST["multistatus"]);
     }
+    header("Location: ?page=surfops");
+    die();
 }
 ?>
 <div class="header">
@@ -33,16 +35,7 @@ foreach ($surfers as $id => $surfer) {
                         <td><?=$surfer->rank?></td>
                         <td><?=$surfer->name?></td>
                         <td>
-                            <select name="state[<?=$surfer->id?>]">
-                            <?php
-                            $modes = Acheron\Biostate::getAll();
-                            foreach ($modes as $key => $val) {
-                            ?>
-                                <option <?=($biomonitor["currentState"] == $val->id) ? "selected" : ""?> value="<?=$val->id?>"><?=$val->name?></option>
-                            <?php
-                            }
-                            ?>
-                            </select>
+                        <?=$biomonitor["name"]?>
                         </td>
                     </tr>
 <?php
