@@ -34,4 +34,10 @@ class Biostate
         }
         return $states;
     }
+
+    public static function setStatus($surferId, $statusId)
+    {
+        $db = new DB();
+        $db->query("UPDATE biomonitor_states SET currentState=" . (int)$statusId . " WHERE surferId=" . (int)$surferId);
+    }
 }
