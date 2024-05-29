@@ -33,6 +33,55 @@ DELETE FROM `alert_state`;
 INSERT INTO `alert_state` (`current_state`, `time_set`) VALUES
 	('green', '2024-05-27 14:11:42');
 
+-- Dumping structure for table acheron.biomonitor_modes
+DROP TABLE IF EXISTS `biomonitor_modes`;
+CREATE TABLE IF NOT EXISTS `biomonitor_modes` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `pulse_low` smallint NOT NULL,
+  `pulse_high` smallint NOT NULL,
+  `spo2_low` tinyint NOT NULL,
+  `spo2_high` tinyint NOT NULL,
+  `bp_low` smallint NOT NULL,
+  `bp_high` smallint NOT NULL,
+  `color` varchar(50) NOT NULL DEFAULT '#00AA00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table acheron.biomonitor_modes: ~6 rows (approximately)
+DELETE FROM `biomonitor_modes`;
+INSERT INTO `biomonitor_modes` (`id`, `name`, `pulse_low`, `pulse_high`, `spo2_low`, `spo2_high`, `bp_low`, `bp_high`, `color`) VALUES
+	(1, 'AT REST', 60, 90, 0, 0, 0, 0, '#00AA00'),
+	(2, 'LIGHT ACTIVITY', 75, 100, 0, 0, 0, 0, '#00AA00'),
+	(3, 'HEAVY ACTIVITY', 110, 145, 0, 0, 0, 0, '#00AA00'),
+	(4, 'PANIC', 150, 185, 0, 0, 0, 0, '#FFFF55'),
+	(5, 'LIGHT WOUND', 0, 0, 0, 0, 0, 0, '#00AA00'),
+	(6, 'DISCONNECTED', 0, 0, 0, 0, 0, 0, '#555555');
+
+-- Dumping structure for table acheron.biomonitor_states
+DROP TABLE IF EXISTS `biomonitor_states`;
+CREATE TABLE IF NOT EXISTS `biomonitor_states` (
+  `surferId` int NOT NULL,
+  `currentState` int NOT NULL,
+  `setAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  KEY `fk_surfer` (`surferId`),
+  KEY `fk_mode` (`currentState`),
+  CONSTRAINT `fk_mode` FOREIGN KEY (`currentState`) REFERENCES `biomonitor_modes` (`id`),
+  CONSTRAINT `fk_surfer` FOREIGN KEY (`surferId`) REFERENCES `surfops_people` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table acheron.biomonitor_states: ~8 rows (approximately)
+DELETE FROM `biomonitor_states`;
+INSERT INTO `biomonitor_states` (`surferId`, `currentState`, `setAt`) VALUES
+	(1, 1, '2024-05-28 13:05:31'),
+	(3, 1, '2024-05-28 13:00:27'),
+	(4, 1, '2024-05-28 13:00:27'),
+	(5, 6, '2024-05-28 13:08:58'),
+	(6, 6, '2024-05-28 13:08:58'),
+	(7, 1, '2024-05-28 13:00:27'),
+	(8, 1, '2024-05-28 13:00:27'),
+	(2, 1, '2024-05-28 13:05:44');
+
 -- Dumping structure for table acheron.clients
 DROP TABLE IF EXISTS `clients`;
 CREATE TABLE IF NOT EXISTS `clients` (
@@ -42,11 +91,8 @@ CREATE TABLE IF NOT EXISTS `clients` (
   UNIQUE KEY `uq` (`id`,`ip`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Holds a list of all clients that have registered themselves';
 
--- Dumping data for table acheron.clients: ~2 rows (approximately)
+-- Dumping data for table acheron.clients: ~0 rows (approximately)
 DELETE FROM `clients`;
-INSERT INTO `clients` (`id`, `ip`, `last_report`) VALUES
-	('SURCOM-1', '127.0.0.1', '2024-02-09 15:12:11'),
-	('SURCOM-1', '192.168.0.3', '2024-02-09 12:12:26');
 
 -- Dumping structure for table acheron.emitters
 DROP TABLE IF EXISTS `emitters`;
@@ -265,16 +311,40 @@ CREATE TABLE IF NOT EXISTS `signals` (
   `designation` varchar(255) DEFAULT NULL,
   `designated_type` int DEFAULT NULL,
   `intercepted` datetime DEFAULT NULL,
+  `handled` enum('Y','N') NOT NULL DEFAULT 'N',
   PRIMARY KEY (`id`),
   KEY `FK_signals_emitter_types` (`emitter`),
   CONSTRAINT `FK_signals_emitter_types` FOREIGN KEY (`emitter`) REFERENCES `emitter_types` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Contains a list of signals';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Contains a list of signals';
 
--- Dumping data for table acheron.signals: ~0 rows (approximately)
+-- Dumping data for table acheron.signals: ~3 rows (approximately)
 DELETE FROM `signals`;
-INSERT INTO `signals` (`id`, `timestamp`, `emitter`, `lat`, `lng`, `velocity`, `heading`, `message`, `encrypted_message`, `designation`, `designated_type`, `intercepted`) VALUES
-	(1, '2024-03-31 22:57:16', 6, 52.5728056, 13.6718191, 4, 221, 'MESSEGE HERE LATER', '1234 asd aS 234 FSED FSD ', 'C-212', 2, '2024-03-31 17:08:26'),
-	(2, '2024-05-24 15:44:17', 5, 52.5128051, 13.7718202, 2, 123, 'test', 'test', 'A3', 2, '2024-05-24 15:44:56');
+INSERT INTO `signals` (`id`, `timestamp`, `emitter`, `lat`, `lng`, `velocity`, `heading`, `message`, `encrypted_message`, `designation`, `designated_type`, `intercepted`, `handled`) VALUES
+	(1, '2024-03-31 22:57:16', 6, 52.5728056, 13.6718191, 4, 221, 'MESSEGE HERE LATER', '1234 asd aS 234 FSED FSD ', 'A2', 2, '2024-03-31 17:08:26', 'N'),
+	(2, '2024-05-24 15:44:17', 5, 52.5128051, 13.7718202, 2, 123, 'test', 'test', NULL, 2, NULL, 'Y'),
+	(4, '2024-05-29 13:00:58', 5, 52.512804, 13.7718222, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'N');
+
+-- Dumping structure for table acheron.surfops_people
+DROP TABLE IF EXISTS `surfops_people`;
+CREATE TABLE IF NOT EXISTS `surfops_people` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `rank` varchar(50) NOT NULL DEFAULT 'Private',
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `portrait` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table acheron.surfops_people: ~7 rows (approximately)
+DELETE FROM `surfops_people`;
+INSERT INTO `surfops_people` (`id`, `rank`, `name`, `portrait`) VALUES
+	(1, 'Sergeant', 'Weber', NULL),
+	(2, 'Corporal', 'Dubois', NULL),
+	(3, 'Private', 'Saar', NULL),
+	(4, 'Private', 'Cross', NULL),
+	(5, 'Private', 'Cooke', NULL),
+	(6, 'Private', 'Ikeda', NULL),
+	(7, 'Private', 'Spiewak', NULL),
+	(8, 'Private', 'Orosz', NULL);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

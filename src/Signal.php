@@ -19,6 +19,7 @@ class Signal
     public $secondary_sensor;
     public $designation;
     public $designated_type;
+    public $handled;
 
     /**
      * Signals cannot be instantiated outside of this class!
@@ -51,6 +52,7 @@ class Signal
                 $this->lat,
                 $this->lng
             );
+            $this->handled = $signaldata["handled"];
         }
     }
 
