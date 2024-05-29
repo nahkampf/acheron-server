@@ -81,9 +81,15 @@ $router->get('/sensors/(\d+)', function ($id) {
     Acheron\Output::json((array)Acheron\Sensor::getById($id));
 });
 
+// BIOMONITOR
+$router->get('/biomonitor/', function () {
+    Acheron\Output::json((array)Acheron\Biomonitor::getAll());
+});
+
+
 // DEBUGGING/TESTING
 $router->get('/test', function () {
-    print_r(Acheron\Sensor::getById(2));
+    print_r(Acheron\Biomonitor::getAll());
 });
 
 $router->run();
