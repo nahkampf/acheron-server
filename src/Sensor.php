@@ -33,7 +33,7 @@ class Sensor
     public static function getAll(): array
     {
         $db = new DB();
-        $sql = "SELECT id, name, lat, lng, battery_level as battery, status FROM sensors ORDER BY name ASC";
+        $sql = "SELECT id, name, lat, lng, battery_level as battery, status FROM sensors ORDER BY name DESC";
         $result = $db->get($sql);
         foreach ($result as $sensor) {
             $sensors[] = new Sensor(...$sensor);

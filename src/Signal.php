@@ -59,7 +59,7 @@ class Signal
     public static function getAll()
     {
         $db = new DB();
-        $sigs = $db->get("SELECT * FROM signals ORDER BY timestamp DESC");
+        $sigs = $db->get("SELECT * FROM signals ORDER BY `timestamp` ASC");
         foreach ($sigs as $key => $signal) {
             $signals[$signal["id"]] = new Signal($signal);
         }
