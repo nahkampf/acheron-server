@@ -40,6 +40,7 @@ todo
   - [ ] Assign a premade signal data message
 - [ ] Signal data message creator/editor
   - [X] Define corpus of terms/words & editor
+- [ ] Make a dashboard/alert thing that "expects" certain API calls within X seconds otherwise it alerts us that something seems wrong (like "if the last client register was more than a minute ago")
 
 # Misc
 - [X] Team monitor (display name, portrait, biomonitor status) + audible alerts
