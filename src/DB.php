@@ -16,6 +16,13 @@ class DB
             $_ENV["DB_PORT"]
         );
         $this->db->query("SET NAMES utf8");
+        // allow grouping on non-keyed columns ("lax mode")
+        $this->db->query(
+            "SET SESSION sql_mode = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';"
+        );
+        $this->db->query(
+            "SET GLOBAL sql_mode = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';"
+        );
     }
 
     public function query($sql)
@@ -37,5 +44,10 @@ class DB
     public function id()
     {
         return $this->db->insert_id();
+    }
+
+    public function getNow()
+    {
+        return $this->db->query("SELECT NOW() as time")->fetch_all(MYSQLI_ASSOC)[0]["time"];
     }
 }

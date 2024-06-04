@@ -22,6 +22,7 @@ use Monolog\Handler\StreamHandler;
 use Monolog\ErrorHandler;
 use Monolog\Formatter\LineFormatter;
 use Bramus\Monolog\Formatter\ColoredLineFormatter;
+use Acheron\DB;
 
 /* we have two logs, the "full" log, and the "narrative" log (which is more
 meant to give a sort of narrative view of what happened system-wise during
@@ -45,7 +46,9 @@ $narrativeLog->pushHandler($handlerNarrative);
  * SET UP ROUTING
  */
 $router = new \Bramus\Router\Router();
-$router->post('/register/', function () {
+
+// Clients
+$router->post('/client/', function () {
     global $logger;
     $logger->debug("Register client", ["REMOTE_ADDR", $_SERVER['REMOTE_ADDR'], "ID", $_POST["id"]]);
     try {
@@ -60,6 +63,15 @@ $router->post('/register/', function () {
         $logger->warning($e->getMessage(), ["REMOTE_ADDR", $_SERVER['REMOTE_ADDR']]);
     }
 });
+$router->get('/clients', function () {
+    $clients = Acheron\Client::getAll();
+    Acheron\Output::json($clients);
+});
+$router->get('/clients/aggregated', function () {
+    $clients = Acheron\Client::getAll(true);
+    Acheron\Output::json($clients);
+});
+
 
 // SIGNALS
 $router->get('/signals/', function () {
@@ -91,5 +103,13 @@ $router->get('/biomonitor/', function () {
 $router->get('/test', function () {
     print_r(Acheron\Biomonitor::getAll());
 });
+
+// ALERT STATE
+$router->get('/alert', function () {
+    $db = new DB();
+    $state = $db->get("SELECT * FROM alert_state  ORDER BY time_set DESC LIMIT 1");
+    Acheron\Output::json($state[0]);
+});
+
 
 $router->run();

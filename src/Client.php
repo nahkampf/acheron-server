@@ -46,10 +46,13 @@ class Client
     {
     }
 
-    public static function getAll()
+    public static function getAll($aggregated = false)
     {
         $db = new DB();
-        $res = $db->get("SELECT * FROM clients ORDER BY last_report DESC");
+        $sql = ($aggregated)
+        ? "SELECT id, ip, MAX(last_report) AS last_report FROM clients GROUP BY id ORDER BY last_report DESC"
+        : "SELECT * FROM clients ORDER BY last_report DESC";
+        $res = $db->get($sql);
         return $res;
     }
 }

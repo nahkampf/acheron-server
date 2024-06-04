@@ -4,6 +4,7 @@ require "../../vendor/autoload.php";
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . "/../../");
 $dotenv->load();
 
+use Acheron\DB;
 
 // SET UP LOGGING
 use Monolog\Level;

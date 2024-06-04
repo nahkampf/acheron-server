@@ -34,15 +34,216 @@
     },
     {
       "type": "folder",
-      "name": "Biomonitor"
+      "name": "Alerts",
+      "items": [
+        {
+          "type": "http",
+          "name": "Get alert state",
+          "seq": 1,
+          "request": {
+            "url": "{{base_url}}/alert",
+            "method": "GET",
+            "headers": [],
+            "body": {
+              "mode": "none",
+              "formUrlEncoded": [],
+              "multipartForm": []
+            },
+            "auth": {
+              "mode": "none",
+              "basic": {
+                "username": "",
+                "password": ""
+              },
+              "bearer": {
+                "token": ""
+              }
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "query": []
+          }
+        }
+      ]
     },
     {
       "type": "folder",
-      "name": "Alerts"
+      "name": "Biomonitor",
+      "items": [
+        {
+          "type": "http",
+          "name": "Get biomonitor vitals",
+          "seq": 1,
+          "request": {
+            "url": "{{base_url}}/biomonitor",
+            "method": "GET",
+            "headers": [],
+            "body": {
+              "mode": "none",
+              "formUrlEncoded": [],
+              "multipartForm": []
+            },
+            "auth": {
+              "mode": "none",
+              "basic": {
+                "username": "",
+                "password": ""
+              },
+              "bearer": {
+                "token": ""
+              }
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "query": []
+          }
+        }
+      ]
     },
     {
       "type": "folder",
-      "name": "Clients"
+      "name": "Clients",
+      "items": [
+        {
+          "type": "http",
+          "name": "Register client",
+          "seq": 1,
+          "request": {
+            "url": "{{base_url}}/client",
+            "method": "POST",
+            "headers": [],
+            "body": {
+              "mode": "formUrlEncoded",
+              "formUrlEncoded": [
+                {
+                  "name": "id",
+                  "value": "SENSOR",
+                  "enabled": true
+                },
+                {
+                  "name": "ip",
+                  "value": "192.168.0.32",
+                  "description": "",
+                  "enabled": true
+                }
+              ],
+              "multipartForm": [
+                {
+                  "type": "text",
+                  "name": "id",
+                  "value": "SENSOR",
+                  "enabled": true
+                }
+              ]
+            },
+            "auth": {
+              "mode": "none",
+              "basic": {
+                "username": "",
+                "password": ""
+              },
+              "bearer": {
+                "token": ""
+              }
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "query": []
+          }
+        },
+        {
+          "type": "http",
+          "name": "List clients",
+          "seq": 2,
+          "request": {
+            "url": "{{base_url}}/clients",
+            "method": "GET",
+            "headers": [],
+            "body": {
+              "mode": "formUrlEncoded",
+              "formUrlEncoded": [
+                {
+                  "name": "id",
+                  "value": "SENSOR",
+                  "enabled": true
+                }
+              ],
+              "multipartForm": [
+                {
+                  "type": "text",
+                  "name": "id",
+                  "value": "SENSOR",
+                  "enabled": true
+                }
+              ]
+            },
+            "auth": {
+              "mode": "none",
+              "basic": {
+                "username": "",
+                "password": ""
+              },
+              "bearer": {
+                "token": ""
+              }
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "query": []
+          }
+        },
+        {
+          "type": "http",
+          "name": "List clients (aggregated)",
+          "seq": 3,
+          "request": {
+            "url": "{{base_url}}/clients/aggregated",
+            "method": "GET",
+            "headers": [],
+            "body": {
+              "mode": "formUrlEncoded",
+              "formUrlEncoded": [
+                {
+                  "name": "id",
+                  "value": "SENSOR",
+                  "enabled": true
+                }
+              ],
+              "multipartForm": [
+                {
+                  "type": "text",
+                  "name": "id",
+                  "value": "SENSOR",
+                  "enabled": true
+                }
+              ]
+            },
+            "auth": {
+              "mode": "none",
+              "basic": {
+                "username": "",
+                "password": ""
+              },
+              "bearer": {
+                "token": ""
+              }
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "query": []
+          }
+        }
+      ]
     },
     {
       "type": "folder",
@@ -177,6 +378,7 @@
       ]
     }
   ],
+  "activeEnvironmentUid": "xBMvrQ9wzWas7EmHaEs8Q",
   "environments": [
     {
       "variables": [
