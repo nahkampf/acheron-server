@@ -36,7 +36,7 @@ foreach ($expected_clients as $eclient) {
         if ($client["last_report"]) {
             $date1 = strtotime($client["last_report"]);
             $date2 = strtotime($db->getNow());
-            $diff = abs($date2 - $date1) . "s ago";
+            $diff = abs($date2 - $date1);
         }
     }
 ?>
@@ -48,7 +48,7 @@ foreach ($expected_clients as $eclient) {
                         <?=$ip?>
                     </td>
                     <td>
-                        <?=$diff?>
+                        <span class="<?=($diff > 60 || $diff == "NO CLIENT!") ? "red" : "green"?>"><?=$diff?><?=($diff != "NO CLIENT!") ? "s ago" :""?></span>
                     </td>
                 </tr>
 <?php
