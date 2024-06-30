@@ -84,6 +84,17 @@ $router->get('/signals/(\d+)', function ($id) {
     Acheron\Output::json($signal);
 });
 
+// EMITTER TYPES
+$router->get('/emitters/', function () {
+    $emitters = Acheron\EmitterType::getAll(false);
+    Acheron\Output::json($emitters);
+});
+$router->get('/emitters/all', function () {
+    $emitters = Acheron\EmitterType::getAll(true);
+    Acheron\Output::json($emitters);
+});
+
+
 // SENSORS
 $router->get('/sensors/', function () {
     Acheron\Output::json(Acheron\Sensor::getAll());

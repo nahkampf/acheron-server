@@ -12,10 +12,15 @@ class EmitterType
     {
     }
 
-    public static function getAll()
+    public static function getAll(bool $all = false)
     {
+        if ($all) {
+            $vis = "";
+        } else {
+            $vis = "WHERE visible_to_players = \"Y\"";
+        }
         $db = new DB();
-        $sql = "SELECT * FROM emitter_types ORDER BY name ASC";
+        $sql = "SELECT * FROM emitter_types $vis ORDER BY number ASC";
         $res = $db->get($sql);
         return $res;
     }
