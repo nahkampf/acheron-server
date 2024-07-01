@@ -84,6 +84,11 @@ $router->get('/signals/(\d+)', function ($id) {
     Acheron\Output::json($signal);
 });
 
+$router->get('/signals/nextdesignation', function() {
+    $next = Acheron\Signal::getNextDesignation();
+    Acheron\Output::json($next);
+});
+
 // EMITTER TYPES
 $router->get('/emitters/', function () {
     $emitters = Acheron\EmitterType::getAll(false);

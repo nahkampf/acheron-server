@@ -116,4 +116,13 @@ class Signal
         }
         return $sensors;
     }
+
+    public static function getNextDesignation() {
+        $db = new DB();
+        $sql = "SELECT MAX(designation) AS highest, SUBSTRING(designation, 1,1) AS prefix,MAX(SUBSTRING(designation, 2,1)) AS val, SUBSTRING(designation, 1,1) AS prefix FROM signals GROUP BY prefix ORDER BY highest DESC";
+        // determine what the next designation should be
+        // (the prefix with the lowst count, then add 1)
+        $res = $db->get($sql);
+        return [$res[0]["prefix"] . ($res[0]["val"] + 1)];
+    }
 }
