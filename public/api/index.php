@@ -89,6 +89,13 @@ $router->get('/signals/nextdesignation', function() {
     Acheron\Output::json($next);
 });
 
+$router->post('/signals/(\d+)', function($id) {
+    $signal = Acheron\Signal::getById($id);
+    foreach ($_POST as $key => $val) {
+        Acheron\Signal::updateSignal($id, [$key => $val]);
+    }
+});
+
 // EMITTER TYPES
 $router->get('/emitters/', function () {
     $emitters = Acheron\EmitterType::getAll(false);

@@ -20,6 +20,7 @@ class Signal
     public $designation;
     public $designated_type;
     public $handled;
+    public $interceptingOperator;
 
     /**
      * Signals cannot be instantiated outside of this class!
@@ -53,6 +54,7 @@ class Signal
                 $this->lng
             );
             $this->handled = $signaldata["handled"];
+            $this->interceptingOperator = $signaldata["intercepting_operator"];
         }
     }
 
@@ -124,5 +126,18 @@ class Signal
         // (the prefix with the lowst count, then add 1)
         $res = $db->get($sql);
         return [$res[0]["prefix"] . ($res[0]["val"] + 1)];
+    }
+
+    public static function updateSignal(int $id, array $keyvals) {
+        $db = new DB();
+        foreach ($keyvals as $key => $val) {
+            // special case, handle NOW()
+            if ($val == "NOW()") {
+                $sql = "UPDATE signals SET " . $key ." = NOW() WHERE id=" . $id ." LIMIT 1";
+            } else {
+                $sql = "UPDATE signals SET " . $key ." = \"" . $db->e($val). "\" WHERE id=" . $id ." LIMIT 1";
+            }
+            $db->query($sql);
+        }
     }
 }
