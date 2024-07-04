@@ -36,8 +36,8 @@ class Geo
         // spherical earth model is very fast, but less reliable, but should not be an issue here
         // elliptical is more precise, but slower
         $bearingCalculator = new BearingSpherical();
-        $data["bearing_from_source"] = $bearingCalculator->calculateBearing($source, $target);
-        $data["bearing_from_target"] = $bearingCalculator->calculateBearing($target, $source);
+        $data["bearing_from_source"] = floor($bearingCalculator->calculateBearing($source, $target));
+        $data["bearing_from_target"] = floor($bearingCalculator->calculateBearing($target, $source));
         return $data;
     }
 
