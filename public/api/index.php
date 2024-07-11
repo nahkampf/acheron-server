@@ -72,6 +72,16 @@ $router->get('/clients/aggregated', function () {
     Acheron\Output::json($clients);
 });
 
+// SURFOPS POSITION
+$router->get('/surfops/', function () {
+    $posfix = Acheron\Surfops::getPositions();
+    Acheron\Output::json($posfix);
+});
+
+$router->get('/surfops/all', function () {
+    $posfix = Acheron\Surfops::getPositions(true);
+    Acheron\Output::json($posfix);
+});
 
 // SIGNALS
 $router->get('/signals/', function () {

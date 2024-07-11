@@ -28,4 +28,14 @@ class Surfops
         $db = new DB();
         return $db->get("SELECT * FROM surfops_people WHERE id = " . (int)$id)[0];
     }
+
+    public static function getPositions($all = false) {
+        $db = new DB();
+        if ($all) {
+            $sql = "SELECT * FROM surfops_positions ORDER BY `timestamp` DESC";
+        } else {
+            $sql = "SELECT * FROM surfops_positions ORDER BY `timestamp` DESC LIMIT 5";
+        }
+        return $db->get($sql);
+    }
 }

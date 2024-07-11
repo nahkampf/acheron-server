@@ -10,26 +10,19 @@
         "url": "{{base_url}}/test",
         "method": "GET",
         "headers": [],
+        "params": [],
         "body": {
           "mode": "none",
           "formUrlEncoded": [],
           "multipartForm": []
         },
-        "auth": {
-          "mode": "none",
-          "basic": {
-            "username": "",
-            "password": ""
-          },
-          "bearer": {
-            "token": ""
-          }
-        },
         "script": {},
         "vars": {},
         "assertions": [],
         "tests": "",
-        "query": []
+        "auth": {
+          "mode": "none"
+        }
       }
     },
     {
@@ -44,26 +37,19 @@
             "url": "{{base_url}}/alert",
             "method": "GET",
             "headers": [],
+            "params": [],
             "body": {
               "mode": "none",
               "formUrlEncoded": [],
               "multipartForm": []
             },
-            "auth": {
-              "mode": "none",
-              "basic": {
-                "username": "",
-                "password": ""
-              },
-              "bearer": {
-                "token": ""
-              }
-            },
             "script": {},
             "vars": {},
             "assertions": [],
             "tests": "",
-            "query": []
+            "auth": {
+              "mode": "none"
+            }
           }
         }
       ]
@@ -80,26 +66,19 @@
             "url": "{{base_url}}/biomonitor",
             "method": "GET",
             "headers": [],
+            "params": [],
             "body": {
               "mode": "none",
               "formUrlEncoded": [],
               "multipartForm": []
             },
-            "auth": {
-              "mode": "none",
-              "basic": {
-                "username": "",
-                "password": ""
-              },
-              "bearer": {
-                "token": ""
-              }
-            },
             "script": {},
             "vars": {},
             "assertions": [],
             "tests": "",
-            "query": []
+            "auth": {
+              "mode": "none"
+            }
           }
         }
       ]
@@ -110,12 +89,85 @@
       "items": [
         {
           "type": "http",
+          "name": "List clients -aggregated-",
+          "seq": 3,
+          "request": {
+            "url": "{{base_url}}/clients/aggregated",
+            "method": "GET",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "formUrlEncoded",
+              "formUrlEncoded": [
+                {
+                  "name": "id",
+                  "value": "SENSOR",
+                  "enabled": true
+                }
+              ],
+              "multipartForm": [
+                {
+                  "type": "text",
+                  "name": "id",
+                  "value": "SENSOR",
+                  "enabled": true
+                }
+              ]
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "auth": {
+              "mode": "none"
+            }
+          }
+        },
+        {
+          "type": "http",
+          "name": "List clients",
+          "seq": 2,
+          "request": {
+            "url": "{{base_url}}/clients",
+            "method": "GET",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "formUrlEncoded",
+              "formUrlEncoded": [
+                {
+                  "name": "id",
+                  "value": "SENSOR",
+                  "enabled": true
+                }
+              ],
+              "multipartForm": [
+                {
+                  "type": "text",
+                  "name": "id",
+                  "value": "SENSOR",
+                  "enabled": true
+                }
+              ]
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "auth": {
+              "mode": "none"
+            }
+          }
+        },
+        {
+          "type": "http",
           "name": "Register client",
           "seq": 1,
           "request": {
             "url": "{{base_url}}/client",
             "method": "POST",
             "headers": [],
+            "params": [],
             "body": {
               "mode": "formUrlEncoded",
               "formUrlEncoded": [
@@ -127,7 +179,6 @@
                 {
                   "name": "ip",
                   "value": "192.168.0.32",
-                  "description": "",
                   "enabled": true
                 }
               ],
@@ -140,173 +191,65 @@
                 }
               ]
             },
-            "auth": {
-              "mode": "none",
-              "basic": {
-                "username": "",
-                "password": ""
-              },
-              "bearer": {
-                "token": ""
-              }
-            },
             "script": {},
             "vars": {},
             "assertions": [],
             "tests": "",
-            "query": []
-          }
-        },
-        {
-          "type": "http",
-          "name": "List clients",
-          "seq": 2,
-          "request": {
-            "url": "{{base_url}}/clients",
-            "method": "GET",
-            "headers": [],
-            "body": {
-              "mode": "formUrlEncoded",
-              "formUrlEncoded": [
-                {
-                  "name": "id",
-                  "value": "SENSOR",
-                  "enabled": true
-                }
-              ],
-              "multipartForm": [
-                {
-                  "type": "text",
-                  "name": "id",
-                  "value": "SENSOR",
-                  "enabled": true
-                }
-              ]
-            },
             "auth": {
-              "mode": "none",
-              "basic": {
-                "username": "",
-                "password": ""
-              },
-              "bearer": {
-                "token": ""
-              }
-            },
-            "script": {},
-            "vars": {},
-            "assertions": [],
-            "tests": "",
-            "query": []
-          }
-        },
-        {
-          "type": "http",
-          "name": "List clients (aggregated)",
-          "seq": 3,
-          "request": {
-            "url": "{{base_url}}/clients/aggregated",
-            "method": "GET",
-            "headers": [],
-            "body": {
-              "mode": "formUrlEncoded",
-              "formUrlEncoded": [
-                {
-                  "name": "id",
-                  "value": "SENSOR",
-                  "enabled": true
-                }
-              ],
-              "multipartForm": [
-                {
-                  "type": "text",
-                  "name": "id",
-                  "value": "SENSOR",
-                  "enabled": true
-                }
-              ]
-            },
-            "auth": {
-              "mode": "none",
-              "basic": {
-                "username": "",
-                "password": ""
-              },
-              "bearer": {
-                "token": ""
-              }
-            },
-            "script": {},
-            "vars": {},
-            "assertions": [],
-            "tests": "",
-            "query": []
+              "mode": "none"
+            }
           }
         }
       ]
     },
     {
       "type": "folder",
-      "name": "Sensors",
+      "name": "Emitters",
       "items": [
         {
           "type": "http",
-          "name": "Get all sensors",
+          "name": "Get all (known) emitters",
           "seq": 1,
           "request": {
-            "url": "{{base_url}}/sensors",
+            "url": "{{base_url}}/emitters",
             "method": "GET",
             "headers": [],
+            "params": [],
             "body": {
               "mode": "none",
               "formUrlEncoded": [],
               "multipartForm": []
             },
-            "auth": {
-              "mode": "none",
-              "basic": {
-                "username": "",
-                "password": ""
-              },
-              "bearer": {
-                "token": ""
-              }
-            },
             "script": {},
             "vars": {},
             "assertions": [],
             "tests": "",
-            "query": []
+            "auth": {
+              "mode": "none"
+            }
           }
         },
         {
           "type": "http",
-          "name": "Get sensor by id",
+          "name": "Get all emitters",
           "seq": 2,
           "request": {
-            "url": "{{base_url}}/sensors/1",
+            "url": "{{base_url}}/emitters",
             "method": "GET",
             "headers": [],
+            "params": [],
             "body": {
               "mode": "none",
               "formUrlEncoded": [],
               "multipartForm": []
             },
-            "auth": {
-              "mode": "none",
-              "basic": {
-                "username": "",
-                "password": ""
-              },
-              "bearer": {
-                "token": ""
-              }
-            },
             "script": {},
             "vars": {},
             "assertions": [],
             "tests": "",
-            "query": []
+            "auth": {
+              "mode": "none"
+            }
           }
         }
       ]
@@ -323,26 +266,42 @@
             "url": "{{base_url}}/signals",
             "method": "GET",
             "headers": [],
+            "params": [],
             "body": {
               "mode": "none",
               "formUrlEncoded": [],
               "multipartForm": []
             },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
             "auth": {
+              "mode": "none"
+            }
+          }
+        },
+        {
+          "type": "http",
+          "name": "Get next available designation",
+          "seq": 3,
+          "request": {
+            "url": "{{base_url}}/signals/nextdesignation",
+            "method": "GET",
+            "headers": [],
+            "params": [],
+            "body": {
               "mode": "none",
-              "basic": {
-                "username": "",
-                "password": ""
-              },
-              "bearer": {
-                "token": ""
-              }
+              "formUrlEncoded": [],
+              "multipartForm": []
             },
             "script": {},
             "vars": {},
             "assertions": [],
             "tests": "",
-            "query": []
+            "auth": {
+              "mode": "none"
+            }
           }
         },
         {
@@ -353,38 +312,172 @@
             "url": "{{base_url}}/signals",
             "method": "GET",
             "headers": [],
+            "params": [],
             "body": {
               "mode": "none",
               "formUrlEncoded": [],
               "multipartForm": []
             },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
             "auth": {
-              "mode": "none",
-              "basic": {
-                "username": "",
-                "password": ""
-              },
-              "bearer": {
-                "token": ""
+              "mode": "none"
+            }
+          }
+        },
+        {
+          "type": "http",
+          "name": "Update signal",
+          "seq": 4,
+          "request": {
+            "url": "{{base_url}}/signals/1",
+            "method": "POST",
+            "headers": [],
+            "params": [
+              {
+                "name": "",
+                "value": "",
+                "type": "query",
+                "enabled": true
               }
+            ],
+            "body": {
+              "mode": "multipartForm",
+              "formUrlEncoded": [],
+              "multipartForm": [
+                {
+                  "type": "text",
+                  "name": "field",
+                  "value": "value",
+                  "enabled": true
+                }
+              ]
             },
             "script": {},
             "vars": {},
             "assertions": [],
             "tests": "",
-            "query": []
+            "auth": {
+              "mode": "none"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "folder",
+      "name": "Sensors",
+      "items": [
+        {
+          "type": "http",
+          "name": "Get all sensors",
+          "seq": 1,
+          "request": {
+            "url": "{{base_url}}/sensors",
+            "method": "GET",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "none",
+              "formUrlEncoded": [],
+              "multipartForm": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "auth": {
+              "mode": "none"
+            }
+          }
+        },
+        {
+          "type": "http",
+          "name": "Get sensor by id",
+          "seq": 2,
+          "request": {
+            "url": "{{base_url}}/sensors/1",
+            "method": "GET",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "none",
+              "formUrlEncoded": [],
+              "multipartForm": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "auth": {
+              "mode": "none"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "folder",
+      "name": "Surfops positions",
+      "items": [
+        {
+          "type": "http",
+          "name": "Get latest 5 surfops positions",
+          "seq": 1,
+          "request": {
+            "url": "{{base_url}}/surfops",
+            "method": "GET",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "none",
+              "formUrlEncoded": [],
+              "multipartForm": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "auth": {
+              "mode": "none"
+            }
+          }
+        },
+        {
+          "type": "http",
+          "name": "Get all surfops positions",
+          "seq": 2,
+          "request": {
+            "url": "{{base_url}}/surfops/all",
+            "method": "GET",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "none",
+              "formUrlEncoded": [],
+              "multipartForm": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "auth": {
+              "mode": "none"
+            }
           }
         }
       ]
     }
   ],
-  "activeEnvironmentUid": "xBMvrQ9wzWas7EmHaEs8Q",
+  "activeEnvironmentUid": "0qrnI12itCBXAPnEiMthK",
   "environments": [
     {
       "variables": [
         {
           "name": "base_url",
-          "value": "http://acheron-server.test:81/public/api",
+          "value": "http://acheron-server.test/api",
           "enabled": true,
           "secret": false,
           "type": "text"
@@ -392,5 +485,14 @@
       ],
       "name": "dev"
     }
-  ]
+  ],
+  "brunoConfig": {
+    "version": "1",
+    "name": "Acheron API",
+    "type": "collection",
+    "ignore": [
+      "node_modules",
+      ".git"
+    ]
+  }
 }
