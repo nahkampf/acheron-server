@@ -105,7 +105,10 @@ $router->get('/emitters/all', function () {
     $emitters = Acheron\EmitterType::getAll(true);
     Acheron\Output::json($emitters);
 });
-
+$router->get('/emitters/(\d+)', function ($id) {
+    $emitter = Acheron\EmitterType::getById($id);
+    Acheron\Output::json($emitter);
+});
 
 // SENSORS
 $router->get('/sensors/', function () {
