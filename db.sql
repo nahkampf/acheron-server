@@ -2,17 +2,14 @@
 -- Host:                         127.0.0.1
 -- Server version:               8.0.30 - MySQL Community Server - GPL
 -- Server OS:                    Win64
--- HeidiSQL Version:             12.1.0.6537
+-- HeidiSQL Version:             9.5.0.5332
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8 */;
 /*!50503 SET NAMES utf8mb4 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
 -- Dumping database structure for acheron
@@ -30,8 +27,10 @@ CREATE TABLE IF NOT EXISTS `alert_state` (
 
 -- Dumping data for table acheron.alert_state: ~1 rows (approximately)
 DELETE FROM `alert_state`;
+/*!40000 ALTER TABLE `alert_state` DISABLE KEYS */;
 INSERT INTO `alert_state` (`current_state`, `time_set`) VALUES
-	('green', '2024-05-27 14:11:42');
+	('green', '2024-07-03 13:12:40');
+/*!40000 ALTER TABLE `alert_state` ENABLE KEYS */;
 
 -- Dumping structure for table acheron.biomonitor_modes
 DROP TABLE IF EXISTS `biomonitor_modes`;
@@ -46,17 +45,22 @@ CREATE TABLE IF NOT EXISTS `biomonitor_modes` (
   `bp_high` smallint NOT NULL,
   `color` varchar(50) NOT NULL DEFAULT '#00AA00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table acheron.biomonitor_modes: ~6 rows (approximately)
 DELETE FROM `biomonitor_modes`;
+/*!40000 ALTER TABLE `biomonitor_modes` DISABLE KEYS */;
 INSERT INTO `biomonitor_modes` (`id`, `name`, `pulse_low`, `pulse_high`, `spo2_low`, `spo2_high`, `bp_low`, `bp_high`, `color`) VALUES
-	(1, 'AT REST', 60, 90, 0, 0, 0, 0, '#00AA00'),
-	(2, 'LIGHT ACTIVITY', 75, 100, 0, 0, 0, 0, '#00AA00'),
-	(3, 'HEAVY ACTIVITY', 110, 145, 0, 0, 0, 0, '#00AA00'),
-	(4, 'PANIC', 150, 185, 0, 0, 0, 0, '#FFFF55'),
-	(5, 'LIGHT WOUND', 0, 0, 0, 0, 0, 0, '#00AA00'),
-	(6, 'DISCONNECTED', 0, 0, 0, 0, 0, 0, '#555555');
+	(1, 'AT REST', 60, 75, 93, 99, 12, 16, '#00AA00'),
+	(2, 'LIGHT ACTIVITY', 75, 100, 93, 99, 14, 20, '#55FF55'),
+	(3, 'HEAVY ACTIVITY', 110, 145, 92, 97, 40, 50, '#55FF55'),
+	(4, 'PANIC', 150, 185, 87, 92, 60, 70, '#aa911b'),
+	(5, 'LIGHT WOUND', 90, 115, 80, 92, 14, 20, '#AA0000'),
+	(6, 'DISCONNECTED', 0, 0, 0, 0, 0, 0, '#555555'),
+	(7, 'SEVERE WOUND', 50, 75, 50, 71, 6, 10, '#FF5555'),
+	(8, 'DECEASED', 0, 0, 0, 0, 0, 0, '#181918'),
+	(9, 'DYING', 5, 30, 30, 45, 1, 5, '#FF5555');
+/*!40000 ALTER TABLE `biomonitor_modes` ENABLE KEYS */;
 
 -- Dumping structure for table acheron.biomonitor_states
 DROP TABLE IF EXISTS `biomonitor_states`;
@@ -72,15 +76,17 @@ CREATE TABLE IF NOT EXISTS `biomonitor_states` (
 
 -- Dumping data for table acheron.biomonitor_states: ~8 rows (approximately)
 DELETE FROM `biomonitor_states`;
+/*!40000 ALTER TABLE `biomonitor_states` DISABLE KEYS */;
 INSERT INTO `biomonitor_states` (`surferId`, `currentState`, `setAt`) VALUES
-	(1, 1, '2024-05-28 13:05:31'),
-	(3, 1, '2024-05-28 13:00:27'),
+	(1, 5, '2024-07-11 00:02:22'),
+	(3, 1, '2024-07-10 23:45:04'),
 	(4, 1, '2024-05-28 13:00:27'),
-	(5, 6, '2024-05-28 13:08:58'),
-	(6, 6, '2024-05-28 13:08:58'),
+	(5, 2, '2024-07-11 00:02:10'),
+	(6, 1, '2024-07-10 16:33:46'),
 	(7, 1, '2024-05-28 13:00:27'),
-	(8, 1, '2024-05-28 13:00:27'),
+	(8, 1, '2024-07-10 22:35:44'),
 	(2, 1, '2024-05-28 13:05:44');
+/*!40000 ALTER TABLE `biomonitor_states` ENABLE KEYS */;
 
 -- Dumping structure for table acheron.clients
 DROP TABLE IF EXISTS `clients`;
@@ -93,6 +99,8 @@ CREATE TABLE IF NOT EXISTS `clients` (
 
 -- Dumping data for table acheron.clients: ~0 rows (approximately)
 DELETE FROM `clients`;
+/*!40000 ALTER TABLE `clients` DISABLE KEYS */;
+/*!40000 ALTER TABLE `clients` ENABLE KEYS */;
 
 -- Dumping structure for table acheron.emitters
 DROP TABLE IF EXISTS `emitters`;
@@ -107,6 +115,8 @@ CREATE TABLE IF NOT EXISTS `emitters` (
 
 -- Dumping data for table acheron.emitters: ~0 rows (approximately)
 DELETE FROM `emitters`;
+/*!40000 ALTER TABLE `emitters` DISABLE KEYS */;
+/*!40000 ALTER TABLE `emitters` ENABLE KEYS */;
 
 -- Dumping structure for table acheron.emitter_types
 DROP TABLE IF EXISTS `emitter_types`;
@@ -132,6 +142,7 @@ CREATE TABLE IF NOT EXISTS `emitter_types` (
 
 -- Dumping data for table acheron.emitter_types: ~7 rows (approximately)
 DELETE FROM `emitter_types`;
+/*!40000 ALTER TABLE `emitter_types` DISABLE KEYS */;
 INSERT INTO `emitter_types` (`id`, `number`, `name`, `type`, `visible_to_players`, `carrierwave1_frequency`, `carrierwave2_frequency`, `carrierwave3_frequency`, `datacluster_start`, `datacluster_middle`, `datacluster_end`, `spectrogram_sample`, `waveform_file`, `known_max_velocity`, `fingerprint_description`, `orgnotes`) VALUES
 	(5, 'XM01', 'PLACEHOLDER', 'aerial', 'Y', 420, 2445, NULL, 'Y', 'Y', 'N', 'cw1_420hz_cw2_2445_start+mid.wav.png', 'cw1_420hz_cw2_2445_start+mid.wav', NULL, '', ''),
 	(6, 'XM02', 'PLACEHOLDER', 'aerial', 'Y', 420, 2445, NULL, 'Y', 'Y', 'Y', 'cw1_420hz_cw2_2445_start+mid+end.wav.png', 'cw1_420hz_cw2_2445_start+mid+end.wav', NULL, '                ', '                '),
@@ -140,6 +151,7 @@ INSERT INTO `emitter_types` (`id`, `number`, `name`, `type`, `visible_to_players
 	(9, 'XM203', 'SIREN', 'static', 'N', 450, 4120, NULL, 'Y', 'N', 'Y', NULL, NULL, '0', NULL, 'This is SIREN, the target of OPERATION KEYHOLE, not disclosed at the start of the game'),
 	(10, 'XM204', 'test', 'unknown', 'Y', 123, NULL, NULL, 'N', 'Y', 'N', '', '', '3', '        asdfasdfasdf        ', '                '),
 	(11, 'XM205', 'rwar1', 'aerial', 'Y', 1, NULL, NULL, 'N', 'N', 'N', '', '', NULL, '                ', '                ');
+/*!40000 ALTER TABLE `emitter_types` ENABLE KEYS */;
 
 -- Dumping structure for table acheron.map
 DROP TABLE IF EXISTS `map`;
@@ -157,8 +169,10 @@ CREATE TABLE IF NOT EXISTS `map` (
 
 -- Dumping data for table acheron.map: ~0 rows (approximately)
 DELETE FROM `map`;
+/*!40000 ALTER TABLE `map` DISABLE KEYS */;
 INSERT INTO `map` (`id`, `timestamp`, `type`, `longitude`, `latitude`, `title`, `visible_to_players`, `velocity`) VALUES
-	(15, '2024-02-06 14:49:41', 'POI', '13.744135878074324', '52.59905927193015', 'ACHERON', 1, NULL);
+	(15, '2024-02-06 14:49:41', 'POI', '13.682466520411188', '52.85168195917985', 'ACHERON', 1, NULL);
+/*!40000 ALTER TABLE `map` ENABLE KEYS */;
 
 -- Dumping structure for table acheron.map_settings
 DROP TABLE IF EXISTS `map_settings`;
@@ -181,8 +195,10 @@ CREATE TABLE IF NOT EXISTS `map_settings` (
 
 -- Dumping data for table acheron.map_settings: ~0 rows (approximately)
 DELETE FROM `map_settings`;
+/*!40000 ALTER TABLE `map_settings` DISABLE KEYS */;
 INSERT INTO `map_settings` (`boundary_north`, `boundary_south`, `boundary_west`, `boundary_east`, `center_lat`, `center_lng`, `default_zoom`) VALUES
 	(2.6512847442851353, 52.536569560706845, 13.589778740039401, 13.905509501535349, 52.59905927193015, 13.744135878074324, 10);
+/*!40000 ALTER TABLE `map_settings` ENABLE KEYS */;
 
 -- Dumping structure for table acheron.master_map
 DROP TABLE IF EXISTS `master_map`;
@@ -200,6 +216,7 @@ CREATE TABLE IF NOT EXISTS `master_map` (
 
 -- Dumping data for table acheron.master_map: ~15 rows (approximately)
 DELETE FROM `master_map`;
+/*!40000 ALTER TABLE `master_map` DISABLE KEYS */;
 INSERT INTO `master_map` (`id`, `timestamp`, `type`, `latitude`, `longitude`, `title`, `visible_to_players`, `velocity`) VALUES
 	(2, 0, 'POI', '52.84422641250793', '13.767919873729296', 'Acheron', 1, NULL),
 	(3, 0, 'sensor', '52.61840914760089', '13.741008893066414', 'S1', 1, NULL),
@@ -216,6 +233,7 @@ INSERT INTO `master_map` (`id`, `timestamp`, `type`, `latitude`, `longitude`, `t
 	(17, 550, 'surfops', '52.85263731575558', '13.79593129137452', NULL, 1, NULL),
 	(18, 620, 'surfops', '52.85285111533686', '13.798720788720734', NULL, 1, NULL),
 	(19, 700, 'surfops', '52.85465865148753', '13.798136067162273', NULL, 1, NULL);
+/*!40000 ALTER TABLE `master_map` ENABLE KEYS */;
 
 -- Dumping structure for table acheron.messages
 DROP TABLE IF EXISTS `messages`;
@@ -230,6 +248,8 @@ CREATE TABLE IF NOT EXISTS `messages` (
 
 -- Dumping data for table acheron.messages: ~0 rows (approximately)
 DELETE FROM `messages`;
+/*!40000 ALTER TABLE `messages` DISABLE KEYS */;
+/*!40000 ALTER TABLE `messages` ENABLE KEYS */;
 
 -- Dumping structure for table acheron.message_corpus
 DROP TABLE IF EXISTS `message_corpus`;
@@ -241,8 +261,9 @@ CREATE TABLE IF NOT EXISTS `message_corpus` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Contains all the machine "phrases" and ther respective code sequence';
 
--- Dumping data for table acheron.message_corpus: ~27 rows (approximately)
+-- Dumping data for table acheron.message_corpus: ~28 rows (approximately)
 DELETE FROM `message_corpus`;
+/*!40000 ALTER TABLE `message_corpus` DISABLE KEYS */;
 INSERT INTO `message_corpus` (`id`, `phrase`, `sequence`, `known_to_players`) VALUES
 	(1, 'NOTHING TO REPORT', '%ZQØ', 1),
 	(2, 'NOTHING TO REPORT', '±|D', 1),
@@ -272,6 +293,7 @@ INSERT INTO `message_corpus` (`id`, `phrase`, `sequence`, `known_to_players`) VA
 	(26, 'REQUEST RE-ARMING', '-/:§^', 1),
 	(27, 'REQUEST REFUELLING', '4h)9_¨', 1),
 	(28, 'EMERGENCY FREEZE', 'µ9¥▓S6#<<<±G', 0);
+/*!40000 ALTER TABLE `message_corpus` ENABLE KEYS */;
 
 -- Dumping structure for table acheron.sensors
 DROP TABLE IF EXISTS `sensors`;
@@ -287,14 +309,16 @@ CREATE TABLE IF NOT EXISTS `sensors` (
 
 -- Dumping data for table acheron.sensors: ~7 rows (approximately)
 DELETE FROM `sensors`;
+/*!40000 ALTER TABLE `sensors` DISABLE KEYS */;
 INSERT INTO `sensors` (`id`, `name`, `lat`, `lng`, `battery_level`, `status`) VALUES
-	(1, 'ALPHA', 52.60426957076796, 13.678197582625994, 100, 'online'),
-	(2, 'BRAVO', 52.63895842289921, 13.756652099685693, 100, 'online'),
-	(3, 'CHARLIE', 52.56929627978658, 13.733900433977057, 100, 'online'),
+	(1, 'ALPHA', 52.847574913386524, 13.695081624526386, 100, 'online'),
+	(2, 'BRAVO', 52.852765038110206, 13.693627011573856, 100, 'online'),
+	(3, 'CHARLIE', 52.838515151434194, 13.701548647866206, 100, 'online'),
 	(4, 'DELTA', 52.603680009970105, 13.82035783975232, 100, 'online'),
 	(5, 'ECHO', 52.625620354685196, 13.80324582981024, 100, 'online'),
 	(6, 'FOXTROT', 52.58341432322206, 13.793773334775583, 65, 'online'),
 	(7, 'GOLF', 52.63141203926695, 13.682337705067553, 89, 'online');
+/*!40000 ALTER TABLE `sensors` ENABLE KEYS */;
 
 -- Dumping structure for table acheron.signals
 DROP TABLE IF EXISTS `signals`;
@@ -311,18 +335,21 @@ CREATE TABLE IF NOT EXISTS `signals` (
   `designation` varchar(255) DEFAULT NULL,
   `designated_type` int DEFAULT NULL,
   `intercepted` datetime DEFAULT NULL,
+  `intercepting_operator` varchar(255) DEFAULT NULL,
   `handled` enum('Y','N') NOT NULL DEFAULT 'N',
   PRIMARY KEY (`id`),
   KEY `FK_signals_emitter_types` (`emitter`),
   CONSTRAINT `FK_signals_emitter_types` FOREIGN KEY (`emitter`) REFERENCES `emitter_types` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Contains a list of signals';
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Contains a list of signals';
 
 -- Dumping data for table acheron.signals: ~3 rows (approximately)
 DELETE FROM `signals`;
-INSERT INTO `signals` (`id`, `timestamp`, `emitter`, `lat`, `lng`, `velocity`, `heading`, `message`, `encrypted_message`, `designation`, `designated_type`, `intercepted`, `handled`) VALUES
-	(1, '2024-03-31 22:57:16', 6, 52.5728056, 13.6718191, 4, 221, 'MESSEGE HERE LATER', '1234 asd aS 234 FSED FSD ', 'A2', 2, '2024-03-31 17:08:26', 'N'),
-	(2, '2024-05-24 15:44:17', 5, 52.5128051, 13.7718202, 2, 123, 'test', 'test', NULL, 2, NULL, 'Y'),
-	(4, '2024-05-29 13:00:58', 5, 52.512804, 13.7718222, 0, NULL, NULL, NULL, NULL, NULL, NULL, 'N');
+/*!40000 ALTER TABLE `signals` DISABLE KEYS */;
+INSERT INTO `signals` (`id`, `timestamp`, `emitter`, `lat`, `lng`, `velocity`, `heading`, `message`, `encrypted_message`, `designation`, `designated_type`, `intercepted`, `intercepting_operator`, `handled`) VALUES
+	(1, '2024-03-31 22:57:16', 6, 52.5728056, 13.6718191, 4, 221, 'MESSEGE HERE LATER', '1234 asd aS 234 FSED FSD ', 'A2', 2, '2024-03-31 17:08:26', NULL, 'Y'),
+	(2, '2024-05-24 15:44:17', 5, 52.5128051, 13.7718202, 2, 123, 'test', 'test', 'A4', 2, '2024-07-03 12:10:33', 'asdasdasd', 'Y'),
+	(17, '2024-07-04 10:02:46', 6, 52.5728012, 13.7718102, 2, 242, NULL, NULL, 'A5', NULL, '2024-07-04 10:02:48', 'reed', 'Y');
+/*!40000 ALTER TABLE `signals` ENABLE KEYS */;
 
 -- Dumping structure for table acheron.surfops_people
 DROP TABLE IF EXISTS `surfops_people`;
@@ -334,20 +361,20 @@ CREATE TABLE IF NOT EXISTS `surfops_people` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table acheron.surfops_people: ~7 rows (approximately)
+-- Dumping data for table acheron.surfops_people: ~8 rows (approximately)
 DELETE FROM `surfops_people`;
+/*!40000 ALTER TABLE `surfops_people` DISABLE KEYS */;
 INSERT INTO `surfops_people` (`id`, `rank`, `name`, `portrait`) VALUES
-	(1, 'Sergeant', 'Weber', NULL),
-	(2, 'Corporal', 'Dubois', NULL),
-	(3, 'Private', 'Saar', NULL),
-	(4, 'Private', 'Cross', NULL),
-	(5, 'Private', 'Cooke', NULL),
-	(6, 'Private', 'Ikeda', NULL),
-	(7, 'Private', 'Spiewak', NULL),
-	(8, 'Private', 'Orosz', NULL);
+	(1, 'Sergeant', 'Walker', 'walker.gif'),
+	(2, 'Corporal', 'Dubois', 'dubois.gif'),
+	(3, 'Private', 'Harding', 'harding.gif'),
+	(4, 'Private', 'Hook', 'hook.gif'),
+	(5, 'Private', 'Milner', 'milner.gif'),
+	(6, 'Private', 'Palastra', 'palastra.gif'),
+	(7, 'Private', 'Tabor', 'tabor.gif'),
+	(8, 'Private', 'Bishop', 'bishop.gif');
+/*!40000 ALTER TABLE `surfops_people` ENABLE KEYS */;
 
-/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
-/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
