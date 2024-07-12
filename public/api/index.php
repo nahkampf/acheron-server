@@ -129,6 +129,12 @@ $router->get('/sensors/(\d+)', function ($id) {
     Acheron\Output::json((array)Acheron\Sensor::getById($id));
 });
 
+$router->get('/sensors/recalibrate/(\d+)', function ($id) {
+    Acheron\Sensor::recalibrate($id);
+    Acheron\Output::json(["result" => "Sensor recalibrated", "id" => $id]);
+});
+
+
 // BIOMONITOR
 $router->get('/biomonitor/', function () {
     Acheron\Output::json((array)Acheron\Biomonitor::getAll());

@@ -40,4 +40,10 @@ class Sensor
         }
         return $sensors;
     }
+
+    public static function recalibrate(int $id) {
+        $db = new DB();
+        $sql = "UPDATE sensors SET status = 'online' WHERE id = " . (int)$id;
+        $db->query($sql);
+    }
 }
