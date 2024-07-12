@@ -23,7 +23,7 @@ class Surfops
         return $surfers;
     }
 
-    public static function getById(): Surfops
+    public static function getById($id): Surfops
     {
         $db = new DB();
         return $db->get("SELECT * FROM surfops_people WHERE id = " . (int)$id)[0];
@@ -36,6 +36,63 @@ class Surfops
         } else {
             $sql = "SELECT * FROM surfops_positions ORDER BY `timestamp` DESC LIMIT 5";
         }
-        return $db->get($sql);
+        $ret = $db->get($sql);
+        foreach($ret as $idx => $pos) {
+            $nearest = self::determineNearestSensors($pos["latitude"], $pos["longitude"]);
+            $primary = Geo::getBearing(
+                $nearest[0]["lat"],
+                $nearest[0]["lng"],
+                $pos["latitude"],
+                $pos["longitude"]
+            );
+            $secondary = Geo::getBearing(
+                $nearest[1]["lat"],
+                $nearest[1]["lng"],
+                $pos["latitude"],
+                $pos["longitude"]
+            );
+            $ret[$idx]["primary_sensor"] = $nearest[0];
+            $ret[$idx]["primary_sensor"] = array_merge($ret[$idx]["primary_sensor"], $primary);
+            $ret[$idx]["secondary_sensor"] = $nearest[1];
+            $ret[$idx]["secondary_sensor"] = array_merge($ret[$idx]["secondary_sensor"], $secondary);
+        }
+        return $ret;
+    }
+    /**
+     * Determines the two nearest (online) sensors to the signal being emitted.
+     * This is to set "primary" and "secondary" sensors for a signal, which in turn
+     * is used to calculate bearings etc.
+     *
+     * @return array An array containing the primary and the secondary sensor nearest the signal
+     */
+    public static function determineNearestSensors($lat, $lng)
+    {
+        $db = new DB();
+        $sensors = $db->get("SELECT * FROM sensors WHERE status=\"online\"");
+        foreach ($sensors as $idx => $sensor) {
+            // calculate a distance between this sensor and the signal coordinates
+            $distance = Geo::getDistance($sensor["lat"], $sensor["lng"], $lat, $lng);
+            $sensors[$idx]["distance"] = $distance;
+        }
+        // ugly hack to only get the two closest sensors
+        foreach ($sensors as $idx => $sensor) {
+            $sorted[(int)$sensor["distance"]] = $sensor;
+        }
+        ksort($sorted);
+        $x = 0;
+        foreach ($sorted as $sensor) {
+            switch ($x) {
+                case 0:
+                    $nearest[0] = $sensor;
+                    break;
+                case 1:
+                    $nearest[1] = $sensor;
+                    break;
+                default:
+                    break(2); // break out of the foreach
+            }
+            $x++;
+        }
+        return $nearest;
     }
 }
