@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `biomonitor_modes` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table acheron.biomonitor_modes: ~6 rows (approximately)
+-- Dumping data for table acheron.biomonitor_modes: ~9 rows (approximately)
 DELETE FROM `biomonitor_modes`;
 /*!40000 ALTER TABLE `biomonitor_modes` DISABLE KEYS */;
 INSERT INTO `biomonitor_modes` (`id`, `name`, `pulse_low`, `pulse_high`, `spo2_low`, `spo2_high`, `bp_low`, `bp_high`, `color`) VALUES
@@ -225,8 +225,6 @@ INSERT INTO `master_map` (`id`, `timestamp`, `type`, `latitude`, `longitude`, `t
 	(6, 0, 'sensor', '52.60482761096874', '13.809417141673253', 'S4', 1, NULL),
 	(7, 0, 'sensor', '52.62745086773211', '13.767355374666138', 'S5', 1, NULL),
 	(8, 0, 'sensor', '52.58889867758881', '13.795638545678678', 'S6', 1, NULL),
-	(9, 0, 'identified_signal', '52.59733752706854', '13.789922453370444', '4432', 1, NULL),
-	(10, 0, 'unidentified_signal', '52.605331117851456', '13.735074664246632', '4433', 1, NULL),
 	(11, 0, 'surfops', '52.85184419223207', '13.775978512243224', 'SURFOPS', 1, NULL),
 	(15, 120, 'surfops', '52.85093731003274', '13.779837580713519', 'SURFOPS', 1, NULL),
 	(16, 300, 'surfops', '52.85116984480228', '13.785958838253075', NULL, 1, NULL),
@@ -303,7 +301,7 @@ CREATE TABLE IF NOT EXISTS `sensors` (
   `lat` double NOT NULL,
   `lng` double NOT NULL,
   `battery_level` tinyint NOT NULL DEFAULT '0',
-  `status` enum('online','offline') NOT NULL DEFAULT 'online',
+  `status` enum('online','offline','degraded') NOT NULL DEFAULT 'online',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='A list of all sensors available to MISCON';
 
@@ -374,6 +372,30 @@ INSERT INTO `surfops_people` (`id`, `rank`, `name`, `portrait`) VALUES
 	(7, 'Private', 'Tabor', 'tabor.gif'),
 	(8, 'Private', 'Bishop', 'bishop.gif');
 /*!40000 ALTER TABLE `surfops_people` ENABLE KEYS */;
+
+-- Dumping structure for table acheron.surfops_positions
+DROP TABLE IF EXISTS `surfops_positions`;
+CREATE TABLE IF NOT EXISTS `surfops_positions` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `latitude` varchar(255) NOT NULL DEFAULT '0',
+  `longitude` varchar(255) NOT NULL DEFAULT '0',
+  `timestamp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table acheron.surfops_positions: ~0 rows (approximately)
+DELETE FROM `surfops_positions`;
+/*!40000 ALTER TABLE `surfops_positions` DISABLE KEYS */;
+INSERT INTO `surfops_positions` (`id`, `latitude`, `longitude`, `timestamp`) VALUES
+	(1, '52.85395399439836', '13.718727355579874', '2024-07-12 01:31:39'),
+	(2, '52.853113177483586', '13.7192872110585', '2024-07-12 01:36:27'),
+	(3, '52.853284993253546', '13.725331548731422', '2024-07-12 02:23:12'),
+	(4, '52.81', '13.73', '2024-07-12 09:12:56'),
+	(5, '52.72', '13.72', '2024-07-12 22:45:52'),
+	(6, '52.90', '13.731231', '2024-07-12 22:46:58'),
+	(7, '12', '14', '2024-07-12 22:48:20'),
+	(8, '5', '6', '2024-07-12 22:49:20');
+/*!40000 ALTER TABLE `surfops_positions` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
