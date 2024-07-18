@@ -143,7 +143,11 @@ $router->post('/emitters/sigint', function() {
 });
 // CLASSIFY a signal as emitter
 $router->post('/emitters/sigint/classify', function() {
-    Acheron\EmitterType::classify($_POST["signalId"], $_POST["emitterId"]);
+    if (@$_POST["auto"]) {
+        Acheron\EmitterType::autoClassify($_POST["signalId"]);
+    } else {
+        Acheron\EmitterType::classify($_POST["signalId"], $_POST["emitterId"]);
+    }
 });
 
 // SENSORS
