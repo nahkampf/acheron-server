@@ -119,6 +119,32 @@ $router->get('/emitters/(\d+)', function ($id) {
     $emitter = Acheron\EmitterType::getById($id);
     Acheron\Output::json($emitter);
 });
+$router->post('/emitters/sigint', function() {
+    // defaults
+    $numberOfCWs = 0;
+    $start = false;
+    $mid = false;
+    $end = false;
+    if (isset($_POST["cws"])) {
+        $numberOfCWs = (int)$_POST["cws"];
+    }
+    if (@$_POST["start"] == "true")
+    {
+        $start = true;
+    }
+    if (@$_POST["mid"] == "true") {
+        $mid = true;
+    }
+    if (@$_POST["end"] == "true") {
+        $end = true;
+    }
+    //print_r("cws: " . $numberOfCWs . ", start " . $start . ", mid " . $mid .", end" . $end);
+    Acheron\Output::json(Acheron\EmitterType::sigintDrilldown($numberOfCWs, $start, $mid, $end));
+});
+// CLASSIFY a signal as emitter
+$router->post('/emitters/sigint/classify', function() {
+    Acheron\EmitterType::classify($_POST["signalId"], $_POST["emitterId"]);
+});
 
 // SENSORS
 $router->get('/sensors/', function () {
