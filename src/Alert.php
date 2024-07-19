@@ -17,7 +17,7 @@ class Alert
     {
         // first, get current (for logging purposes)
         $current = self::get();
-        switch (mb_strtolower($state)) {
+        switch (strtolower($state)) {
             case "red":
                 $state = "red";
                 break;

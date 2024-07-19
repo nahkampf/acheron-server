@@ -18,7 +18,7 @@ function setAlert(state) {
     <div class="pure-g">
         <div class="pure-u-1-1">
             CURRENT CONDITION:<br>
-            <h1><?=mb_strtoupper(Acheron\Alert::get()["current_state"]);?></h1>
+            <h1><?=strtoupper(Acheron\Alert::get()["current_state"]);?></h1>
             <a onClick="setAlert('red')" class="pure-button button-error">CODE RED</a>
             <a onClick="setAlert('blue')" class="pure-button pure-button-primary">CODE BLUE</a>
             <a onClick="setAlert('green')" class="pure-button button-success">CODE GREEN</a>
