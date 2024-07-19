@@ -251,106 +251,101 @@
               "mode": "none"
             }
           }
-        }
-      ]
-    },
-    {
-      "type": "folder",
-      "name": "Signals",
-      "items": [
-        {
-          "type": "http",
-          "name": "Get all signals",
-          "seq": 1,
-          "request": {
-            "url": "{{base_url}}/signals",
-            "method": "GET",
-            "headers": [],
-            "params": [],
-            "body": {
-              "mode": "none",
-              "formUrlEncoded": [],
-              "multipartForm": []
-            },
-            "script": {},
-            "vars": {},
-            "assertions": [],
-            "tests": "",
-            "auth": {
-              "mode": "none"
-            }
-          }
         },
         {
           "type": "http",
-          "name": "Get next available designation",
-          "seq": 3,
-          "request": {
-            "url": "{{base_url}}/signals/nextdesignation",
-            "method": "GET",
-            "headers": [],
-            "params": [],
-            "body": {
-              "mode": "none",
-              "formUrlEncoded": [],
-              "multipartForm": []
-            },
-            "script": {},
-            "vars": {},
-            "assertions": [],
-            "tests": "",
-            "auth": {
-              "mode": "none"
-            }
-          }
-        },
-        {
-          "type": "http",
-          "name": "Get signal by id",
-          "seq": 2,
-          "request": {
-            "url": "{{base_url}}/signals",
-            "method": "GET",
-            "headers": [],
-            "params": [],
-            "body": {
-              "mode": "none",
-              "formUrlEncoded": [],
-              "multipartForm": []
-            },
-            "script": {},
-            "vars": {},
-            "assertions": [],
-            "tests": "",
-            "auth": {
-              "mode": "none"
-            }
-          }
-        },
-        {
-          "type": "http",
-          "name": "Update signal",
+          "name": "SIGINT  classify a signal",
           "seq": 4,
           "request": {
-            "url": "{{base_url}}/signals/1",
+            "url": "{{base_url}}/emitters/sigint/classify",
             "method": "POST",
             "headers": [],
-            "params": [
-              {
-                "name": "",
-                "value": "",
-                "type": "query",
-                "enabled": true
-              }
-            ],
+            "params": [],
+            "body": {
+              "mode": "none",
+              "formUrlEncoded": [],
+              "multipartForm": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "auth": {
+              "mode": "none"
+            }
+          }
+        },
+        {
+          "type": "http",
+          "name": "SIGINT a signal",
+          "seq": 3,
+          "request": {
+            "url": "{{base_url}}/emitters/sigint",
+            "method": "POST",
+            "headers": [],
+            "params": [],
             "body": {
               "mode": "multipartForm",
               "formUrlEncoded": [],
               "multipartForm": [
                 {
                   "type": "text",
-                  "name": "field",
-                  "value": "value",
+                  "name": "cws",
+                  "value": "1",
+                  "enabled": true
+                },
+                {
+                  "type": "text",
+                  "name": "start",
+                  "value": "true",
+                  "enabled": true
+                },
+                {
+                  "type": "text",
+                  "name": "mid",
+                  "value": "true",
+                  "enabled": true
+                },
+                {
+                  "type": "text",
+                  "name": "end",
+                  "value": "true",
+                  "enabled": true
+                }
+              ]
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "auth": {
+              "mode": "none"
+            }
+          }
+        },
+        {
+          "type": "http",
+          "name": "SIGINT auto-classify a signal",
+          "seq": 5,
+          "request": {
+            "url": "{{base_url}}/emitters/sigint/classify",
+            "method": "POST",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "multipartForm",
+              "formUrlEncoded": [],
+              "multipartForm": [
+                {
+                  "type": "text",
+                  "name": "signalId",
+                  "value": "2",
+                  "enabled": true
+                },
+                {
+                  "type": "text",
+                  "name": "emitterId",
+                  "value": "10",
                   "enabled": true
                 }
               ]
@@ -415,19 +410,42 @@
               "mode": "none"
             }
           }
+        },
+        {
+          "type": "http",
+          "name": "Recalibrate a sensor",
+          "seq": 3,
+          "request": {
+            "url": "{{base_url}}/sensors/recalibrate/1",
+            "method": "GET",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "none",
+              "formUrlEncoded": [],
+              "multipartForm": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "auth": {
+              "mode": "none"
+            }
+          }
         }
       ]
     },
     {
       "type": "folder",
-      "name": "Surfops positions",
+      "name": "Signals",
       "items": [
         {
           "type": "http",
-          "name": "Get latest 5 surfops positions",
+          "name": "Get all signals",
           "seq": 1,
           "request": {
-            "url": "{{base_url}}/surfops",
+            "url": "{{base_url}}/signals",
             "method": "GET",
             "headers": [],
             "params": [],
@@ -445,6 +463,95 @@
             }
           }
         },
+        {
+          "type": "http",
+          "name": "Get next available designation",
+          "seq": 3,
+          "request": {
+            "url": "{{base_url}}/signals/nextdesignation",
+            "method": "GET",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "none",
+              "formUrlEncoded": [],
+              "multipartForm": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "auth": {
+              "mode": "none"
+            }
+          }
+        },
+        {
+          "type": "http",
+          "name": "Get signal by id",
+          "seq": 2,
+          "request": {
+            "url": "{{base_url}}/signals/2",
+            "method": "GET",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "none",
+              "formUrlEncoded": [],
+              "multipartForm": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "auth": {
+              "mode": "none"
+            }
+          }
+        },
+        {
+          "type": "http",
+          "name": "Update signal",
+          "seq": 4,
+          "request": {
+            "url": "{{base_url}}/signals/1",
+            "method": "POST",
+            "headers": [],
+            "params": [
+              {
+                "name": "",
+                "value": "",
+                "type": "query",
+                "enabled": true
+              }
+            ],
+            "body": {
+              "mode": "multipartForm",
+              "formUrlEncoded": [],
+              "multipartForm": [
+                {
+                  "type": "text",
+                  "name": "field",
+                  "value": "value",
+                  "enabled": true
+                }
+              ]
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "auth": {
+              "mode": "none"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "folder",
+      "name": "Surfops positions",
+      "items": [
         {
           "type": "http",
           "name": "Get all surfops positions",
@@ -467,11 +574,63 @@
               "mode": "none"
             }
           }
+        },
+        {
+          "type": "http",
+          "name": "Get latest 5 surfops positions",
+          "seq": 1,
+          "request": {
+            "url": "{{base_url}}/surfops",
+            "method": "GET",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "none",
+              "formUrlEncoded": [],
+              "multipartForm": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "auth": {
+              "mode": "none"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "folder",
+      "name": "Science",
+      "items": [
+        {
+          "type": "http",
+          "name": "Set deciphered message",
+          "seq": 1,
+          "request": {
+            "url": "{{base_url}}/science/decrypt/2",
+            "method": "POST",
+            "headers": [],
+            "params": [],
+            "body": {
+              "mode": "none",
+              "formUrlEncoded": [],
+              "multipartForm": []
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "auth": {
+              "mode": "none"
+            }
+          }
         }
       ]
     }
   ],
-  "activeEnvironmentUid": "0qrnI12itCBXAPnEiMthK",
+  "activeEnvironmentUid": "TSGuKhUaiQ3ztESbr60jx",
   "environments": [
     {
       "variables": [
