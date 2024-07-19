@@ -4,6 +4,7 @@ namespace Acheron;
 
 use Acheron\DB as DB;
 use Acheron\Geo as Geo;
+use Acheron\Message;
 
 class Signal
 {
@@ -21,6 +22,8 @@ class Signal
     public $designated_type;
     public $handled;
     public $interceptingOperator;
+    public $decipheredMessage;
+    public $encryptedMessage;
 
     /**
      * Signals cannot be instantiated outside of this class!
@@ -55,6 +58,8 @@ class Signal
             );
             $this->handled = $signaldata["handled"];
             $this->interceptingOperator = $signaldata["intercepting_operator"];
+            $this->decipheredMessage = $signaldata["message"];
+            $this->encryptedMessage = (Message::getMessage($signaldata["encrypted_message"])) ?: null;
         }
     }
 

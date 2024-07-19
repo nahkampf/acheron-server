@@ -183,5 +183,9 @@ $router->get('/alert', function () {
     Acheron\Output::json($state[0]);
 });
 
+// SCIENCE
+$router->post('/science/decrypt/(\d+)', function($id) {
+    Acheron\Message::setDecipheredMessage($id, $_POST["message"]);
+});
 
 $router->run();
