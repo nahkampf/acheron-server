@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `alert_state` (
 DELETE FROM `alert_state`;
 /*!40000 ALTER TABLE `alert_state` DISABLE KEYS */;
 INSERT INTO `alert_state` (`current_state`, `time_set`) VALUES
-	('green', '2024-07-03 13:12:40');
+	('green', '2024-07-15 02:03:55');
 /*!40000 ALTER TABLE `alert_state` ENABLE KEYS */;
 
 -- Dumping structure for table acheron.biomonitor_modes
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `biomonitor_modes` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table acheron.biomonitor_modes: ~9 rows (approximately)
+-- Dumping data for table acheron.biomonitor_modes: ~8 rows (approximately)
 DELETE FROM `biomonitor_modes`;
 /*!40000 ALTER TABLE `biomonitor_modes` DISABLE KEYS */;
 INSERT INTO `biomonitor_modes` (`id`, `name`, `pulse_low`, `pulse_high`, `spo2_low`, `spo2_high`, `bp_low`, `bp_high`, `color`) VALUES
@@ -126,31 +126,42 @@ CREATE TABLE IF NOT EXISTS `emitter_types` (
   `name` varchar(255) NOT NULL,
   `type` enum('aerial','ground','static','unknown','orbital') NOT NULL DEFAULT 'ground',
   `visible_to_players` enum('Y','N') NOT NULL DEFAULT 'Y',
+  `number_of_cws` int NOT NULL,
   `carrierwave1_frequency` int DEFAULT NULL COMMENT 'The approximate frequency of the carrier wave (only applicable to static)',
   `carrierwave2_frequency` int DEFAULT NULL COMMENT 'The approximate frequency of the carrier wave (only applicable to static)',
-  `carrierwave3_frequency` enum('static','modulating') DEFAULT NULL,
+  `carrierwave3_frequency` int DEFAULT NULL,
   `datacluster_start` enum('Y','N') NOT NULL,
   `datacluster_middle` enum('Y','N') NOT NULL,
   `datacluster_end` enum('Y','N') NOT NULL,
-  `spectrogram_sample` tinytext COMMENT 'The file name of the spectrogram sample for this emitter type',
-  `waveform_file` tinytext,
+  `spectrogram_sample` varchar(255) DEFAULT NULL COMMENT 'The file name of the spectrogram sample for this emitter type',
+  `waveform_file` varchar(255) DEFAULT NULL,
   `known_max_velocity` tinytext,
   `fingerprint_description` text,
   `orgnotes` text,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Contains all the types of emitters (e.g alien machine types)';
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `Index 2` (`waveform_file`)
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Contains all the types of emitters (e.g alien machine types)';
 
--- Dumping data for table acheron.emitter_types: ~7 rows (approximately)
+-- Dumping data for table acheron.emitter_types: ~16 rows (approximately)
 DELETE FROM `emitter_types`;
 /*!40000 ALTER TABLE `emitter_types` DISABLE KEYS */;
-INSERT INTO `emitter_types` (`id`, `number`, `name`, `type`, `visible_to_players`, `carrierwave1_frequency`, `carrierwave2_frequency`, `carrierwave3_frequency`, `datacluster_start`, `datacluster_middle`, `datacluster_end`, `spectrogram_sample`, `waveform_file`, `known_max_velocity`, `fingerprint_description`, `orgnotes`) VALUES
-	(5, 'XM01', 'PLACEHOLDER', 'aerial', 'Y', 420, 2445, NULL, 'Y', 'Y', 'N', 'cw1_420hz_cw2_2445_start+mid.wav.png', 'cw1_420hz_cw2_2445_start+mid.wav', NULL, '', ''),
-	(6, 'XM02', 'PLACEHOLDER', 'aerial', 'Y', 420, 2445, NULL, 'Y', 'Y', 'Y', 'cw1_420hz_cw2_2445_start+mid+end.wav.png', 'cw1_420hz_cw2_2445_start+mid+end.wav', NULL, '                ', '                '),
-	(7, 'XM03', 'PLACEHOLDER', 'aerial', 'Y', 1043, NULL, NULL, 'Y', 'N', 'Y', 'cw1_1043hz_start+end.wav.png', 'cw1_1043hz_start+end.wav', NULL, '                ', '                '),
-	(8, 'XM04', 'PLACEHOLDER', 'aerial', 'Y', 1043, NULL, NULL, 'Y', 'Y', 'Y', 'cw1_1043hz_start+mid+end.wav.png', 'cw1_1043hz_start+mid+end.wav', NULL, '                ', '                '),
-	(9, 'XM203', 'SIREN', 'static', 'N', 450, 4120, NULL, 'Y', 'N', 'Y', NULL, NULL, '0', NULL, 'This is SIREN, the target of OPERATION KEYHOLE, not disclosed at the start of the game'),
-	(10, 'XM204', 'test', 'unknown', 'Y', 123, NULL, NULL, 'N', 'Y', 'N', '', '', '3', '        asdfasdfasdf        ', '                '),
-	(11, 'XM205', 'rwar1', 'aerial', 'Y', 1, NULL, NULL, 'N', 'N', 'N', '', '', NULL, '                ', '                ');
+INSERT INTO `emitter_types` (`id`, `number`, `name`, `type`, `visible_to_players`, `number_of_cws`, `carrierwave1_frequency`, `carrierwave2_frequency`, `carrierwave3_frequency`, `datacluster_start`, `datacluster_middle`, `datacluster_end`, `spectrogram_sample`, `waveform_file`, `known_max_velocity`, `fingerprint_description`, `orgnotes`) VALUES
+	(5, 'XM01', 'Strip Miner', 'static', 'Y', 1, 89, NULL, NULL, 'N', 'Y', 'N', 'cw1_89_mid.wav.png', 'cw1_89_mid.wav', 'N/A', '', ''),
+	(12, 'XM02', 'Refinery Complex', 'static', 'Y', 1, 1550, NULL, NULL, 'N', 'N', 'Y', 'cw1_1550_end.wav.png', 'cw1_1550_end.wav', 'N/A', NULL, NULL),
+	(13, 'XM03', 'Fabber', 'static', 'Y', 1, 150, NULL, NULL, 'Y', 'N', 'N', 'cw1_150_start.wav.png', 'cw1_150_start.wav', 'N/A', NULL, NULL),
+	(14, 'XM04', 'Spore Chimney', 'static', 'Y', 1, 437, NULL, NULL, 'N', 'N', 'Y', 'cw1_437_end.wav.png', 'cw1_437_end.wav', 'N/A', NULL, NULL),
+	(15, 'XM05', 'Orbital Tug', 'aerial', 'Y', 1, 2445, NULL, NULL, 'Y', 'N', 'N', 'cw1_2445_start.wav.png', 'cw1_2445_start.wav', '150', NULL, NULL),
+	(16, 'XM06', 'Heavy Air Cargo Transport', 'aerial', 'Y', 1, 2445, NULL, NULL, 'Y', 'N', 'Y', 'cw1_2445_start_end.wav.png', 'cw1_2445_start_end.wav', NULL, NULL, NULL),
+	(17, 'XM07', 'Light Air Cargo Transport', 'aerial', 'Y', 2, 3768, 150, NULL, 'Y', 'Y', 'N', 'cw1_3768_cw2_150_start_mid.wav.png', 'cw1_3768_cw2_150_start+mid.wav', NULL, NULL, NULL),
+	(18, 'XM08', 'Land Train', 'ground', 'Y', 3, 437, 1043, 3768, 'Y', 'Y', 'N', 'cw1_437_cw2_1043_cw3_3768_start_mid.wav.png', 'cw1_437_cw2_1043_cw3_3768_start_mid.wav', NULL, NULL, NULL),
+	(19, 'XM09', 'Tracked Ground Transport', 'ground', 'Y', 0, NULL, NULL, NULL, 'Y', 'N', 'N', 'start.wav.png', 'start.wav', NULL, NULL, NULL),
+	(20, 'XM10', 'Spider Transport', 'ground', 'Y', 1, 2445, NULL, NULL, 'N', 'Y', 'N', 'cw1_2445_mid.wav.png', 'cw1_2445_mid.wav', NULL, NULL, NULL),
+	(21, 'XM11', 'Airlift', 'aerial', 'Y', 1, 806, NULL, NULL, 'Y', 'N', 'N', 'cw1_806_start.wav.png', 'cw1_806_start.wav', NULL, NULL, NULL),
+	(22, 'XM12', 'Mulcher', 'ground', 'Y', 1, 437, NULL, NULL, 'Y', 'Y', 'N', 'cw1_437_start_mid.wav.png', 'cw1_437_start_mid.wav', NULL, NULL, NULL),
+	(23, 'XM13', 'Drop Pod', 'aerial', 'Y', 1, 89, 1550, NULL, 'N', 'Y', 'N', 'cw1_89_cw2_1550_mid.wav.png', 'cw1_89_cw2_1550_mid.wav', NULL, NULL, NULL),
+	(24, 'XM14', 'Heavy Bomber', 'aerial', 'Y', 2, 203, 806, NULL, 'Y', 'Y', 'Y', 'cw1_806_cw2_203_start_mid_end.wav.png', 'cw1_806_cw2_203_start_mid_end.wav', '200', NULL, NULL),
+	(25, 'XM15', 'Mosquito', 'aerial', 'Y', 1, 806, NULL, NULL, 'Y', 'N', 'Y', 'cw1_806_start_end.wav.png', 'cw1_806_start_end.wav', '450', NULL, NULL),
+	(26, 'XM16', 'Sunfield', 'static', 'Y', 1, 1550, NULL, NULL, 'Y', 'Y', 'N', 'cw1_1550_start_mid.wav.png', 'cw1_1550_start_mid.wav', 'N/A', NULL, NULL);
 /*!40000 ALTER TABLE `emitter_types` ENABLE KEYS */;
 
 -- Dumping structure for table acheron.map
@@ -237,16 +248,20 @@ INSERT INTO `master_map` (`id`, `timestamp`, `type`, `latitude`, `longitude`, `t
 DROP TABLE IF EXISTS `messages`;
 CREATE TABLE IF NOT EXISTS `messages` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `cleartext_message` text NOT NULL,
-  `encrypted_message` text NOT NULL,
-  `decrypted_message` text NOT NULL,
-  `decrypted_timestamp` datetime DEFAULT CURRENT_TIMESTAMP,
+  `cleartext_message` text,
+  `utf8_message` text,
+  `cp437_message` text,
+  `phraseIds` text,
+  `user_decrypted_text` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table acheron.messages: ~0 rows (approximately)
+-- Dumping data for table acheron.messages: ~3 rows (approximately)
 DELETE FROM `messages`;
 /*!40000 ALTER TABLE `messages` DISABLE KEYS */;
+INSERT INTO `messages` (`id`, `cleartext_message`, `utf8_message`, `cp437_message`, `phraseIds`, `user_decrypted_text`) VALUES
+	(11, 'POSITION / NOTHING TO REPORT / REBOOTING / REQUEST TRANSPORT / SHUTTING DOWN / THREAT DETECTED / SYSTEMS DEGRADED / RESUMING ACTIVITY / ALL SYSTEMS NOMINAL / ', NULL, '211 45 201 140 143 97 242 151 140 180 155 168 170 122 159 40 163 167 214 140 41 47 99 218 98 175 78 54 128 106 236 225 35 106 132 147 72 85 170 197 109 176 157 119 251 201 42 122 162 216 35 229 56 219 236 219 236 153 61 61 125 52 226 58 91 238 56 97 144 170 112 61 252 54 176 238 92 252 59 86 252 119 226 115 64 109 154 237 68 248 176 93 150 60 238 117 92 161 177 93 196 111 163 195 212 253 228 100 139 127 109 61 150 242 163 166 131 122 204 45 153 233 165 243 37 228 141 143 80 184 71 47 48 157 131 188 237 156 153 112 88 150 208 239 131 160 39 42 39 206 32 66 110 206 188 72 182 169 153 150 174 162 77 224 110 107 89 63 248 151 144 60 115 247 74 158 180 189 102 76 168 158 159 94 160 175 189 63 54 142 73 140 88 212 220 129 176 57 93 118 120 164 109 111 152 174 192 206 48 174 80 240 88 89 66 144 202 149 89 192 106 ', '4;3;15;24;16;9;6;13;5', NULL),
+	(12, 'ALL SYSTEMS NOMINAL / CONTINUING / EXTRACTING RESOURCES / ', NULL, '146 200 190 53 127 203 176 57 93 118 120 163 75 180 100 42 165 119 144 58 126 182 187 78 232 37 228 194 93 137 215 187 194 248 215 188 152 39 150 62 38 190 165 161 87 63 57 163 34 72 181 181 177 80 223 122 73 69 54 44 33 167 142 175 171 102 121 237 247 245 140 68 211 104 239 134 102 203 189 227 204 57 251 48 191 227 87 253 166 ', '5;21;11', NULL);
 /*!40000 ALTER TABLE `messages` ENABLE KEYS */;
 
 -- Dumping structure for table acheron.message_corpus
@@ -263,34 +278,34 @@ CREATE TABLE IF NOT EXISTS `message_corpus` (
 DELETE FROM `message_corpus`;
 /*!40000 ALTER TABLE `message_corpus` DISABLE KEYS */;
 INSERT INTO `message_corpus` (`id`, `phrase`, `sequence`, `known_to_players`) VALUES
-	(1, 'NOTHING TO REPORT', '%ZQØ', 1),
-	(2, 'NOTHING TO REPORT', '±|D', 1),
-	(3, 'NOTHING TO REPORT', 'N9#§X', 1),
-	(4, 'POSITION', '▼∑7Z', 1),
-	(5, 'ALL SYSTEMS NOMINAL', 'P▓«¥9', 1),
-	(6, 'SYSTEMS DEGRADED', '╚Æ}F&s', 1),
-	(7, 'ANOMALY DETECTED', '*5V]Ñ√%', 1),
-	(8, 'FUEL LOW', '+)K«', 1),
-	(9, 'THREAT DETECTED', 'É_▓Φ', 1),
-	(10, 'COLLECTING SAMPLES', '╤₧ëx3', 1),
-	(11, 'EXTRACTING RESOURCES', 'ú┤ ▄±', 1),
-	(12, 'RETURNING TO ORIGIN', '╚ß■Ü', 1),
-	(13, 'RESUMING ACTIVITY', 'ÑP3>', 1),
-	(14, 'HOLDING POSITION', '^£┬', 1),
-	(15, 'REBOOTING', '█▐█▐▌°', 1),
-	(16, 'SHUTTING DOWN', 'π║j3_^', 1),
-	(17, 'ENGAGING THREAT', 'Æ^%»', 1),
-	(18, 'EVASIVE MANEUVRES', '¼┼ ▄', 1),
-	(19, 'IGNORING', '╙▓╗_Ω', 1),
-	(20, 'INVESTIGATING', '3_i^>L', 1),
-	(21, 'CONTINUING', '$)>-^', 1),
-	(22, 'REQUEST ADDITIONAL UNITS', '¿½ÿ┴', 1),
-	(23, 'REQUEST SUPPORT', '┤Yv=', 1),
-	(24, 'REQUEST TRANSPORT', '┌█Φ╪_3', 1),
-	(25, 'REQUEST REPAIR', '╒Ç{d', 1),
-	(26, 'REQUEST RE-ARMING', '-/:§^', 1),
-	(27, 'REQUEST REFUELLING', '4h)9_¨', 1),
-	(28, 'EMERGENCY FREEZE', 'µ9¥▓S6#<<<±G', 0);
+	(1, 'NOTHING TO REPORT', '95 178 201 72 94 146', 1),
+	(2, 'NOTHING TO REPORT', '130 179 157 123', 1),
+	(3, 'NOTHING TO REPORT', '106 236 225 35', 1),
+	(4, 'POSITION', '180 155 168 170 122', 1),
+	(5, 'ALL SYSTEMS NOMINAL', '176 57 93 118 120', 1),
+	(6, 'SYSTEMS DEGRADED', '182 169 153 150 174 162', 1),
+	(7, 'ANOMALY DETECTED', '187 165 178 219 240 105', 1),
+	(8, 'FUEL LOW', '219 117 92 81 176', 1),
+	(9, 'THREAT DETECTED', '47 48 157 131 188 237', 1),
+	(10, 'COLLECTING SAMPLES', '203 241 220 232 156 71', 1),
+	(11, 'EXTRACTING RESOURCES', '44 33 167 142 175 171', 1),
+	(12, 'RETURNING TO ORIGIN', '166 128 165 116 226 238', 1),
+	(13, 'RESUMING ACTIVITY', '189 102 76 168 158', 1),
+	(14, 'HOLDING POSITION', '164 87 108 94 190', 1),
+	(15, 'REBOOTING', '219 236 219 236 153 61 61', 1),
+	(16, 'SHUTTING DOWN', '163 166 131 122 204 45', 1),
+	(17, 'ENGAGING THREAT', '155 154 208 197 221 234', 1),
+	(18, 'EVASIVE MANEUVRES', '165 58 120 218 159', 1),
+	(19, 'IGNORING', '214 142 152 228 229', 1),
+	(20, 'INVESTIGATING', '166 51 157 110 125 75', 1),
+	(21, 'CONTINUING', '150 62 38 190 165 161', 1),
+	(22, 'REQUEST ADDITIONAL UNITS', '145 100 78 193 177 242', 1),
+	(23, 'REQUEST SUPPORT', '114 144 119 251 230 181', 1),
+	(24, 'REQUEST TRANSPORT', '64 109 154 237 68', 1),
+	(25, 'REQUEST REPAIR', '116 100 230 166 83 153', 1),
+	(26, 'REQUEST RE-ARMING', '141 152 155 170 83', 1),
+	(27, 'REQUEST REFUELLING', '101 50 191 125 60', 1),
+	(28, 'EMERGENCY FREEZE', '219 237 93 93 228 199 157 188 238 72', 0);
 /*!40000 ALTER TABLE `message_corpus` ENABLE KEYS */;
 
 -- Dumping structure for table acheron.sensors
@@ -329,7 +344,7 @@ CREATE TABLE IF NOT EXISTS `signals` (
   `velocity` double NOT NULL DEFAULT '0',
   `heading` smallint DEFAULT NULL COMMENT 'The heading (360 degree) of the emitter when transmitting the signal (must be null if velocity = 0)',
   `message` text,
-  `encrypted_message` text,
+  `encrypted_message` int DEFAULT NULL,
   `designation` varchar(255) DEFAULT NULL,
   `designated_type` int DEFAULT NULL,
   `intercepted` datetime DEFAULT NULL,
@@ -337,16 +352,17 @@ CREATE TABLE IF NOT EXISTS `signals` (
   `handled` enum('Y','N') NOT NULL DEFAULT 'N',
   PRIMARY KEY (`id`),
   KEY `FK_signals_emitter_types` (`emitter`),
+  KEY `FK_encrypted_message` (`encrypted_message`),
+  CONSTRAINT `FK_encrypted_message` FOREIGN KEY (`encrypted_message`) REFERENCES `messages` (`id`),
   CONSTRAINT `FK_signals_emitter_types` FOREIGN KEY (`emitter`) REFERENCES `emitter_types` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Contains a list of signals';
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Contains a list of signals';
 
--- Dumping data for table acheron.signals: ~3 rows (approximately)
+-- Dumping data for table acheron.signals: ~2 rows (approximately)
 DELETE FROM `signals`;
 /*!40000 ALTER TABLE `signals` DISABLE KEYS */;
 INSERT INTO `signals` (`id`, `timestamp`, `emitter`, `lat`, `lng`, `velocity`, `heading`, `message`, `encrypted_message`, `designation`, `designated_type`, `intercepted`, `intercepting_operator`, `handled`) VALUES
-	(1, '2024-03-31 22:57:16', 6, 52.5728056, 13.6718191, 4, 221, 'MESSEGE HERE LATER', '1234 asd aS 234 FSED FSD ', 'A2', 2, '2024-03-31 17:08:26', NULL, 'Y'),
-	(2, '2024-05-24 15:44:17', 5, 52.5128051, 13.7718202, 2, 123, 'test', 'test', 'A4', 2, '2024-07-03 12:10:33', 'asdasdasd', 'Y'),
-	(17, '2024-07-04 10:02:46', 6, 52.5728012, 13.7718102, 2, 242, NULL, NULL, 'A5', NULL, '2024-07-04 10:02:48', 'reed', 'Y');
+	(2, '2024-05-24 15:44:17', 5, 52.5128051, 13.7718202, 2, 123, 'ASDASD ASD ASD ', 11, 'A4', 5, '2024-07-15 01:42:25', 'asdasdasd', 'Y'),
+	(18, '2024-07-17 01:57:40', 20, 52.5128011, 13.7718187, 23, 22, NULL, NULL, 'A5', 20, '2024-07-17 01:58:12', 'Reed', 'Y');
 /*!40000 ALTER TABLE `signals` ENABLE KEYS */;
 
 -- Dumping structure for table acheron.surfops_people
@@ -381,20 +397,16 @@ CREATE TABLE IF NOT EXISTS `surfops_positions` (
   `longitude` varchar(255) NOT NULL DEFAULT '0',
   `timestamp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table acheron.surfops_positions: ~0 rows (approximately)
+-- Dumping data for table acheron.surfops_positions: ~3 rows (approximately)
 DELETE FROM `surfops_positions`;
 /*!40000 ALTER TABLE `surfops_positions` DISABLE KEYS */;
 INSERT INTO `surfops_positions` (`id`, `latitude`, `longitude`, `timestamp`) VALUES
 	(1, '52.85395399439836', '13.718727355579874', '2024-07-12 01:31:39'),
 	(2, '52.853113177483586', '13.7192872110585', '2024-07-12 01:36:27'),
 	(3, '52.853284993253546', '13.725331548731422', '2024-07-12 02:23:12'),
-	(4, '52.81', '13.73', '2024-07-12 09:12:56'),
-	(5, '52.72', '13.72', '2024-07-12 22:45:52'),
-	(6, '52.90', '13.731231', '2024-07-12 22:46:58'),
-	(7, '12', '14', '2024-07-12 22:48:20'),
-	(8, '5', '6', '2024-07-12 22:49:20');
+	(9, '52.861', '13.733', '2024-07-13 00:54:57');
 /*!40000 ALTER TABLE `surfops_positions` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
