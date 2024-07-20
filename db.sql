@@ -2,14 +2,17 @@
 -- Host:                         127.0.0.1
 -- Server version:               8.0.30 - MySQL Community Server - GPL
 -- Server OS:                    Win64
--- HeidiSQL Version:             9.5.0.5332
+-- HeidiSQL Version:             12.1.0.6537
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8 */;
 /*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
 -- Dumping database structure for acheron
@@ -27,10 +30,8 @@ CREATE TABLE IF NOT EXISTS `alert_state` (
 
 -- Dumping data for table acheron.alert_state: ~1 rows (approximately)
 DELETE FROM `alert_state`;
-/*!40000 ALTER TABLE `alert_state` DISABLE KEYS */;
 INSERT INTO `alert_state` (`current_state`, `time_set`) VALUES
 	('green', '2024-07-15 02:03:55');
-/*!40000 ALTER TABLE `alert_state` ENABLE KEYS */;
 
 -- Dumping structure for table acheron.biomonitor_modes
 DROP TABLE IF EXISTS `biomonitor_modes`;
@@ -47,9 +48,8 @@ CREATE TABLE IF NOT EXISTS `biomonitor_modes` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table acheron.biomonitor_modes: ~8 rows (approximately)
+-- Dumping data for table acheron.biomonitor_modes: ~9 rows (approximately)
 DELETE FROM `biomonitor_modes`;
-/*!40000 ALTER TABLE `biomonitor_modes` DISABLE KEYS */;
 INSERT INTO `biomonitor_modes` (`id`, `name`, `pulse_low`, `pulse_high`, `spo2_low`, `spo2_high`, `bp_low`, `bp_high`, `color`) VALUES
 	(1, 'AT REST', 60, 75, 93, 99, 12, 16, '#00AA00'),
 	(2, 'LIGHT ACTIVITY', 75, 100, 93, 99, 14, 20, '#55FF55'),
@@ -60,7 +60,6 @@ INSERT INTO `biomonitor_modes` (`id`, `name`, `pulse_low`, `pulse_high`, `spo2_l
 	(7, 'SEVERE WOUND', 50, 75, 50, 71, 6, 10, '#FF5555'),
 	(8, 'DECEASED', 0, 0, 0, 0, 0, 0, '#181918'),
 	(9, 'DYING', 5, 30, 30, 45, 1, 5, '#FF5555');
-/*!40000 ALTER TABLE `biomonitor_modes` ENABLE KEYS */;
 
 -- Dumping structure for table acheron.biomonitor_states
 DROP TABLE IF EXISTS `biomonitor_states`;
@@ -76,7 +75,6 @@ CREATE TABLE IF NOT EXISTS `biomonitor_states` (
 
 -- Dumping data for table acheron.biomonitor_states: ~8 rows (approximately)
 DELETE FROM `biomonitor_states`;
-/*!40000 ALTER TABLE `biomonitor_states` DISABLE KEYS */;
 INSERT INTO `biomonitor_states` (`surferId`, `currentState`, `setAt`) VALUES
 	(1, 5, '2024-07-11 00:02:22'),
 	(3, 1, '2024-07-10 23:45:04'),
@@ -86,7 +84,6 @@ INSERT INTO `biomonitor_states` (`surferId`, `currentState`, `setAt`) VALUES
 	(7, 1, '2024-05-28 13:00:27'),
 	(8, 1, '2024-07-10 22:35:44'),
 	(2, 1, '2024-05-28 13:05:44');
-/*!40000 ALTER TABLE `biomonitor_states` ENABLE KEYS */;
 
 -- Dumping structure for table acheron.clients
 DROP TABLE IF EXISTS `clients`;
@@ -99,8 +96,6 @@ CREATE TABLE IF NOT EXISTS `clients` (
 
 -- Dumping data for table acheron.clients: ~0 rows (approximately)
 DELETE FROM `clients`;
-/*!40000 ALTER TABLE `clients` DISABLE KEYS */;
-/*!40000 ALTER TABLE `clients` ENABLE KEYS */;
 
 -- Dumping structure for table acheron.emitters
 DROP TABLE IF EXISTS `emitters`;
@@ -115,8 +110,6 @@ CREATE TABLE IF NOT EXISTS `emitters` (
 
 -- Dumping data for table acheron.emitters: ~0 rows (approximately)
 DELETE FROM `emitters`;
-/*!40000 ALTER TABLE `emitters` DISABLE KEYS */;
-/*!40000 ALTER TABLE `emitters` ENABLE KEYS */;
 
 -- Dumping structure for table acheron.emitter_types
 DROP TABLE IF EXISTS `emitter_types`;
@@ -142,9 +135,8 @@ CREATE TABLE IF NOT EXISTS `emitter_types` (
   UNIQUE KEY `Index 2` (`waveform_file`)
 ) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Contains all the types of emitters (e.g alien machine types)';
 
--- Dumping data for table acheron.emitter_types: ~16 rows (approximately)
+-- Dumping data for table acheron.emitter_types: ~36 rows (approximately)
 DELETE FROM `emitter_types`;
-/*!40000 ALTER TABLE `emitter_types` DISABLE KEYS */;
 INSERT INTO `emitter_types` (`id`, `number`, `name`, `type`, `visible_to_players`, `number_of_cws`, `carrierwave1_frequency`, `carrierwave2_frequency`, `carrierwave3_frequency`, `datacluster_start`, `datacluster_middle`, `datacluster_end`, `spectrogram_sample`, `waveform_file`, `known_max_velocity`, `fingerprint_description`, `orgnotes`) VALUES
 	(5, 'XM01', 'Strip Miner', 'static', 'Y', 1, 89, NULL, NULL, 'N', 'Y', 'N', 'cw1_89_mid.wav.png', 'cw1_89_mid.wav', 'N/A', '', ''),
 	(12, 'XM02', 'Refinery Complex', 'static', 'Y', 1, 1550, NULL, NULL, 'N', 'N', 'Y', 'cw1_1550_end.wav.png', 'cw1_1550_end.wav', 'N/A', NULL, NULL),
@@ -182,7 +174,6 @@ INSERT INTO `emitter_types` (`id`, `number`, `name`, `type`, `visible_to_players
 	(51, 'XM34', 'Toad', 'ground', 'Y', 2, 350, 437, NULL, 'Y', 'Y', 'N', 'cw1_350_cw2_437_start_mid.wav.png', 'cw1_350_cw2_437_start_mid.wav', NULL, NULL, NULL),
 	(52, 'XM35', 'Flattener', 'ground', 'Y', 2, 350, 437, NULL, 'Y', 'Y', 'Y', 'cw1_350_cw2_437_start_mid_end.wav.png', 'cw1_350_cw2_437_start_mid_end.wav', NULL, NULL, NULL),
 	(53, 'XM36', 'Wagon', 'ground', 'Y', 3, 203, 350, 961, 'Y', 'Y', 'Y', 'cw1_203_cw2_350_cw3_961_start_mid.wav.png', 'cw1_203_cw2_350_cw3_961_start_mid.wav', NULL, NULL, NULL);
-/*!40000 ALTER TABLE `emitter_types` ENABLE KEYS */;
 
 -- Dumping structure for table acheron.map
 DROP TABLE IF EXISTS `map`;
@@ -198,12 +189,10 @@ CREATE TABLE IF NOT EXISTS `map` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table acheron.map: ~0 rows (approximately)
+-- Dumping data for table acheron.map: ~1 rows (approximately)
 DELETE FROM `map`;
-/*!40000 ALTER TABLE `map` DISABLE KEYS */;
 INSERT INTO `map` (`id`, `timestamp`, `type`, `longitude`, `latitude`, `title`, `visible_to_players`, `velocity`) VALUES
 	(15, '2024-02-06 14:49:41', 'POI', '13.682466520411188', '52.85168195917985', 'ACHERON', 1, NULL);
-/*!40000 ALTER TABLE `map` ENABLE KEYS */;
 
 -- Dumping structure for table acheron.map_settings
 DROP TABLE IF EXISTS `map_settings`;
@@ -224,12 +213,10 @@ CREATE TABLE IF NOT EXISTS `map_settings` (
   UNIQUE KEY `center_lat` (`center_lat`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='The setup for the map';
 
--- Dumping data for table acheron.map_settings: ~0 rows (approximately)
+-- Dumping data for table acheron.map_settings: ~1 rows (approximately)
 DELETE FROM `map_settings`;
-/*!40000 ALTER TABLE `map_settings` DISABLE KEYS */;
 INSERT INTO `map_settings` (`boundary_north`, `boundary_south`, `boundary_west`, `boundary_east`, `center_lat`, `center_lng`, `default_zoom`) VALUES
 	(2.6512847442851353, 52.536569560706845, 13.589778740039401, 13.905509501535349, 52.59905927193015, 13.744135878074324, 10);
-/*!40000 ALTER TABLE `map_settings` ENABLE KEYS */;
 
 -- Dumping structure for table acheron.master_map
 DROP TABLE IF EXISTS `master_map`;
@@ -245,9 +232,8 @@ CREATE TABLE IF NOT EXISTS `master_map` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table acheron.master_map: ~15 rows (approximately)
+-- Dumping data for table acheron.master_map: ~13 rows (approximately)
 DELETE FROM `master_map`;
-/*!40000 ALTER TABLE `master_map` DISABLE KEYS */;
 INSERT INTO `master_map` (`id`, `timestamp`, `type`, `latitude`, `longitude`, `title`, `visible_to_players`, `velocity`) VALUES
 	(2, 0, 'POI', '52.84422641250793', '13.767919873729296', 'Acheron', 1, NULL),
 	(3, 0, 'sensor', '52.61840914760089', '13.741008893066414', 'S1', 1, NULL),
@@ -262,7 +248,6 @@ INSERT INTO `master_map` (`id`, `timestamp`, `type`, `latitude`, `longitude`, `t
 	(17, 550, 'surfops', '52.85263731575558', '13.79593129137452', NULL, 1, NULL),
 	(18, 620, 'surfops', '52.85285111533686', '13.798720788720734', NULL, 1, NULL),
 	(19, 700, 'surfops', '52.85465865148753', '13.798136067162273', NULL, 1, NULL);
-/*!40000 ALTER TABLE `master_map` ENABLE KEYS */;
 
 -- Dumping structure for table acheron.messages
 DROP TABLE IF EXISTS `messages`;
@@ -276,13 +261,8 @@ CREATE TABLE IF NOT EXISTS `messages` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table acheron.messages: ~3 rows (approximately)
+-- Dumping data for table acheron.messages: ~0 rows (approximately)
 DELETE FROM `messages`;
-/*!40000 ALTER TABLE `messages` DISABLE KEYS */;
-INSERT INTO `messages` (`id`, `cleartext_message`, `utf8_message`, `cp437_message`, `phraseIds`, `user_decrypted_text`) VALUES
-	(11, 'POSITION / NOTHING TO REPORT / REBOOTING / REQUEST TRANSPORT / SHUTTING DOWN / THREAT DETECTED / SYSTEMS DEGRADED / RESUMING ACTIVITY / ALL SYSTEMS NOMINAL / ', NULL, '211 45 201 140 143 97 242 151 140 180 155 168 170 122 159 40 163 167 214 140 41 47 99 218 98 175 78 54 128 106 236 225 35 106 132 147 72 85 170 197 109 176 157 119 251 201 42 122 162 216 35 229 56 219 236 219 236 153 61 61 125 52 226 58 91 238 56 97 144 170 112 61 252 54 176 238 92 252 59 86 252 119 226 115 64 109 154 237 68 248 176 93 150 60 238 117 92 161 177 93 196 111 163 195 212 253 228 100 139 127 109 61 150 242 163 166 131 122 204 45 153 233 165 243 37 228 141 143 80 184 71 47 48 157 131 188 237 156 153 112 88 150 208 239 131 160 39 42 39 206 32 66 110 206 188 72 182 169 153 150 174 162 77 224 110 107 89 63 248 151 144 60 115 247 74 158 180 189 102 76 168 158 159 94 160 175 189 63 54 142 73 140 88 212 220 129 176 57 93 118 120 164 109 111 152 174 192 206 48 174 80 240 88 89 66 144 202 149 89 192 106 ', '4;3;15;24;16;9;6;13;5', NULL),
-	(12, 'ALL SYSTEMS NOMINAL / CONTINUING / EXTRACTING RESOURCES / ', NULL, '146 200 190 53 127 203 176 57 93 118 120 163 75 180 100 42 165 119 144 58 126 182 187 78 232 37 228 194 93 137 215 187 194 248 215 188 152 39 150 62 38 190 165 161 87 63 57 163 34 72 181 181 177 80 223 122 73 69 54 44 33 167 142 175 171 102 121 237 247 245 140 68 211 104 239 134 102 203 189 227 204 57 251 48 191 227 87 253 166 ', '5;21;11', NULL);
-/*!40000 ALTER TABLE `messages` ENABLE KEYS */;
 
 -- Dumping structure for table acheron.message_corpus
 DROP TABLE IF EXISTS `message_corpus`;
@@ -296,7 +276,6 @@ CREATE TABLE IF NOT EXISTS `message_corpus` (
 
 -- Dumping data for table acheron.message_corpus: ~28 rows (approximately)
 DELETE FROM `message_corpus`;
-/*!40000 ALTER TABLE `message_corpus` DISABLE KEYS */;
 INSERT INTO `message_corpus` (`id`, `phrase`, `sequence`, `known_to_players`) VALUES
 	(1, 'NOTHING TO REPORT', '95 178 201 72 94 146', 1),
 	(2, 'NOTHING TO REPORT', '130 179 157 123', 1),
@@ -326,7 +305,6 @@ INSERT INTO `message_corpus` (`id`, `phrase`, `sequence`, `known_to_players`) VA
 	(26, 'REQUEST RE-ARMING', '141 152 155 170 83', 1),
 	(27, 'REQUEST REFUELLING', '101 50 191 125 60', 1),
 	(28, 'EMERGENCY FREEZE', '219 237 93 93 228 199 157 188 238 72', 0);
-/*!40000 ALTER TABLE `message_corpus` ENABLE KEYS */;
 
 -- Dumping structure for table acheron.sensors
 DROP TABLE IF EXISTS `sensors`;
@@ -340,18 +318,15 @@ CREATE TABLE IF NOT EXISTS `sensors` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='A list of all sensors available to MISCON';
 
--- Dumping data for table acheron.sensors: ~7 rows (approximately)
+-- Dumping data for table acheron.sensors: ~6 rows (approximately)
 DELETE FROM `sensors`;
-/*!40000 ALTER TABLE `sensors` DISABLE KEYS */;
 INSERT INTO `sensors` (`id`, `name`, `lat`, `lng`, `battery_level`, `status`) VALUES
 	(1, 'ALPHA', 52.847574913386524, 13.695081624526386, 100, 'online'),
 	(2, 'BRAVO', 52.852765038110206, 13.693627011573856, 100, 'online'),
-	(3, 'CHARLIE', 52.838515151434194, 13.701548647866206, 100, 'online'),
-	(4, 'DELTA', 52.603680009970105, 13.82035783975232, 100, 'online'),
-	(5, 'ECHO', 52.625620354685196, 13.80324582981024, 100, 'online'),
-	(6, 'FOXTROT', 52.58341432322206, 13.793773334775583, 65, 'online'),
-	(7, 'GOLF', 52.63141203926695, 13.682337705067553, 89, 'online');
-/*!40000 ALTER TABLE `sensors` ENABLE KEYS */;
+	(3, 'CHARLIE', 52.83863282883667, 13.701312969061258, 100, 'online'),
+	(4, 'DELTA', 52.87090279135023, 13.712164879443398, 100, 'online'),
+	(5, 'ECHO', 52.83149710086344, 13.70939902866571, 100, 'online'),
+	(6, 'FOXTROT', 52.85624579724807, 13.734875382628003, 65, 'offline');
 
 -- Dumping structure for table acheron.signals
 DROP TABLE IF EXISTS `signals`;
@@ -377,14 +352,8 @@ CREATE TABLE IF NOT EXISTS `signals` (
   CONSTRAINT `FK_signals_emitter_types` FOREIGN KEY (`emitter`) REFERENCES `emitter_types` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Contains a list of signals';
 
--- Dumping data for table acheron.signals: ~2 rows (approximately)
+-- Dumping data for table acheron.signals: ~0 rows (approximately)
 DELETE FROM `signals`;
-/*!40000 ALTER TABLE `signals` DISABLE KEYS */;
-INSERT INTO `signals` (`id`, `timestamp`, `emitter`, `lat`, `lng`, `velocity`, `heading`, `message`, `encrypted_message`, `designation`, `designated_type`, `intercepted`, `intercepting_operator`, `handled`) VALUES
-	(2, '2024-05-24 15:44:17', 5, 52.5128051, 13.7718202, 2, 123, 'ASDASD ASD ASD ', 11, 'A4', 5, '2024-07-15 01:42:25', 'asdasdasd', 'Y'),
-	(18, '2024-07-17 01:57:40', 20, 52.5128011, 13.7718187, 23, 22, 'asdasd', 12, 'A5', 20, '2024-07-17 01:58:12', 'Reed', 'Y'),
-	(19, '2024-07-20 00:55:51', 23, 52, 13, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y');
-/*!40000 ALTER TABLE `signals` ENABLE KEYS */;
 
 -- Dumping structure for table acheron.surfops_people
 DROP TABLE IF EXISTS `surfops_people`;
@@ -398,7 +367,6 @@ CREATE TABLE IF NOT EXISTS `surfops_people` (
 
 -- Dumping data for table acheron.surfops_people: ~8 rows (approximately)
 DELETE FROM `surfops_people`;
-/*!40000 ALTER TABLE `surfops_people` DISABLE KEYS */;
 INSERT INTO `surfops_people` (`id`, `rank`, `name`, `portrait`) VALUES
 	(1, 'Sergeant', 'Walker', 'walker.gif'),
 	(2, 'Corporal', 'Dubois', 'dubois.gif'),
@@ -408,7 +376,6 @@ INSERT INTO `surfops_people` (`id`, `rank`, `name`, `portrait`) VALUES
 	(6, 'Private', 'Palastra', 'palastra.gif'),
 	(7, 'Private', 'Tabor', 'tabor.gif'),
 	(8, 'Private', 'Bishop', 'bishop.gif');
-/*!40000 ALTER TABLE `surfops_people` ENABLE KEYS */;
 
 -- Dumping structure for table acheron.surfops_positions
 DROP TABLE IF EXISTS `surfops_positions`;
@@ -418,18 +385,15 @@ CREATE TABLE IF NOT EXISTS `surfops_positions` (
   `longitude` varchar(255) NOT NULL DEFAULT '0',
   `timestamp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table acheron.surfops_positions: ~3 rows (approximately)
+-- Dumping data for table acheron.surfops_positions: ~1 rows (approximately)
 DELETE FROM `surfops_positions`;
-/*!40000 ALTER TABLE `surfops_positions` DISABLE KEYS */;
 INSERT INTO `surfops_positions` (`id`, `latitude`, `longitude`, `timestamp`) VALUES
-	(1, '52.85395399439836', '13.718727355579874', '2024-07-12 01:31:39'),
-	(2, '52.853113177483586', '13.7192872110585', '2024-07-12 01:36:27'),
-	(3, '52.853284993253546', '13.725331548731422', '2024-07-12 02:23:12'),
-	(9, '52.861', '13.733', '2024-07-13 00:54:57');
-/*!40000 ALTER TABLE `surfops_positions` ENABLE KEYS */;
+	(10, '13.702388700871962', '52.8513091887689', '2024-07-20 09:53:51');
 
+/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
-/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
