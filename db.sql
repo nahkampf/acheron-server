@@ -352,8 +352,10 @@ CREATE TABLE IF NOT EXISTS `signals` (
   CONSTRAINT `FK_signals_emitter_types` FOREIGN KEY (`emitter`) REFERENCES `emitter_types` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Contains a list of signals';
 
--- Dumping data for table acheron.signals: ~0 rows (approximately)
+-- Dumping data for table acheron.signals: ~1 rows (approximately)
 DELETE FROM `signals`;
+INSERT INTO `signals` (`id`, `timestamp`, `emitter`, `lat`, `lng`, `velocity`, `heading`, `message`, `encrypted_message`, `designation`, `designated_type`, `intercepted`, `intercepting_operator`, `handled`) VALUES
+	(20, '2024-07-20 10:01:43', 15, 52.85653464936109, 13.735776388208086, 3, 12, NULL, NULL, NULL, NULL, NULL, NULL, 'N');
 
 -- Dumping structure for table acheron.surfops_people
 DROP TABLE IF EXISTS `surfops_people`;
