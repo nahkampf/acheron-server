@@ -140,7 +140,7 @@ CREATE TABLE IF NOT EXISTS `emitter_types` (
   `orgnotes` text,
   PRIMARY KEY (`id`),
   UNIQUE KEY `Index 2` (`waveform_file`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Contains all the types of emitters (e.g alien machine types)';
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Contains all the types of emitters (e.g alien machine types)';
 
 -- Dumping data for table acheron.emitter_types: ~16 rows (approximately)
 DELETE FROM `emitter_types`;
@@ -152,7 +152,7 @@ INSERT INTO `emitter_types` (`id`, `number`, `name`, `type`, `visible_to_players
 	(14, 'XM04', 'Spore Chimney', 'static', 'Y', 1, 437, NULL, NULL, 'N', 'N', 'Y', 'cw1_437_end.wav.png', 'cw1_437_end.wav', 'N/A', NULL, NULL),
 	(15, 'XM05', 'Orbital Tug', 'aerial', 'Y', 1, 2445, NULL, NULL, 'Y', 'N', 'N', 'cw1_2445_start.wav.png', 'cw1_2445_start.wav', '150', NULL, NULL),
 	(16, 'XM06', 'Heavy Air Cargo Transport', 'aerial', 'Y', 1, 2445, NULL, NULL, 'Y', 'N', 'Y', 'cw1_2445_start_end.wav.png', 'cw1_2445_start_end.wav', NULL, NULL, NULL),
-	(17, 'XM07', 'Light Air Cargo Transport', 'aerial', 'Y', 2, 3768, 150, NULL, 'Y', 'Y', 'N', 'cw1_3768_cw2_150_start_mid.wav.png', 'cw1_3768_cw2_150_start+mid.wav', NULL, NULL, NULL),
+	(17, 'XM07', 'Light Air Cargo Transport', 'aerial', 'Y', 2, 3768, 150, NULL, 'Y', 'Y', 'N', 'cw1_3768_cw2_150_start_mid.wav.png', 'cw1_3768_cw2_150_start_mid.wav', NULL, NULL, NULL),
 	(18, 'XM08', 'Land Train', 'ground', 'Y', 3, 437, 1043, 3768, 'Y', 'Y', 'N', 'cw1_437_cw2_1043_cw3_3768_start_mid.wav.png', 'cw1_437_cw2_1043_cw3_3768_start_mid.wav', NULL, NULL, NULL),
 	(19, 'XM09', 'Tracked Ground Transport', 'ground', 'Y', 0, NULL, NULL, NULL, 'Y', 'N', 'N', 'start.wav.png', 'start.wav', NULL, NULL, NULL),
 	(20, 'XM10', 'Spider Transport', 'ground', 'Y', 1, 2445, NULL, NULL, 'N', 'Y', 'N', 'cw1_2445_mid.wav.png', 'cw1_2445_mid.wav', NULL, NULL, NULL),
@@ -161,7 +161,27 @@ INSERT INTO `emitter_types` (`id`, `number`, `name`, `type`, `visible_to_players
 	(23, 'XM13', 'Drop Pod', 'aerial', 'Y', 1, 89, 1550, NULL, 'N', 'Y', 'N', 'cw1_89_cw2_1550_mid.wav.png', 'cw1_89_cw2_1550_mid.wav', NULL, NULL, NULL),
 	(24, 'XM14', 'Heavy Bomber', 'aerial', 'Y', 2, 203, 806, NULL, 'Y', 'Y', 'Y', 'cw1_806_cw2_203_start_mid_end.wav.png', 'cw1_806_cw2_203_start_mid_end.wav', '200', NULL, NULL),
 	(25, 'XM15', 'Mosquito', 'aerial', 'Y', 1, 806, NULL, NULL, 'Y', 'N', 'Y', 'cw1_806_start_end.wav.png', 'cw1_806_start_end.wav', '450', NULL, NULL),
-	(26, 'XM16', 'Sunfield', 'static', 'Y', 1, 1550, NULL, NULL, 'Y', 'Y', 'N', 'cw1_1550_start_mid.wav.png', 'cw1_1550_start_mid.wav', 'N/A', NULL, NULL);
+	(26, 'XM17', 'Sunfield', 'static', 'Y', 1, 1550, NULL, NULL, 'Y', 'Y', 'N', 'cw1_1550_start_mid.wav.png', 'cw1_1550_start_mid.wav', 'N/A', NULL, NULL),
+	(27, 'XM16', 'Moth', 'aerial', 'Y', 2, 33, 350, NULL, 'Y', 'N', 'Y', 'cw1_33_cw2_350_start_end.wav.png', 'cw1_33_cw2_350_start_end.wav', NULL, NULL, NULL),
+	(28, 'XM18', 'Main Reactor', 'static', 'Y', 1, 150, NULL, NULL, 'Y', 'Y', 'N', 'cw1_150_mid_start.wav.png', 'cw1_150_mid_start.wav', NULL, NULL, NULL),
+	(29, 'XM19', 'Spider Drone', 'ground', 'Y', 3, 437, 651, 3304, 'Y', 'N', 'Y', 'cw1_437_cw2_651_cw3_3304_start_end.wav.png', 'cw1_437_cw2_651_cw3_3304_start_end.wav', NULL, NULL, NULL),
+	(31, 'XM20', 'Burrower', 'static', 'Y', 1, 2095, NULL, NULL, 'N', 'Y', 'Y', 'cw1_2095_mid_end.wav.png', 'cw1_2095_mid_end.wav', NULL, NULL, NULL),
+	(32, 'XM21', 'Gardener', 'ground', 'Y', 1, 2095, NULL, NULL, 'Y', 'N', 'N', 'cw1_2095_start.wav.png', 'cw1_2095_start.wav', NULL, NULL, NULL),
+	(33, 'XM22', 'Stalker (Air)', 'aerial', 'Y', 1, 2095, NULL, NULL, 'Y', 'Y', 'Y', 'cw1_2095_start_mid_end.wav.png', 'cw1_2095_start_mid_end.wav', NULL, NULL, NULL),
+	(39, 'XM23', 'Stalker (Ground)', 'ground', 'Y', 1, 3304, NULL, NULL, 'N', 'Y', 'N', 'cw1_3304_mid.wav.png', 'cw1_3304_mid.wav', NULL, NULL, NULL),
+	(40, 'XM24', 'Crane', 'ground', 'Y', 1, 3304, NULL, NULL, 'N', 'Y', 'Y', 'cw1_3304_mid_end.wav.png', 'cw1_3304_mid_end.wav', NULL, NULL, NULL),
+	(42, 'XM25', 'Rhino', 'ground', 'Y', 2, 150, 3768, NULL, 'Y', 'Y', 'Y', 'cw1_3768_cw2_150_start_mid_end.wav.png', 'cw1_3768_cw2_150_start_mid_end.wav', NULL, NULL, NULL),
+	(43, 'XM26', 'Puppetmaster', 'ground', 'Y', 1, 3768, NULL, NULL, 'N', 'Y', 'Y', 'cw1_3768_mid_end.wav.png', 'cw1_3768_mid_end.wav', NULL, NULL, NULL),
+	(44, 'XM27', 'Nightowl', 'aerial', 'Y', 1, 3768, NULL, NULL, 'Y', 'N', 'N', 'cw1_3768_start.wav.png', 'cw1_3768_start.wav', NULL, NULL, NULL),
+	(45, 'XM28', 'Seeder', 'aerial', 'Y', 0, NULL, NULL, NULL, 'N', 'Y', 'N', 'mid.wav.png', 'mid.wav', NULL, NULL, NULL),
+	(46, 'XM29', 'Lotus Pod', 'static', 'Y', 0, NULL, NULL, NULL, 'N', 'Y', 'Y', 'mid_end.wav.png', 'mid_end.wav', NULL, NULL, NULL),
+	(47, 'XM30', 'Lamprey', 'aerial', 'Y', 2, 651, 3304, NULL, 'N', 'Y', 'Y', 'cw1_651_cw2_3304_mid.wav.png', 'cw1_651_cw2_3304_mid.wav', NULL, NULL, NULL),
+	(48, 'XM31', 'Buzzer', 'static', 'Y', 3, 420, 509, 592, 'N', 'Y', 'N', 'cw1_420-cw2_592_cw3_509_mid.wav.png', 'cw1_420-cw2_592_cw3_509_mid.wav', NULL, NULL, NULL),
+	(49, 'XM32', 'Cracker', 'static', 'Y', 3, 420, 509, 592, 'Y', 'Y', 'N', 'cw1_420-cw2_592_cw3_509_start_mid.wav.png', 'cw1_420-cw2_592_cw3_509_start_mid.wav', NULL, NULL, NULL),
+	(50, 'XM33', 'Churner', 'static', 'Y', 2, 203, 350, NULL, 'Y', 'Y', 'N', 'cw1_203_cw2_350_start_mid.wav.png', 'cw1_203_cw2_350_start_mid.wav', NULL, NULL, NULL),
+	(51, 'XM34', 'Toad', 'ground', 'Y', 2, 350, 437, NULL, 'Y', 'Y', 'N', 'cw1_350_cw2_437_start_mid.wav.png', 'cw1_350_cw2_437_start_mid.wav', NULL, NULL, NULL),
+	(52, 'XM35', 'Flattener', 'ground', 'Y', 2, 350, 437, NULL, 'Y', 'Y', 'Y', 'cw1_350_cw2_437_start_mid_end.wav.png', 'cw1_350_cw2_437_start_mid_end.wav', NULL, NULL, NULL),
+	(53, 'XM36', 'Wagon', 'ground', 'Y', 3, 203, 350, 961, 'Y', 'Y', 'Y', 'cw1_203_cw2_350_cw3_961_start_mid.wav.png', 'cw1_203_cw2_350_cw3_961_start_mid.wav', NULL, NULL, NULL);
 /*!40000 ALTER TABLE `emitter_types` ENABLE KEYS */;
 
 -- Dumping structure for table acheron.map
@@ -355,14 +375,15 @@ CREATE TABLE IF NOT EXISTS `signals` (
   KEY `FK_encrypted_message` (`encrypted_message`),
   CONSTRAINT `FK_encrypted_message` FOREIGN KEY (`encrypted_message`) REFERENCES `messages` (`id`),
   CONSTRAINT `FK_signals_emitter_types` FOREIGN KEY (`emitter`) REFERENCES `emitter_types` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Contains a list of signals';
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Contains a list of signals';
 
 -- Dumping data for table acheron.signals: ~2 rows (approximately)
 DELETE FROM `signals`;
 /*!40000 ALTER TABLE `signals` DISABLE KEYS */;
 INSERT INTO `signals` (`id`, `timestamp`, `emitter`, `lat`, `lng`, `velocity`, `heading`, `message`, `encrypted_message`, `designation`, `designated_type`, `intercepted`, `intercepting_operator`, `handled`) VALUES
 	(2, '2024-05-24 15:44:17', 5, 52.5128051, 13.7718202, 2, 123, 'ASDASD ASD ASD ', 11, 'A4', 5, '2024-07-15 01:42:25', 'asdasdasd', 'Y'),
-	(18, '2024-07-17 01:57:40', 20, 52.5128011, 13.7718187, 23, 22, NULL, NULL, 'A5', 20, '2024-07-17 01:58:12', 'Reed', 'Y');
+	(18, '2024-07-17 01:57:40', 20, 52.5128011, 13.7718187, 23, 22, 'asdasd', 12, 'A5', 20, '2024-07-17 01:58:12', 'Reed', 'Y'),
+	(19, '2024-07-20 00:55:51', 23, 52, 13, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Y');
 /*!40000 ALTER TABLE `signals` ENABLE KEYS */;
 
 -- Dumping structure for table acheron.surfops_people
