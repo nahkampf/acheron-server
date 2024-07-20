@@ -46,8 +46,8 @@ class Surfops
                 $pos["longitude"]
             );
             $secondary = Geo::getBearing(
-                $nearest[1]["lng"],
                 $nearest[1]["lat"],
+                $nearest[1]["lng"],
                 $pos["latitude"],
                 $pos["longitude"]
             );
