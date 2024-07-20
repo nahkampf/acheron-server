@@ -40,14 +40,14 @@ class Surfops
         foreach($ret as $idx => $pos) {
             $nearest = self::determineNearestSensors($pos["latitude"], $pos["longitude"]);
             $primary = Geo::getBearing(
-                $nearest[0]["lat"],
                 $nearest[0]["lng"],
+                $nearest[0]["lat"],
                 $pos["latitude"],
                 $pos["longitude"]
             );
             $secondary = Geo::getBearing(
-                $nearest[1]["lat"],
                 $nearest[1]["lng"],
+                $nearest[1]["lat"],
                 $pos["latitude"],
                 $pos["longitude"]
             );
@@ -71,7 +71,9 @@ class Surfops
         $sensors = $db->get("SELECT * FROM sensors WHERE status=\"online\"");
         foreach ($sensors as $idx => $sensor) {
             // calculate a distance between this sensor and the signal coordinates
-            $distance = Geo::getDistance($sensor["lat"], $sensor["lng"], $lat, $lng);
+            //print_r($sensor);
+            //echo $sensor["lat"] . " - " . $sensor["lng"] . " -> " . $lng . " , " . $lat;
+            $distance = Geo::getDistance($sensor["lat"], $sensor["lng"], $lng, $lat);
             $sensors[$idx]["distance"] = $distance;
         }
         // ugly hack to only get the two closest sensors
@@ -80,7 +82,9 @@ class Surfops
         }
         ksort($sorted);
         $x = 0;
+        //print_r($sorted);
         foreach ($sorted as $sensor) {
+            //print_r($sensor);
             switch ($x) {
                 case 0:
                     $nearest[0] = $sensor;
@@ -93,6 +97,7 @@ class Surfops
             }
             $x++;
         }
+        //print_R($nearest);
         return $nearest;
     }
 }
