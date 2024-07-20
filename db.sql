@@ -261,8 +261,10 @@ CREATE TABLE IF NOT EXISTS `messages` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table acheron.messages: ~0 rows (approximately)
+-- Dumping data for table acheron.messages: ~1 rows (approximately)
 DELETE FROM `messages`;
+INSERT INTO `messages` (`id`, `cleartext_message`, `utf8_message`, `cp437_message`, `phraseIds`, `user_decrypted_text`) VALUES
+	(13, 'ALL SYSTEMS NOMINAL / COLLECTING SAMPLES / ', NULL, '158 95 68 55 217 206 245 181 92 157 176 57 93 118 120 85 160 106 233 195 137 122 228 145 58 78 38 123 205 150 203 241 220 232 156 71 34 160 162 246 240 54 239 44 125 84 226 134 87 108 115 71 110 197 90 160 197 54 175 157 252 ', '5;10', NULL);
 
 -- Dumping structure for table acheron.message_corpus
 DROP TABLE IF EXISTS `message_corpus`;
@@ -322,7 +324,7 @@ CREATE TABLE IF NOT EXISTS `sensors` (
 DELETE FROM `sensors`;
 INSERT INTO `sensors` (`id`, `name`, `lat`, `lng`, `battery_level`, `status`) VALUES
 	(1, 'ALPHA', 52.847574913386524, 13.695081624526386, 100, 'online'),
-	(2, 'BRAVO', 52.852765038110206, 13.693627011573856, 100, 'online'),
+	(2, 'BRAVO', 52.8527140743371, 13.693664221506436, 100, 'online'),
 	(3, 'CHARLIE', 52.83863282883667, 13.701312969061258, 100, 'online'),
 	(4, 'DELTA', 52.87090279135023, 13.712164879443398, 100, 'online'),
 	(5, 'ECHO', 52.83149710086344, 13.70939902866571, 100, 'online'),
@@ -355,7 +357,7 @@ CREATE TABLE IF NOT EXISTS `signals` (
 -- Dumping data for table acheron.signals: ~1 rows (approximately)
 DELETE FROM `signals`;
 INSERT INTO `signals` (`id`, `timestamp`, `emitter`, `lat`, `lng`, `velocity`, `heading`, `message`, `encrypted_message`, `designation`, `designated_type`, `intercepted`, `intercepting_operator`, `handled`) VALUES
-	(20, '2024-07-20 10:01:43', 15, 52.85653464936109, 13.735776388208086, 3, 12, NULL, NULL, NULL, NULL, NULL, NULL, 'N');
+	(20, '2024-07-20 10:01:43', 15, 52.85653464936109, 13.735776388208086, 3, 12, NULL, 13, NULL, NULL, '2024-07-20 10:18:11', NULL, 'N');
 
 -- Dumping structure for table acheron.surfops_people
 DROP TABLE IF EXISTS `surfops_people`;
