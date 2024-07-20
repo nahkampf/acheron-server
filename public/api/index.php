@@ -184,8 +184,16 @@ $router->get('/alert', function () {
 });
 
 // SCIENCE
-$router->post('/science/decrypt/(\d+)', function($id) {
+$router->post('/science/decrypt/(\d+)', function ($id) {
     Acheron\Message::setDecipheredMessage($id, $_POST["message"]);
+});
+
+
+//TIME
+$router->get("/time/", function () {
+    $db = new DB();
+    $time = $db->get("SELECT NOW() AS ts;");
+    Acheron\Output::json($time);
 });
 
 $router->run();
