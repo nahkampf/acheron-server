@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `alert_state` (
   PRIMARY KEY (`current_state`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table acheron.alert_state: ~1 rows (approximately)
+-- Dumping data for table acheron.alert_state: ~0 rows (approximately)
 DELETE FROM `alert_state`;
 /*!40000 ALTER TABLE `alert_state` DISABLE KEYS */;
 INSERT INTO `alert_state` (`current_state`, `time_set`) VALUES
@@ -198,7 +198,7 @@ CREATE TABLE IF NOT EXISTS `map` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table acheron.map: ~1 rows (approximately)
+-- Dumping data for table acheron.map: ~0 rows (approximately)
 DELETE FROM `map`;
 /*!40000 ALTER TABLE `map` DISABLE KEYS */;
 INSERT INTO `map` (`id`, `timestamp`, `type`, `longitude`, `latitude`, `title`, `visible_to_players`, `velocity`) VALUES
@@ -224,7 +224,7 @@ CREATE TABLE IF NOT EXISTS `map_settings` (
   UNIQUE KEY `center_lat` (`center_lat`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='The setup for the map';
 
--- Dumping data for table acheron.map_settings: ~1 rows (approximately)
+-- Dumping data for table acheron.map_settings: ~0 rows (approximately)
 DELETE FROM `map_settings`;
 /*!40000 ALTER TABLE `map_settings` DISABLE KEYS */;
 INSERT INTO `map_settings` (`boundary_north`, `boundary_south`, `boundary_west`, `boundary_east`, `center_lat`, `center_lng`, `default_zoom`) VALUES
@@ -274,9 +274,9 @@ CREATE TABLE IF NOT EXISTS `messages` (
   `phraseIds` text,
   `user_decrypted_text` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table acheron.messages: ~2 rows (approximately)
+-- Dumping data for table acheron.messages: ~1 rows (approximately)
 DELETE FROM `messages`;
 /*!40000 ALTER TABLE `messages` DISABLE KEYS */;
 INSERT INTO `messages` (`id`, `cleartext_message`, `utf8_message`, `cp437_message`, `phraseIds`, `user_decrypted_text`) VALUES
@@ -328,6 +328,25 @@ INSERT INTO `message_corpus` (`id`, `phrase`, `sequence`, `known_to_players`) VA
 	(28, 'EMERGENCY FREEZE', '219 237 93 93 228 199 157 188 238 72', 0);
 /*!40000 ALTER TABLE `message_corpus` ENABLE KEYS */;
 
+-- Dumping structure for table acheron.samples
+DROP TABLE IF EXISTS `samples`;
+CREATE TABLE IF NOT EXISTS `samples` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `data` text,
+  `timestamp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `analyzed` enum('Y','N') NOT NULL DEFAULT 'N',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table acheron.samples: ~0 rows (approximately)
+DELETE FROM `samples`;
+/*!40000 ALTER TABLE `samples` DISABLE KEYS */;
+INSERT INTO `samples` (`id`, `data`, `timestamp`, `analyzed`) VALUES
+	(3, 'SAMPLE REFERENCE: KERES SURFOPS TEAM\r\nSAMPLE AREA: ACHERON AREA OF OPERATIONS\r\nSAMPLE TYPE: AIR\r\nSAMPLE METHOD: FIELD SAMPLER MKIII (ATLAS 1.1.12)\r\n──────────\r\nPrometheus preliminary auto-analyzer results:\r\n\r\n                            ', '2024-07-24 00:39:36', 'N'),
+	(4, 'SAMPLE REFERENCE: KERES SURFOPS TEAM\r\nSAMPLE AREA: ACHERON AREA OF OPERATIONS\r\nSAMPLE TYPE: AIR\r\nSAMPLE METHOD: FIELD SAMPLER MKIII (ATLAS 1.1.12)\r\n──────────\r\nPrometheus preliminary auto-analyzer results:\r\n\r\n                            ', '2024-07-24 00:46:42', 'Y'),
+	(5, 'SAMPLE REFERENCE: KERES SURFOPS TEAM\r\nSAMPLE AREA: ACHERON AREA OF OPERATIONS\r\nSAMPLE TYPE: AIR\r\nSAMPLE METHOD: FIELD SAMPLER MKIII (ATLAS 1.1.12)\r\n──────────\r\nPrometheus preliminary auto-analyzer results:\r\n\r\nasdjkajsdkajsd skriv cool text här\r\n                            ', '2024-07-24 01:20:05', 'Y');
+/*!40000 ALTER TABLE `samples` ENABLE KEYS */;
+
 -- Dumping structure for table acheron.sensors
 DROP TABLE IF EXISTS `sensors`;
 CREATE TABLE IF NOT EXISTS `sensors` (
@@ -374,14 +393,14 @@ CREATE TABLE IF NOT EXISTS `signals` (
   KEY `FK_encrypted_message` (`encrypted_message`),
   CONSTRAINT `FK_encrypted_message` FOREIGN KEY (`encrypted_message`) REFERENCES `messages` (`id`),
   CONSTRAINT `FK_signals_emitter_types` FOREIGN KEY (`emitter`) REFERENCES `emitter_types` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Contains a list of signals';
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Contains a list of signals';
 
 -- Dumping data for table acheron.signals: ~2 rows (approximately)
 DELETE FROM `signals`;
 /*!40000 ALTER TABLE `signals` DISABLE KEYS */;
 INSERT INTO `signals` (`id`, `timestamp`, `emitter`, `lat`, `lng`, `velocity`, `heading`, `message`, `encrypted_message`, `designation`, `designated_type`, `intercepted`, `intercepting_operator`, `handled`) VALUES
 	(25, '2024-07-23 15:45:19', 5, 52.853441222512615, 13.688428401947023, 0, NULL, NULL, NULL, 'A1', NULL, '2024-07-23 15:45:21', 'asdasd', 'Y'),
-	(26, '2024-07-23 15:45:48', 5, 52.853441222512615, 13.688428401947023, 0, NULL, NULL, NULL, 'A2', NULL, '2024-07-23 15:45:49', NULL, 'Y');
+	(26, '2024-07-23 15:45:48', 5, 52.853441222512615, 13.688428401947023, 0, NULL, NULL, NULL, 'A2', NULL, '2024-07-23 18:49:40', NULL, 'Y');
 /*!40000 ALTER TABLE `signals` ENABLE KEYS */;
 
 -- Dumping structure for table acheron.surfops_people
@@ -416,9 +435,9 @@ CREATE TABLE IF NOT EXISTS `surfops_positions` (
   `longitude` varchar(255) NOT NULL DEFAULT '0',
   `timestamp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table acheron.surfops_positions: ~2 rows (approximately)
+-- Dumping data for table acheron.surfops_positions: ~1 rows (approximately)
 DELETE FROM `surfops_positions`;
 /*!40000 ALTER TABLE `surfops_positions` DISABLE KEYS */;
 INSERT INTO `surfops_positions` (`id`, `latitude`, `longitude`, `timestamp`) VALUES
