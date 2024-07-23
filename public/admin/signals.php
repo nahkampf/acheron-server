@@ -53,7 +53,7 @@ foreach($emitters as $idx => $emitter) {
                         <label>Coordinates (lat, lng)</label>
                     </td>
                     <td>
-                        <input type="text" name="latlang" placeholder="57.12,17.32"> <a href="map2.php" target="_blank" class="pure-button pure-button-primary">Get from map</a>
+                        <input type="text" name="latlang" placeholder="57.12,17.32"> <a href="map.php" target="_blank" class="pure-button pure-button-primary">Get from map</a>
                     </td>
                 </tr>
                 <tr>
