@@ -135,7 +135,7 @@ class Signal
             $res[0]["prefix"] = "A";
             $res[0]["val"] = 0;
         }
-        if ($res[0]["val"] > 9) {
+        if ($res[0]["val"] > 8) {
             $idx = array_search($res[0]["prefix"], $prefixes) + 1;
             $res[0]["prefix"] = $prefixes[$idx];
             $res[0]["val"] = 0;
