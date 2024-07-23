@@ -4,7 +4,7 @@
 
 		<ul class="pure-menu-list">
 			<li class="pure-menu-item"><a href="?page=clients" class="pure-menu-link">Map settings</a></li>
-			<li class="pure-menu-item"><a href="?page=clients" class="pure-menu-link">Map control</a></li>
+			<li class="pure-menu-item"><a href="?page=map" class="pure-menu-link">Map control</a></li>
 			<li class="pure-menu-item"><a href="?page=clients" class="pure-menu-link">Clients</a></li>
 			<li class="pure-menu-item"><a href="?page=emitters" class="pure-menu-link">Emitters</a></li>
 			<li class="pure-menu-item"><a href="?page=signals" class="pure-menu-link">Signals</a></li>

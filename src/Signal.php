@@ -130,6 +130,16 @@ class Signal
         // determine what the next designation should be
         // (the prefix with the lowst count, then add 1)
         $res = $db->get($sql);
+        $prefixes =["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "X", "Y", "Z"];
+        if (!ctype_alpha(@(string)$res[0]["prefix"])) {
+            $res[0]["prefix"] = "A";
+            $res[0]["val"] = 0;
+        }
+        if ($res[0]["val"] > 9) {
+            $idx = array_search($res[0]["prefix"], $prefixes) + 1;
+            $res[0]["prefix"] = $prefixes[$idx];
+            $res[0]["val"] = 0;
+        }
         return [$res[0]["prefix"] . ($res[0]["val"] + 1)];
     }
 

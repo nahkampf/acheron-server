@@ -1,5 +1,22 @@
 <?php
 use Acheron\EmitterType;
+if ($_POST) {
+    $db = new Acheron\DB();
+    $coords = explode(",", $_POST["latlang"]);
+    $lat = trim($coords[0]); $lng = trim($coords[1]);
+    $sql = "INSERT INTO signals SET `timestamp` = NOW(), emitter=". $_POST["emitter"] . ", lat={$lat}, lng={$lng}";
+    $add ="";
+    if ((int)$_POST["velocity"] > 0) {
+        $add .= ", velocity = " . (int)$_POST["velocity"];
+    }
+    if ($_POST["heading"] != "") {
+        $add .= ", heading = " . (int)$_POST["heading"];
+    }
+    if ($_POST["message"] != "") {
+        $add .= ", encrypted_message = " . (int)$_POST["message"];
+    }
+    $db->query($sql . $add);
+}
 ?>
 <div class="header">
     <h1>SIGNALS</h1>
@@ -24,7 +41,7 @@ if (isset($_GET["action"]) && $_GET["action"]=="new") {
 $emitters = Acheron\EmitterType::getAll();
 foreach($emitters as $idx => $emitter) {
 ?>
-                            <option value="<?=$emitter["id"]?>"><?=$emitter["name"]?> (<?=$emitter["number"]?>) [<?=$emitter["type"]?>]</option>
+                            <option value="<?=$emitter["id"]?>"><?=$emitter["number"]?> <?=$emitter["name"]?> [<?=$emitter["type"]?>]</option>
 <?php
 }
 ?>
@@ -36,7 +53,7 @@ foreach($emitters as $idx => $emitter) {
                         <label>Coordinates (lat, lng)</label>
                     </td>
                     <td>
-                        <input type="text" name="latlang" placeholder="57.12,17.32"> <a href="#" target="_blank" class="pure-button pure-button-primary">Get from map</a>
+                        <input type="text" name="latlang" placeholder="57.12,17.32"> <a href="map2.php" target="_blank" class="pure-button pure-button-primary">Get from map</a>
                     </td>
                 </tr>
                 <tr>
@@ -61,11 +78,19 @@ foreach($emitters as $idx => $emitter) {
                     </td>
                     <td>
                         <select name="message">
-                            <option>0 - NO MSG/UNDECIPHERABLE</option>
-                            <option>1 - ALL SYSTEMS NOMINAL</option>
+                            <option value="">!!NO MSG/UNDECIPHERABLE</option>
+<?php
+$messages = Acheron\Message::getMessages();
+foreach($messages as $idx => $message) {
+?>
+                            <option value="<?=$message["id"]?>"><?=$message["cleartext_message"]?>
+<?php
+}
+?>
                         </select>
                     </td>
                 </tr>
+<!--
                 <tr>
                     <td>
                         <label for="timestamp">Timestamp</label>
@@ -74,7 +99,9 @@ foreach($emitters as $idx => $emitter) {
                         <input type="text" name="timestamp" placeholder="<?=date("Y-m-d H:i:s");?>"> Leave empty for "now", but can be set to a future date
                     </td>
                 </tr>
+-->
             </table>
+            <input type="submit" value=" SAVE " class="pure-button pure-button-primary">
         </form>
         </div>
     </div>
