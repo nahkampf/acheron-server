@@ -1,4 +1,8 @@
-<!DOCTYPE html>
+<?php
+require "../../vendor/autoload.php";
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . "/../../");
+$dotenv->load();
+?><!DOCTYPE html>
 <html>
     <head>
         <title>Acheron Map</title>
