@@ -196,4 +196,20 @@ $router->get("/time/", function () {
     Acheron\Output::json($time);
 });
 
+// SAMPLES
+$router->get("/samples", function () {
+    $db = new DB();
+    $samples = $db->get("SELECT * FROM samples ORDER BY `timestamp` DESC");
+    Acheron\Output::json($samples);
+});
+$router->get("/samples/(\d+)", function ($id) {
+    $db = new DB();
+    $sample = $db->get("SELECT * FROM samples WHERE id={$id}");
+    Acheron\Output::json($sample);
+});
+$router->get("/samples/(\d+)/analyzed", function ($id) {
+    $db = new DB();
+    $update = $db->query("UPDATE samples SET analyzed=\"Y\" WHERE id={$id}");
+});
+
 $router->run();

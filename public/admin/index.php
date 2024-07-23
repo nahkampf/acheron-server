@@ -57,6 +57,9 @@ require "_menu.php";
         case "messages":
             require "messages.php";
             break;
+        case "samples":
+            require "samples.php";
+            break;
         default:
             require "dashboard.php";
             break;

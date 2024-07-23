@@ -3,19 +3,21 @@
 		<a class="pure-menu-heading" href="?">ADMIN</a>
 
 		<ul class="pure-menu-list">
-			<li class="pure-menu-item"><a href="?page=clients" class="pure-menu-link">Map settings</a></li>
 			<li class="pure-menu-item"><a href="?page=map" class="pure-menu-link">Map control</a></li>
-			<li class="pure-menu-item"><a href="?page=clients" class="pure-menu-link">Clients</a></li>
 			<li class="pure-menu-item"><a href="?page=emitters" class="pure-menu-link">Emitters</a></li>
 			<li class="pure-menu-item"><a href="?page=signals" class="pure-menu-link">Signals</a></li>
 			<li class="pure-menu-item"><a href="?page=sensors" class="pure-menu-link">Sensors</a></li>
-			<li class="pure-menu-item"><a href="?page=archive" class="pure-menu-link">Archive/DB</a></li>
 			<li class="pure-menu-item"><a href="?page=messages" class="pure-menu-link">Messages</a></li>
-			<li class="pure-menu-item"><a href="?page=players" class="pure-menu-link">Players</a></li>
 			<li class="pure-menu-item"><a href="?page=alerts" class="pure-menu-link">Alerts</a></li>
 			<li class="pure-menu-item"><a href="?page=surfops" class="pure-menu-link">SURFOPS</a></li>
-			<li class="pure-menu-item"><a href="?page=surfops_position" class="pure-menu-link">SURFOPS POSFIX</a></li>
-			<li class="pure-menu-item"><a href="?page=tools" class="pure-menu-link">Admin tools</a></li>
+            <li class="pure-menu-item"><a href="?page=surfops_position" class="pure-menu-link">SURFOPS POSFIX</a></li>
+            <li class="pure-menu-item"><a href="?page=samples" class="pure-menu-link">Samples</a></li>
+            <hr>
+			<li class="pure-menu-item"><a href="?page=clients" class="pure-menu-link">Clients</a></li>
+            <li class="pure-menu-item"><a href="?page=tools" class="pure-menu-link">Admin tools</a></li>
+			<li class="pure-menu-item"><a href="?page=clients" class="pure-menu-link">Map settings</a></li>
+			<li class="pure-menu-item"><a href="?page=players" class="pure-menu-link">Players</a></li>
+			<li class="pure-menu-item"><a href="?page=archive" class="pure-menu-link">Archive/DB</a></li>
 		</ul>
 		<br>
 		<hr>
