@@ -3,8 +3,8 @@ if ($_POST) {
     $db = new Acheron\DB();
     $coords = explode(",", $_POST["latlang"]);
     $lat = trim($coords[0]); $lng = trim($coords[1]);
-    $sql = "INSERT INTO surfops_ SET `timestamp` = NOW(), latitude={$lat}, longitude={$lng}";
-    $db->query($sql . $add);
+    $sql = "INSERT INTO surfops_positions SET `timestamp` = NOW(), latitude={$lat}, longitude={$lng}";
+    $db->query($sql);
     echo "OK!<br>";
 }
 ?>
