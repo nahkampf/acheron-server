@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>Acheron Map</title>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDOiZWa9lT5fR3T5fSLLALNmyfmv18cs7I" async defer></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=<?=$_ENV["GOOGLE_KEY"]?>" async defer></script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link
             rel="stylesheet"
