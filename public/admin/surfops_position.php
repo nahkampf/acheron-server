@@ -31,7 +31,3 @@ if ($_POST) {
         </div>
     </div>
 </div>
-<?php
-die();
-}
-?>
