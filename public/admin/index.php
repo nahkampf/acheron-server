@@ -39,6 +39,9 @@ require "_menu.php";
         case "surfops":
             require "surfops.php";
             break;
+        case "surfops_position":
+            require "surfops_position.php";
+            break;
         case "alerts":
             require "alerts.php";
             break;
