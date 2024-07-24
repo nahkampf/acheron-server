@@ -118,6 +118,7 @@ $surfops = $db->get("SELECT * FROM surfops_positions ORDER BY `timestamp` DESC L
             var MRP1 = L.marker([52.850305432463436,13.715840578079225], {icon: yellowIcon}).addTo(map).bindPopup("<b>MRP 1</b>").openPopup();
             var MRP2 = L.marker([52.845225490226625,13.72752428], {icon: yellowIcon}).addTo(map).bindPopup("<b>MRP 2</b>").openPopup();
             var MRP3 = L.marker([52.83413048886809,13.72945547103882], {icon: yellowIcon}).addTo(map).bindPopup("<b>MRP 3</b>").openPopup();
+            var MRP4 = L.marker([52.84736380366103,13.735764026641846], {icon: yellowIcon}).addTo(map).bindPopup("<b>MRP 4</b>").openPopup();
             var MRP5 = L.marker([52.865062402316696,13.714134693145754], {icon: yellowIcon}).addTo(map).bindPopup("<b>MRP 5</b>").openPopup();
             var MRP6 = L.marker([52.86690505157869,13.73641848564148], {icon: yellowIcon}).addTo(map).bindPopup("<b>MRP 6</b>").openPopup();
             var MRP7 = L.marker([52.85643426533639,13.73546361923218], {icon: yellowIcon}).addTo(map).bindPopup("<b>MRP 7</b>").openPopup();
