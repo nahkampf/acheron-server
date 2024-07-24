@@ -79,7 +79,7 @@ $dotenv->load();
             var mapBounds = [
                 [52.883494069515926, 13.649227444477214],
                 [52.827334360027045, 13.833713838794116]
-            ]
+            ];
 
             var map = L.map("map", mapopts).setView(acheron, 16);
             // fetch the sensors
@@ -113,6 +113,23 @@ $surfops = $db->get("SELECT * FROM surfops_positions ORDER BY `timestamp` DESC L
             var surfops = L.marker([<?=$surfops["latitude"]?>, <?=$surfops["longitude"]?>], {icon: greenIcon}).addTo(map).bindPopup("<b>KERES</b>").openPopup();
 <?php
 ?>
+
+            // MRPs
+            var MRP1 = L.marker([52.850305432463436,13.715840578079225], {icon: yellowIcon}).addTo(map).bindPopup("<b>MRP 1</b>").openPopup();
+            var MRP2 = L.marker([52.845225490226625,13.72752428], {icon: yellowIcon}).addTo(map).bindPopup("<b>MRP 2</b>").openPopup();
+            var MRP3 = L.marker([52.83413048886809,13.72945547103882], {icon: yellowIcon}).addTo(map).bindPopup("<b>MRP 3</b>").openPopup();
+            var MRP5 = L.marker([52.865062402316696,13.714134693145754], {icon: yellowIcon}).addTo(map).bindPopup("<b>MRP 5</b>").openPopup();
+            var MRP6 = L.marker([52.86690505157869,13.73641848564148], {icon: yellowIcon}).addTo(map).bindPopup("<b>MRP 6</b>").openPopup();
+            var MRP7 = L.marker([52.85643426533639,13.73546361923218], {icon: yellowIcon}).addTo(map).bindPopup("<b>MRP 7</b>").openPopup();
+            var MRP8 = L.marker([52.85309785158912,13.762339353561403], {icon: yellowIcon}).addTo(map).bindPopup("<b>MRP 8</b>").openPopup();
+            var MRP9 = L.marker([52.84015791488027,13.767070770263674], {icon: yellowIcon}).addTo(map).bindPopup("<b>MRP 9</b>").openPopup();
+            var MRP10 = L.marker([52.853480094521494,13.80462169647217], {icon: yellowIcon}).addTo(map).bindPopup("<b>MRP 10</b>").openPopup();
+            var MRP11 = L.marker([52.85642130888584,13.784558773040773], {icon: yellowIcon}).addTo(map).bindPopup("<b>MRP 11</b>").openPopup();
+            var MRP12 = L.marker([52.86436936459219,13.755494356155397], {icon: yellowIcon}).addTo(map).bindPopup("<b>MRP 12</b>").openPopup();
+            var MRP13 = L.marker([52.84100039166542,13.746739625930788], {icon: yellowIcon}).addTo(map).bindPopup("<b>MRP 13</b>").openPopup();
+            var MRP14 = L.marker([52.8502017661144,13.773937225341799], {icon: yellowIcon}).addTo(map).bindPopup("<b>MRP 14</b>").openPopup();
+            var MRP15 = L.marker([52.838719185967356,13.775975704193117], {icon: yellowIcon}).addTo(map).bindPopup("<b>MRP 15</b>").openPopup();
+            var MRP16 = L.marker([52.83973018964169,13.80037307739258], {icon: yellowIcon}).addTo(map).bindPopup("<b>MRP 16</b>").openPopup();
 
             var satMutant = L.gridLayer.googleMutant({
                 maxZoom: 24,
